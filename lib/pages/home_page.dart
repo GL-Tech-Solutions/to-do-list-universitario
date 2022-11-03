@@ -37,20 +37,25 @@ class _HomePageState extends State<HomePage> {
         // ignore: sort_child_properties_last
         children: [
           MoedasPage(),
+          MoedasPage(),
+          FavoritasPage(),
           FavoritasPage(),
         ],
         onPageChanged: setPaginaAtual,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Início'),
           BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Disciplinas'),
-          BottomNavigationBarItem(icon: Icon(Icons.all_inbox_rounded), label: 'Flashcards'),
+          BottomNavigationBarItem(icon: Icon(Icons.task), label: 'Atividades'),
+          BottomNavigationBarItem(icon: Icon(Icons.note_outlined), label: 'Flashcards'),
         ],
         currentIndex: paginaAtual,
         onTap: (pagina) {
           pc.animateToPage(
             pagina, 
-            duration: Duration(milliseconds: 400), 
+            duration: Duration(milliseconds: 200), 
             curve: Curves.ease,
           );
         },
