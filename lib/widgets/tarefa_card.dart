@@ -1,59 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_aula_1/configs/app_setting.dart';
-import 'package:flutter_aula_1/models/moeda.dart';
-import 'package:flutter_aula_1/pages/moedas_detalhes_page.dart';
-import 'package:flutter_aula_1/repositories/favoritas_repository.dart';
+import 'package:flutter_aula_1/repositories/listar_tarefas.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import '../models/tarefa.dart';
 
-class MoedaCard extends StatefulWidget {
-  Moeda moeda;
+class TarefaCard extends StatefulWidget {
+  Tarefa tarefa;
 
-  MoedaCard({Key? key, required this.moeda}) : super(key: key);
+  TarefaCard({Key? key, required this.tarefa}) : super(key: key);
 
   @override
-  _MoedaCardState createState() => _MoedaCardState();
+  _TarefaCardState createState() => _TarefaCardState();
 }
 
-class _MoedaCardState extends State<MoedaCard> {
-  late NumberFormat real; //Com o package "intl", conseguimos formatar os números para diferntes unidades de medida, como moeda por exemplo
-  late Map<String, String> loc;
+class _TarefaCardState extends State<TarefaCard> {
 
-  static Map<String, Color> precoColor = <String, Color>{
-    'up': Colors.teal,
-    'down': Colors.indigo,
-  };
-
-  void readNumberFormat()
-  {
-    loc = context.watch<AppSettings>().locale;
-    real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
-  }
-
-  abrirDetalhes() {
+  /*abrirDetalhes() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => MoedasDetalhesPage(moeda: widget.moeda),
+        builder: (_) => TarefasDetalhesPage(tarefa: widget.tarefa),
       ),
     );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    readNumberFormat();
     return Card(
-      margin: EdgeInsets.only(top: 12),
+      margin: EdgeInsets.only(top: 8),
       elevation: 2,
       child: InkWell(
-        onTap: () => abrirDetalhes(),
+        //onTap: () => abrirDetalhes(),
         child: Padding(
-          padding: EdgeInsets.only(top: 20, bottom: 20, left: 20),
+          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
           child: Row(
             children: [
-              Image.asset(
-                widget.moeda.icone,
-                height: 40,
+              Icon(
+                Icons.circle_outlined,
+                size: 30,
               ),
               Expanded(
                 child: Container(
@@ -62,24 +46,35 @@ class _MoedaCardState extends State<MoedaCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.moeda.nome,
+                        widget.tarefa.nome,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(
-                        widget.moeda.sigla,
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black45,
-                        ),
+                      Row(
+                        children: [
+                          Text(
+                            widget.tarefa.tipo,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.black45,
+                            ),
+                          ),
+                          Text(
+                            DateFormat().format(widget.tarefa.data),
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.black45,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
               ),
-              Container(
+              /*Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 decoration: BoxDecoration(
                   color: precoColor['down']!.withOpacity(0.05),
@@ -89,24 +84,24 @@ class _MoedaCardState extends State<MoedaCard> {
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: Text(
-                  real.format(widget.moeda.preco),
+                  real.format(widget.tarefa.preco),
                   style: TextStyle(
                     fontSize: 16,
                     color: precoColor['down'],
                     letterSpacing: -1,
                   ),
                 ),
-              ),
+              ),*/
               PopupMenuButton(
                 icon: Icon(Icons.more_vert),
                 itemBuilder: (context) => [
                   PopupMenuItem(
                     child: ListTile(
-                      title: Text('Remover das Favoritas'),
+                      title: Text('Remover Tarefa'),
                       onTap: () {
                         Navigator.pop(context);
-                        Provider.of<FavoritasRepository>(context, listen: false)
-                            .remove(widget.moeda);
+                        Provider.of<ListarTarefas>(context, listen: false)
+                            .remove(widget.tarefa);
                       },
                     ),
                   ),

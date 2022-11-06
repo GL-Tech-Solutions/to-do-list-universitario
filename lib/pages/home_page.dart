@@ -2,8 +2,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_aula_1/pages/favoritas_page.dart';
-import 'package:flutter_aula_1/pages/moedas_page.dart';
+import 'package:flutter_aula_1/pages/tarefas_page.dart';
+import 'package:flutter_aula_1/pages/disciplinas_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -36,10 +36,10 @@ class _HomePageState extends State<HomePage> {
         controller: pc,
         // ignore: sort_child_properties_last
         children: [
-          MoedasPage(),
-          MoedasPage(),
-          FavoritasPage(),
-          FavoritasPage(),
+          DisciplinasPage(),
+          DisciplinasPage(),
+          TarefasPage(),
+          TarefasPage(),
         ],
         onPageChanged: setPaginaAtual,
       ),
