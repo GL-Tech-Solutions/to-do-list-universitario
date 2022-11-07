@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:flutter_aula_1/repositories/listar_tarefas.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -31,8 +32,16 @@ class _TarefaCardState extends State<TarefaCard> {
       elevation: 2,
       child: InkWell(
         //onTap: () => abrirDetalhes(),
-        child: Padding(
+        child: Container(
           padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
+          decoration: BoxDecoration(
+            border: Border(
+              top:  BorderSide(
+                color: DisciplinaRepository.tabela[widget.tarefa.codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
+                width: 5
+              ),
+            ),
+          ),
           child: Row(
             children: [
               Icon(
@@ -45,14 +54,61 @@ class _TarefaCardState extends State<TarefaCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.tarefa.nome,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              widget.tarefa.nome,
+                              style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          widget.tarefa.visibilidade
+                          ? Container(
+                              padding: EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                color: Colors.green.withOpacity(0.2),
+                                border: Border.all(
+                                  color: Colors.green,
+                                  width: 1
+                                ),
+                                borderRadius: BorderRadius.circular(100)
+                              ),
+                              child: Text(
+                                'PÚBLICO',
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green
+                                ),
+                              ),
+                          )
+                          : Container(
+                              padding: EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                color: Colors.red.withOpacity(0.2),
+                                border: Border.all(
+                                  color: Colors.red,
+                                  width: 1
+                                ),
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: Text(
+                                'PRIVADO',
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red
+                                ),
+                              ),
+                          )
+                        ],
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             widget.tarefa.tipo,
@@ -62,9 +118,9 @@ class _TarefaCardState extends State<TarefaCard> {
                             ),
                           ),
                           Text(
-                            DateFormat().format(widget.tarefa.data),
+                            DateFormat('dd/MM/yyyy').format(widget.tarefa.data),
                             style: TextStyle(
-                              fontSize: 13,
+                              fontSize: 14,
                               color: Colors.black45,
                             ),
                           ),

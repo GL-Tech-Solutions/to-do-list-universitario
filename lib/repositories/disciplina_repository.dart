@@ -12,42 +12,42 @@ class DisciplinaRepository {
     ),
     Disciplina(
       cod: 2,
-      cor: Colors.primaries[1], 
+      cor: Colors.primaries[3], 
       nome: 'Programação para Dispositivos Móveis', 
       professor: 'José William', 
       descricao: ''
     ),
     Disciplina(
       cod: 3,
-      cor: Colors.primaries[2], 
+      cor: Colors.primaries[5], 
       nome: 'Programação Linear', 
       professor: 'Carlos Fragoso', 
       descricao: ''
     ),
     Disciplina(
       cod: 4,
-      cor: Colors.primaries[3], 
+      cor: Colors.primaries[1], 
       nome: 'Engenharia de Software III', 
       professor: 'Simone', 
       descricao: ''
     ),
     Disciplina(
       cod: 5,
-      cor: Colors.primaries[4], 
+      cor: Colors.primaries[8], 
       nome: 'Inglês V', 
       professor: 'Elenir', 
       descricao: ''
     ),
     Disciplina(
       cod: 6,
-      cor: Colors.primaries[5], 
+      cor: Colors.primaries[17], 
       nome: 'Laboratório de Banco de Dados', 
       professor: 'Marcio', 
       descricao: ''
     ),
     Disciplina(
       cod: 7,
-      cor: Colors.primaries[6], 
+      cor: Colors.primaries[12], 
       nome: 'Sistemas Operacionais II', 
       professor: 'Helder', 
       descricao: ''

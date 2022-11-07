@@ -1,14 +1,18 @@
+import 'package:flutter_aula_1/models/disciplina.dart';
+import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import '../models/tarefa.dart';
 
 class TarefaRepository {
+  late List<Disciplina> disciplinas;
+
   static List<Tarefa> tabela = [
     Tarefa(
       cod: 1,
       nome: 'Atividade padrão de projetos',
       descricao: '',
-      codDisciplina: 4,
+      codDisciplina: 1,
       tipo: 'Atividade',
-      data: DateTime.parse('2022-11-20 20:20:00'),
+      data: DateTime.parse('2022-11-06 18:00:00'),
       status: 'Finalizado',
       visibilidade: true,
     ),
@@ -28,7 +32,7 @@ class TarefaRepository {
       descricao: '',
       codDisciplina: 3,
       tipo: 'Prova',
-      data: DateTime.parse('2022-11-12 23:59:00'),
+      data: DateTime.parse('2022-02-12 18:00:00'),
       status: 'Aberto',
       visibilidade: false,
     ),

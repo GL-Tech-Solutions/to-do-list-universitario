@@ -16,8 +16,6 @@ class TarefasPage extends StatefulWidget {
 
 class _TarefasPageState extends State<TarefasPage> {
   late ListarTarefas tarefas;
-  //var tarefa = context.watch<ListarTarefas>();
-  //var tarefa = Provider.of<ListarTarefas>(context);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,7 @@ class _TarefasPageState extends State<TarefasPage> {
         title: Text('Tarefas'),
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: Icon(Icons.sort),
             onPressed: () => context.read<ListarTarefas>().refresh()
           )
         ],
@@ -34,7 +32,7 @@ class _TarefasPageState extends State<TarefasPage> {
       body: Container(
         color: Colors.indigo.withOpacity(0.05),
         height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(8),
         child: Consumer<ListarTarefas>(
           builder: (context, tarefas, child) {
             return tarefas.lista.isEmpty
