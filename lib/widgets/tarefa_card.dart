@@ -4,6 +4,7 @@ import 'package:flutter_aula_1/repositories/listar_tarefas.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../models/tarefa.dart';
+import '../pages/tarefas_detalhes_page.dart';
 
 class TarefaCard extends StatefulWidget {
   Tarefa tarefa;
@@ -15,15 +16,23 @@ class TarefaCard extends StatefulWidget {
 }
 
 class _TarefaCardState extends State<TarefaCard> {
+  bool selecionadas = false; //Lista de tarefas selecionadas
 
-  /*abrirDetalhes() {
+   void limparSelecionadas()
+  {
+    setState(() {
+      selecionadas = false;
+    });
+  }
+
+  abrirDetalhes() {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => TarefasDetalhesPage(tarefa: widget.tarefa),
       ),
     );
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +40,31 @@ class _TarefaCardState extends State<TarefaCard> {
       margin: EdgeInsets.only(top: 8),
       elevation: 2,
       child: InkWell(
-        //onTap: () => abrirDetalhes(),
+        onTap: () { //Clicando em uma disciplina quando na lista de seleção, ela é selecionada. Porém se ela já está selecionada, ela é removida
+              setState(() { //Altera o estado do widget, permitindo um rebuild
+              if (selecionadas == false)
+              {
+                abrirDetalhes();
+              }
+              else if (selecionadas == true)
+              {
+                selecionadas = false;
+              }
+              });
+            },
+        onLongPress: () { //Pressionando em uma disciplina, ativa a lista de seleção e adiciona a disciplina pressionada na mesma
+              setState(() {
+                if (selecionadas == false)
+                {
+                  selecionadas = true;
+                }
+              });
+            },
         child: Container(
           padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
           decoration: BoxDecoration(
+            color: (selecionadas) 
+            ? Colors.amber : null,
             border: Border(
               top:  BorderSide(
                 color: DisciplinaRepository.tabela[widget.tarefa.codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
@@ -130,24 +160,6 @@ class _TarefaCardState extends State<TarefaCard> {
                   ),
                 ),
               ),
-              /*Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                decoration: BoxDecoration(
-                  color: precoColor['down']!.withOpacity(0.05),
-                  border: Border.all(
-                    color: precoColor['down']!.withOpacity(0.4),
-                  ),
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: Text(
-                  real.format(widget.tarefa.preco),
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: precoColor['down'],
-                    letterSpacing: -1,
-                  ),
-                ),
-              ),*/
               PopupMenuButton(
                 icon: Icon(Icons.more_vert),
                 itemBuilder: (context) => [

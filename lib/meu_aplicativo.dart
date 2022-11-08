@@ -15,7 +15,7 @@ class MeuAplicativo extends StatelessWidget { //StatelessWidget - Um Widget imut
       title: 'Todo List - Universitário', //Título App
       debugShowCheckedModeBanner: false,
       theme: ThemeData( //Tema do App. É possível definir sua cor, tema escuro / tema claro, etc
-        primarySwatch: Colors.indigo, //Cor do tema
+        primarySwatch: Colors.teal //Cor do tema
       ),
       home: HomePage(), //Página inicial. Aqui puxamos uma classe que possui uma página montada pelo Scaffold
     );

@@ -17,50 +17,6 @@ class DisciplinasPage extends StatefulWidget { ////StatefulWidget - Um Widget mu
 
 class _DisciplinasPageState extends State<DisciplinasPage> {
   final tabela = DisciplinaRepository.tabela; //Pega a tabela de disciplinas e coloca nesta variável lista
-  late Map<String, String> loc;
-  List<Disciplina> selecionadas = []; //Lista de disciplinas selecionadas
-
-  AppBar appBarDinamica()
-  {
-    if(selecionadas.isEmpty) //Se lista de selecionadas estiver vazia, fica na AppBar padrão
-    {
-      return AppBar( //Barra do App
-        title: const Text('Disciplinas'), //Título App
-        /*actions: [
-          changeLanguageButton(),
-        ],*/
-      );
-    }
-    else //Se lista de selecionadas não estiver vazia, fica na AppBar de selecionadas
-    {
-      return AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back), 
-          onPressed: () {
-            setState(() {
-              selecionadas = [];
-            });
-          }
-        ),
-        title: Text('${selecionadas.length} selecionadas'),
-        backgroundColor: Colors.blueGrey[50],
-        elevation: 1,
-        iconTheme: IconThemeData(color: Colors.black87),
-        titleTextStyle: TextStyle(
-          color: Colors.black87,
-           fontSize: 20,
-           fontWeight: FontWeight.bold,
-        )
-      );
-    }
-  }
-
-  void limparSelecionadas()
-  {
-    setState(() {
-      selecionadas = [];
-    });
-  }
 
   /**
    * Método que fará a rota para a page "DisciplinasDetalhesPage"
@@ -107,11 +63,7 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
             shape: RoundedRectangleBorder( //Ajusta os componentes da lista para um formato circular
               borderRadius: const BorderRadius.all(Radius.circular(12)),
               ),
-            leading: (selecionadas.contains(tabela[disciplina])) //Define um ícone da lista (lado esquerdo)
-              ? CircleAvatar(
-                  child: Icon(Icons.check), //Define um ícone de "Check"
-                )
-              : CircleAvatar(
+            leading: CircleAvatar(
                   backgroundColor: tabela[disciplina].cor,
                   child: Text(
                     getInitials(tabela[disciplina].nome),
@@ -134,57 +86,13 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
                   ),
                 ),
               ],
-            ), 
-            selected: selecionadas.contains(tabela[disciplina]),
-            selectedTileColor: Colors.indigo[50],
-            onTap: () { //Clicando em uma disciplina quando na lista de seleção, ela é selecionada. Porém se ela já está selecionada, ela é removida
-              setState(() { //Altera o estado do widget, permitindo um rebuild
-              if (selecionadas.isEmpty)
-              {
-                //mostrarDetalhes(tabela[disciplina]);
-              }
-              else if (selecionadas.isNotEmpty && !selecionadas.contains(tabela[disciplina]))
-              {
-                selecionadas.add(tabela[disciplina]);
-              }
-              else if (selecionadas.contains(tabela[disciplina]))
-                {
-                  selecionadas.remove(tabela[disciplina]);
-                }
-              });
-            },
-            onLongPress: () { //Pressionando em uma disciplina, ativa a lista de seleção e adiciona a disciplina pressionada na mesma
-              setState(() {
-                if (selecionadas.isEmpty)
-                {
-                  selecionadas.add(tabela[disciplina]);
-                }
-              });
-            },
-
+            ),
           );
         }, 
         padding: const EdgeInsets.all(16), //Espaçamento em todas as laterais de um componente da lista
         separatorBuilder: (_, __) => Divider(),  //Separa os componentes da lista com linhas
         itemCount: tabela.length, //Tamanho da lista que será renderizada (Informação necessária para o Flutter)
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, //Define a posição do FAB no centro
-        /*floatingActionButton: selecionadas.isNotEmpty //Verifica se está na tela de selecionadas
-          ? FloatingActionButton.extended(
-            onPressed: () {
-              favoritas.saveAll(selecionadas);
-              limparSelecionadas();
-            },
-            icon: Icon(Icons.star),
-            label: Text(
-              'FAVORITAR',
-              style: TextStyle(
-                letterSpacing: 0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          )
-         : null,*/
     );
   }
 }

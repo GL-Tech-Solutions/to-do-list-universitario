@@ -48,8 +48,8 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Início'),
           BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Disciplinas'),
-          BottomNavigationBarItem(icon: Icon(Icons.task), label: 'Atividades'),
-          BottomNavigationBarItem(icon: Icon(Icons.note_outlined), label: 'Flashcards'),
+          BottomNavigationBarItem(icon: Icon(Icons.task), label: 'Tarefas'),
+          BottomNavigationBarItem(icon: Icon(Icons.note), label: 'Flashcards'),
         ],
         currentIndex: paginaAtual,
         onTap: (pagina) {
