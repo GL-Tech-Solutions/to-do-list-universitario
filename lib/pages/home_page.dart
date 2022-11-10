@@ -1,7 +1,6 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/pages/flashcards_page.dart';
+import 'package:flutter_aula_1/pages/main_page.dart';
 import 'package:flutter_aula_1/pages/tarefas_page.dart';
 import 'package:flutter_aula_1/pages/disciplinas_page.dart';
 
@@ -34,14 +33,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: PageView(
         controller: pc,
-        // ignore: sort_child_properties_last
-        children: [
-          DisciplinasPage(),
-          DisciplinasPage(),
-          TarefasPage(),
-          TarefasPage(),
-        ],
+        physics: NeverScrollableScrollPhysics(),
         onPageChanged: setPaginaAtual,
+        children: [
+          MainPage(),
+          DisciplinasPage(),
+          TarefasPage(),
+          FlashCardsPage(),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

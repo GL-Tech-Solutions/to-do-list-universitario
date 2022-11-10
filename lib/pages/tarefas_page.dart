@@ -1,11 +1,10 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/pages/tarefas_detalhes_page.dart';
 import 'package:flutter_aula_1/repositories/listar_tarefas.dart';
-import 'package:flutter_aula_1/widgets/tarefa_card.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../models/tarefa.dart';
-import '../repositories/tarefa_respository.dart';
+import '../repositories/disciplina_repository.dart';
 
 class TarefasPage extends StatefulWidget {
   const TarefasPage({Key? key}) : super(key: key);
@@ -26,7 +25,7 @@ class _TarefasPageState extends State<TarefasPage> {
         title: Text('Tarefas'),
         actions: [
           IconButton(
-            icon: Icon(Icons.sort),
+            icon: Icon(Icons.sort, color: Colors.white),
             onPressed: null,
           )
         ],
@@ -44,6 +43,32 @@ class _TarefasPageState extends State<TarefasPage> {
           }
         ),
         title: Text('${selecionadas.length} selecionadas'),
+        actions: [
+          PopupMenuButton(
+            icon:
+              Icon(Icons.more_vert),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.check_circle_outline, color: Colors.green),
+                  title: Text('Concluir Tarefas'),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 5),
+                  onTap: () {
+                  },
+                ),
+              ),
+              PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.highlight_remove_outlined, color: Colors.red),
+                  title: Text('Remover Tarefas'),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 5),
+                  onTap: () {
+                  },
+                ),
+              ),
+            ],
+          )
+        ],
         backgroundColor: Colors.blueGrey[50],
         elevation: 1,
         iconTheme: IconThemeData(color: Colors.black87),
@@ -56,14 +81,21 @@ class _TarefasPageState extends State<TarefasPage> {
     }
   }
 
+  abrirDetalhes(Tarefa tarefa) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => TarefasDetalhesPage(tarefa: tarefa),
+      ),
+    );
+  }
+
   void limparSelecionadas()
   {
     setState(() {
       selecionadas = [];
     });
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -83,12 +115,213 @@ class _TarefasPageState extends State<TarefasPage> {
             : ListView.builder(
                 itemCount: tarefas.lista.length,
                 itemBuilder: (_, index) {
-                  return TarefaCard(tarefa: tarefas.lista[index]);
+                  return Card(
+                    margin: EdgeInsets.only(top: 8),
+                    elevation: 2,
+                    child: InkWell(
+                      onTap: () { //Clicando em uma disciplina quando na lista de seleção, ela é selecionada. Porém se ela já está selecionada, ela é removida
+                            setState(() { //Altera o estado do widget, permitindo um rebuild
+                            if (selecionadas.isEmpty)
+                            {
+                              abrirDetalhes(tarefas.lista[index]);
+                            }
+                            else if (selecionadas.isNotEmpty && !selecionadas.contains(tarefas.lista[index]))
+                            {
+                              selecionadas.add(tarefas.lista[index]);
+                            }
+                            else if (selecionadas.contains(tarefas.lista[index]))
+                            {
+                              selecionadas.remove(tarefas.lista[index]);
+                            }
+                            });
+                          },
+                      onLongPress: () { //Pressionando em uma disciplina, ativa a lista de seleção e adiciona a disciplina pressionada na mesma
+                            setState(() {
+                              if (selecionadas.isEmpty)
+                              {
+                                selecionadas.add(tarefas.lista[index]);
+                              }
+                            });
+                          },
+                      child: Container(
+                        padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                        decoration: BoxDecoration(
+                          color: (selecionadas.contains(tarefas.lista[index])) 
+                          ? Colors.indigoAccent.withOpacity(0.3) : null,
+                          border: (selecionadas.contains(tarefas.lista[index])) 
+                          ? Border(
+                            top: BorderSide(
+                              color: DisciplinaRepository.tabela[tarefas.lista[index].codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
+                              width: 5
+                            ),
+                            left: BorderSide(
+                              color: DisciplinaRepository.tabela[tarefas.lista[index].codDisciplina].cor,
+                              width: 2,
+                            ),
+                            right: BorderSide(
+                              color: DisciplinaRepository.tabela[tarefas.lista[index].codDisciplina].cor,
+                              width: 2,
+                            ),
+                            bottom: BorderSide(
+                              color: DisciplinaRepository.tabela[tarefas.lista[index].codDisciplina].cor,
+                              width: 2,
+                            )
+                          )
+                          : Border(
+                            top: BorderSide(
+                              color: DisciplinaRepository.tabela[tarefas.lista[index].codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
+                              width: 5
+                            ),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            (selecionadas.isEmpty)
+                            ? Icon(
+                                Icons.circle_outlined,
+                                size: 30,
+                              )
+                            : (selecionadas.contains(tarefas.lista[index])) ?
+                              Icon(
+                                Icons.check_box_outlined,
+                                size: 30,
+                              )
+                            : Icon(
+                                Icons.square_outlined,
+                                size: 30,
+                              ),
+                            Expanded(
+                              child: Container(
+                                margin: EdgeInsets.only(left: 12),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            tarefas.lista[index].nome,
+                                            style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+                                        tarefas.lista[index].visibilidade
+                                        ? Container(
+                                            padding: EdgeInsets.all(2),
+                                            decoration: BoxDecoration(
+                                              color: Colors.green.withOpacity(0.2),
+                                              border: Border.all(
+                                                color: Colors.green,
+                                                width: 1
+                                              ),
+                                              borderRadius: BorderRadius.circular(100)
+                                            ),
+                                            child: Text(
+                                              'PÚBLICO',
+                                              style: TextStyle(
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.green
+                                              ),
+                                            ),
+                                        )
+                                        : Container(
+                                            padding: EdgeInsets.all(2),
+                                            decoration: BoxDecoration(
+                                              color: Colors.red.withOpacity(0.2),
+                                              border: Border.all(
+                                                color: Colors.red,
+                                                width: 1
+                                              ),
+                                              borderRadius: BorderRadius.circular(100),
+                                            ),
+                                            child: Text(
+                                              'PRIVADO',
+                                              style: TextStyle(
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.red
+                                              ),
+                                            ),
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          tarefas.lista[index].tipo,
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            color: Colors.black45,
+                                          ),
+                                        ),
+                                        Text(
+                                          DateFormat('dd/MM/yyyy').format(tarefas.lista[index].data),
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.black45,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),                     
+                            PopupMenuButton(
+                              icon: (selecionadas.isEmpty)
+                                ? Icon(Icons.more_vert)
+                                : Icon(Icons.more_vert, size: 0),
+                              enabled: (selecionadas.isEmpty)
+                                ? true
+                                : false,
+                              itemBuilder: (context) => [
+                                PopupMenuItem(
+                                  child: ListTile(
+                                    leading: Icon(Icons.edit, color: Colors.blue),
+                                    title: Text('Editar Tarefa'),
+                                    contentPadding: EdgeInsets.symmetric(horizontal: 5),
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      Provider.of<ListarTarefas>(context, listen: false)
+                                          .remove(tarefas.lista[index]);
+                                    },
+                                  ),
+                                ),
+                                PopupMenuItem(
+                                  child: ListTile(
+                                    leading: Icon(Icons.highlight_remove_outlined, color: Colors.red),
+                                    title: Text('Remover Tarefa'),
+                                    contentPadding: EdgeInsets.symmetric(horizontal: 5),
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      Provider.of<ListarTarefas>(context, listen: false)
+                                          .remove(tarefas.lista[index]);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
                 },
               );
           },
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: null,
+        elevation: 5,
+        backgroundColor: Colors.deepOrange[400],
+        child: Icon(Icons.add, size: 30,)
+        ),
     );
   }
 }

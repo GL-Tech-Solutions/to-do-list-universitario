@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/configs/app_setting.dart';
 import 'package:flutter_aula_1/models/disciplina.dart';
