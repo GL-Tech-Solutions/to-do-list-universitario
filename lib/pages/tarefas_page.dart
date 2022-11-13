@@ -16,6 +16,7 @@ class TarefasPage extends StatefulWidget {
   State<TarefasPage> createState() => _TarefasPageState();
 }
 
+//! Sperar widgets e métodos em outras classes o mais rápido possível
 class _TarefasPageState extends State<TarefasPage> with SingleTickerProviderStateMixin {
   List<Tarefa> tabela = TarefaRepository.tabela;
   late ListarTarefasRepository tarefas;
