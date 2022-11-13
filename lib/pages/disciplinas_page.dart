@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/configs/app_setting.dart';
 import 'package:flutter_aula_1/models/disciplina.dart';
-import 'package:flutter_aula_1/repositories/listar_tarefas.dart';
+import 'package:flutter_aula_1/repositories/provider_listar.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:provider/provider.dart';
 

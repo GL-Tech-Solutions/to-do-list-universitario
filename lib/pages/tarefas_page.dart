@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/pages/tarefas_detalhes_page.dart';
-import 'package:flutter_aula_1/repositories/listar_tarefas.dart';
+import 'package:flutter_aula_1/repositories/provider_listar.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../models/tarefa.dart';
 import '../repositories/disciplina_repository.dart';
+import '../repositories/listar_tarefas.dart';
 
 class TarefasPage extends StatefulWidget {
   const TarefasPage({Key? key}) : super(key: key);
@@ -14,18 +15,17 @@ class TarefasPage extends StatefulWidget {
 }
 
 class _TarefasPageState extends State<TarefasPage> {
-  late ListarTarefas tarefas;
+  late ProviderListar atualizar;
+  late ListarTarefas tarefas = ListarTarefas();
   List<Tarefa> selecionadas = []; //Lista de tarefas selecionadas
   int abaAtual = 0;
 
-  /*@override
+  @override
   void initState() {
     super.initState();
     tarefas.listarPendentes();
     tarefas.listarConcluidas();
-    print(tarefas.listaP);
-    print(tarefas.listaC);
-  }*/
+  }
 
   setPaginaAtual(aba)
   {
@@ -159,17 +159,15 @@ class _TarefasPageState extends State<TarefasPage> {
                 color: Colors.indigo.withOpacity(0.05),
                 height: MediaQuery.of(context).size.height,
                 padding: EdgeInsets.all(8),
-                child: Consumer<ListarTarefas>(
-                  builder: (context, tarefas, child) {
-                    tarefas.listarPendentes();
-                    tarefas.listarConcluidas();
-                    return tarefas.lista.isEmpty
+                child: Consumer<ProviderListar>(
+                  builder: (context, atualizar, child) {
+                    return tarefas.listaP.isEmpty
                     ? ListTile(
                       leading: Icon(Icons.notes),
                       title: Text('Ainda não há Tarefas criadas'),
                     )
                     : ListView.builder(
-                        itemCount: tarefas.lista.length,
+                        itemCount: tarefas.listaP.length,
                         itemBuilder: (_, index) {
                           return Card(
                             margin: EdgeInsets.only(top: 8),
@@ -179,15 +177,15 @@ class _TarefasPageState extends State<TarefasPage> {
                                     setState(() { //Altera o estado do widget, permitindo um rebuild
                                     if (selecionadas.isEmpty)
                                     {
-                                      abrirDetalhes(tarefas.lista[index]);
+                                      abrirDetalhes(tarefas.listaP[index]);
                                     }
-                                    else if (selecionadas.isNotEmpty && !selecionadas.contains(tarefas.lista[index]))
+                                    else if (selecionadas.isNotEmpty && !selecionadas.contains(tarefas.listaP[index]))
                                     {
-                                      selecionadas.add(tarefas.lista[index]);
+                                      selecionadas.add(tarefas.listaP[index]);
                                     }
-                                    else if (selecionadas.contains(tarefas.lista[index]))
+                                    else if (selecionadas.contains(tarefas.listaP[index]))
                                     {
-                                      selecionadas.remove(tarefas.lista[index]);
+                                      selecionadas.remove(tarefas.listaP[index]);
                                     }
                                     });
                                   },
@@ -195,37 +193,37 @@ class _TarefasPageState extends State<TarefasPage> {
                                     setState(() {
                                       if (selecionadas.isEmpty)
                                       {
-                                        selecionadas.add(tarefas.lista[index]);
+                                        selecionadas.add(tarefas.listaP[index]);
                                       }
                                     });
                                   },
                               child: Container(
                                 padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
                                 decoration: BoxDecoration(
-                                  color: (selecionadas.contains(tarefas.lista[index])) 
+                                  color: (selecionadas.contains(tarefas.listaP[index])) 
                                   ? Colors.indigoAccent.withOpacity(0.3) : null,
-                                  border: (selecionadas.contains(tarefas.lista[index])) 
+                                  border: (selecionadas.contains(tarefas.listaP[index])) 
                                   ? Border(
                                     top: BorderSide(
-                                      color: DisciplinaRepository.tabela[tarefas.lista[index].codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
+                                      color: DisciplinaRepository.tabela[tarefas.listaP[index].codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
                                       width: 5
                                     ),
                                     left: BorderSide(
-                                      color: DisciplinaRepository.tabela[tarefas.lista[index].codDisciplina].cor,
+                                      color: DisciplinaRepository.tabela[tarefas.listaP[index].codDisciplina].cor,
                                       width: 2,
                                     ),
                                     right: BorderSide(
-                                      color: DisciplinaRepository.tabela[tarefas.lista[index].codDisciplina].cor,
+                                      color: DisciplinaRepository.tabela[tarefas.listaP[index].codDisciplina].cor,
                                       width: 2,
                                     ),
                                     bottom: BorderSide(
-                                      color: DisciplinaRepository.tabela[tarefas.lista[index].codDisciplina].cor,
+                                      color: DisciplinaRepository.tabela[tarefas.listaP[index].codDisciplina].cor,
                                       width: 2,
                                     )
                                   )
                                   : Border(
                                     top: BorderSide(
-                                      color: DisciplinaRepository.tabela[tarefas.lista[index].codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
+                                      color: DisciplinaRepository.tabela[tarefas.listaP[index].codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
                                       width: 5
                                     ),
                                   ),
@@ -237,7 +235,7 @@ class _TarefasPageState extends State<TarefasPage> {
                                         Icons.circle_outlined,
                                         size: 30,
                                       )
-                                    : (selecionadas.contains(tarefas.lista[index])) ?
+                                    : (selecionadas.contains(tarefas.listaP[index])) ?
                                       Icon(
                                         Icons.check_box_outlined,
                                         size: 30,
@@ -257,14 +255,14 @@ class _TarefasPageState extends State<TarefasPage> {
                                               children: [
                                                 Flexible(
                                                   child: Text(
-                                                    tarefas.lista[index].nome,
+                                                    tarefas.listaP[index].nome,
                                                     style: TextStyle(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.w600,
                                                     ),
                                                   ),
                                                 ),
-                                                tarefas.lista[index].visibilidade
+                                                tarefas.listaP[index].visibilidade
                                                 ? Container(
                                                     padding: EdgeInsets.all(2),
                                                     decoration: BoxDecoration(
@@ -309,14 +307,14 @@ class _TarefasPageState extends State<TarefasPage> {
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  tarefas.lista[index].tipo,
+                                                  tarefas.listaP[index].tipo,
                                                   style: TextStyle(
                                                     fontSize: 13,
                                                     color: Colors.black45,
                                                   ),
                                                 ),
                                                 Text(
-                                                  DateFormat('dd/MM/yyyy').format(tarefas.lista[index].data),
+                                                  DateFormat('dd/MM/yyyy').format(tarefas.listaP[index].data),
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.black45,
@@ -343,8 +341,8 @@ class _TarefasPageState extends State<TarefasPage> {
                                             contentPadding: EdgeInsets.symmetric(horizontal: 5),
                                             onTap: () {
                                               Navigator.pop(context);
-                                              Provider.of<ListarTarefas>(context, listen: false)
-                                                  .remove(tarefas.lista[index]);
+                                              Provider.of<ProviderListar>(context, listen: false)
+                                                  .remove(tarefas.listaP[index]);
                                             },
                                           ),
                                         ),
@@ -355,8 +353,8 @@ class _TarefasPageState extends State<TarefasPage> {
                                             contentPadding: EdgeInsets.symmetric(horizontal: 5),
                                             onTap: () {
                                               Navigator.pop(context);
-                                              Provider.of<ListarTarefas>(context, listen: false)
-                                                  .remove(tarefas.lista[index]);
+                                              Provider.of<ProviderListar>(context, listen: false)
+                                                  .remove(tarefas.listaP[index]);
                                             },
                                           ),
                                         ),
