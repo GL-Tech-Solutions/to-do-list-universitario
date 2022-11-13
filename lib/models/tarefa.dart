@@ -1,7 +1,4 @@
 //Classe model para as tarefas
-import 'package:flutter/material.dart';
-import 'package:flutter_aula_1/models/disciplina.dart';
-import 'package:intl/intl.dart';
 
 class Tarefa {
   int cod;
