@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/pages/adicionar_tarefa_page.dart';
 import 'package:flutter_aula_1/pages/tarefas_detalhes_page.dart';
 import 'package:flutter_aula_1/repositories/listar_tarefas_repository.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
@@ -16,7 +17,7 @@ class TarefasPage extends StatefulWidget {
   State<TarefasPage> createState() => _TarefasPageState();
 }
 
-//! Sperar widgets e métodos em outras classes o mais rápido possível
+//TODO Separar widgets e métodos em outras classes o mais rápido possível
 class _TarefasPageState extends State<TarefasPage> with SingleTickerProviderStateMixin {
   List<Tarefa> tabela = TarefaRepository.tabela;
   late ListarTarefasRepository tarefas;
@@ -161,12 +162,22 @@ class _TarefasPageState extends State<TarefasPage> with SingleTickerProviderStat
     );
   }
 
+  adicionarTarefa() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => AdiconarTarefaPage(),
+      ),
+    );
+  }
+
   void limparSelecionadas()
   {
     setState(() {
       selecionadas = [];
     });
   }
+  
   @override
   Widget build(BuildContext context) {
     // provider = Provider.of<ProviderListar>(context);
@@ -424,7 +435,7 @@ class _TarefasPageState extends State<TarefasPage> with SingleTickerProviderStat
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: null,
+            onPressed: (() => adicionarTarefa()),
             elevation: 5,
             backgroundColor: Colors.deepOrange[400],
             child: Icon(Icons.add, size: 30,)
