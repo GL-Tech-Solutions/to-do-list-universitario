@@ -5,6 +5,8 @@ import 'package:flutter_aula_1/repositories/listar_tarefas_repository.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:provider/provider.dart';
 
+import 'adicionar_disciplina_page.dart';
+
 class DisciplinasPage extends StatefulWidget { ////StatefulWidget - Um Widget mutável
 
   const DisciplinasPage({Key? key}) : super(key: key);
@@ -48,11 +50,22 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
     return buffer.toString();
   }
 
+adicionarDisciplina() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => AdicionarDisciplinaPage(),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) { //Método build cria o widget em si
     return Scaffold( //Scaffold serve para formatar nossa tela em um MaterialApp
       appBar: AppBar(
         title: Text('Disciplinas'),
+        actions: [
+          IconButton(onPressed: adicionarDisciplina, icon: Icon(Icons.add))
+        ],
       ),
       body: ListView.separated( //Corpo do App - Neste caso, uma ListView
         itemBuilder: (BuildContext context, int disciplina) {
