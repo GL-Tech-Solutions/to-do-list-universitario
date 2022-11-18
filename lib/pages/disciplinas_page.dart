@@ -64,7 +64,7 @@ adicionarDisciplina() {
       appBar: AppBar(
         title: Text('Disciplinas'),
         actions: [
-          IconButton(onPressed: adicionarDisciplina, icon: Icon(Icons.add))
+          IconButton(onPressed: null, icon: Icon(Icons.menu))
         ],
       ),
       body: ListView.separated( //Corpo do App - Neste caso, uma ListView
@@ -103,6 +103,12 @@ adicionarDisciplina() {
         separatorBuilder: (_, __) => Divider(),  //Separa os componentes da lista com linhas
         itemCount: tabela.length, //Tamanho da lista que será renderizada (Informação necessária para o Flutter)
         ),
+         floatingActionButton: FloatingActionButton(
+            onPressed: (() => adicionarDisciplina()),
+            elevation: 5,
+            backgroundColor: Colors.deepOrange[400],
+            child: Icon(Icons.add, size: 30,)
+         ),
     );
   }
 }
