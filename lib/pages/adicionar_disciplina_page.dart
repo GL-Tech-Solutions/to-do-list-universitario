@@ -10,8 +10,9 @@ class AdicionarDisciplinaPage extends StatefulWidget {
 
 class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
   final _form = GlobalKey<FormState>(); // Gera uma key (identificador) para o formulário
-
   final _nome = TextEditingController();
+  final _professor = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +50,7 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
                         padding: EdgeInsets.only(top: 14),
                         child: TextFormField(
                           maxLines: null,
-                          controller: _nome,
+                          controller: _professor,
                           style: TextStyle(
                             fontSize: 18
                           ),
