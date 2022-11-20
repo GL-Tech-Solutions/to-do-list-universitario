@@ -18,9 +18,17 @@ class FlashCardsPage extends StatefulWidget {
 }
 
 class _FlashCardsPageState extends State<FlashCardsPage> {
-    int _currentIndexNumber = 0;
+  int _currentIndexNumber = 0;
   double _initial = 0.1;
 
+adicionarFlashcard() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => AdicionarFlashcardsPage(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +40,13 @@ class _FlashCardsPageState extends State<FlashCardsPage> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-              Text("Você consegue!"),
               SizedBox(height: 20),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(quesAnsList.length.toDouble()),
                 child: LinearProgressIndicator(
                   backgroundColor: Colors.white,
-                  valueColor: AlwaysStoppedAnimation(Colors.pinkAccent),
+                  valueColor: AlwaysStoppedAnimation(Colors.deepPurple), 
+                  // TODO trocar a cor da barra para a cor da disciplina
                   minHeight: 5,
                   value: _initial,
                 ),
@@ -53,7 +61,7 @@ class _FlashCardsPageState extends State<FlashCardsPage> {
                           text: quesAnsList[_currentIndexNumber].question),
                       back: ReusableCard(
                           text: quesAnsList[_currentIndexNumber].answer))),
-              Text("Tab to see Answer"),
+              Text("Toque para ver a resposta"),
               SizedBox(height: 20),
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -66,7 +74,6 @@ class _FlashCardsPageState extends State<FlashCardsPage> {
                         icon: Icon(Icons.skip_previous, size: 30),
                         label: Text(""),
                         style: ElevatedButton.styleFrom(
-                           // primary: mainColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             padding: EdgeInsets.only(
@@ -79,7 +86,6 @@ class _FlashCardsPageState extends State<FlashCardsPage> {
                         icon: Icon(Icons.skip_next, size: 30),
                         label: Text(""),
                         style: ElevatedButton.styleFrom(
-                            //primary: mainColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             padding: EdgeInsets.only(
@@ -88,7 +94,7 @@ class _FlashCardsPageState extends State<FlashCardsPage> {
         ]
       )
     ),     floatingActionButton: FloatingActionButton(
-            onPressed: (() => AdicionarFlashcardsPage()),
+            onPressed: (() => adicionarFlashcard()),
             elevation: 5,
             backgroundColor: Colors.deepOrange[400],
             child: Icon(Icons.add, size: 30,)
