@@ -8,12 +8,8 @@ import '../models/tarefa.dart';
 class ListarTarefasRepository extends ChangeNotifier{
   final _listaInicial = TarefaRepository.tabela;
   var _lista = TarefaRepository.tabela;
-  //final List<Tarefa> _listaPendentes = [];
- // final List<Tarefa> _listaConcluidas = [];
   
   UnmodifiableListView<Tarefa> get lista => UnmodifiableListView(_lista);
-  //UnmodifiableListView<Tarefa> get listaP => UnmodifiableListView(_listaPendentes);
-  //UnmodifiableListView<Tarefa> get listaC => UnmodifiableListView(_listaConcluidas);
   
   List<Tarefa> get()
   {
