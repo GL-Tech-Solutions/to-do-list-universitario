@@ -15,14 +15,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-late List<Tarefa> _tarefas;
-
-  
-  @override
-void initState() {
-  super.initState();
-  _tarefas= {} as List<Tarefa>;
-}
   adicionarTarefa() {
     Navigator.push(
       context,
@@ -50,6 +42,7 @@ void initState() {
             alignment: Alignment.center,
             child: SfCalendar(
     view: CalendarView.month,
+    dataSource: TarefasACumprir(getTarefas()),
       ),
           ),
         ],
@@ -61,5 +54,21 @@ void initState() {
             child: Icon(Icons.add, size: 30,)
             ),
     );
+  }
+}
+
+List<Appointment> getTarefas(){
+  List<Appointment> tarefas = <Appointment>[];
+  final DateTime today = DateTime.now();
+  final DateTime startTime = DateTime(today.year, today.month, today.day,9,0,0);
+  final DateTime endTime = startTime.add(Duration());
+
+  tarefas.add(Appointment(startTime: startTime, endTime: endTime));
+  return tarefas;
+}
+
+class TarefasACumprir extends CalendarDataSource{
+  TarefasACumprir(List<Appointment> source){
+    appointments = source;
   }
 }
