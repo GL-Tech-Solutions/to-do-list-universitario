@@ -18,7 +18,7 @@ class FlashCardsPage extends StatefulWidget {
 }
 
 class _FlashCardsPageState extends State<FlashCardsPage> {
-    int _currentIndexNumber = 0;
+  int _currentIndexNumber = 0;
   double _initial = 0.1;
 
 adicionarFlashcard() {
@@ -40,13 +40,12 @@ adicionarFlashcard() {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-              Text("Você consegue!"),
               SizedBox(height: 20),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(quesAnsList.length.toDouble()),
                 child: LinearProgressIndicator(
                   backgroundColor: Colors.white,
-                  valueColor: AlwaysStoppedAnimation(Colors.pinkAccent), 
+                  valueColor: AlwaysStoppedAnimation(Colors.deepPurple), 
                   // TODO trocar a cor da barra para a cor da disciplina
                   minHeight: 5,
                   value: _initial,
@@ -75,7 +74,6 @@ adicionarFlashcard() {
                         icon: Icon(Icons.skip_previous, size: 30),
                         label: Text(""),
                         style: ElevatedButton.styleFrom(
-                           // primary: mainColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             padding: EdgeInsets.only(
@@ -88,7 +86,6 @@ adicionarFlashcard() {
                         icon: Icon(Icons.skip_next, size: 30),
                         label: Text(""),
                         style: ElevatedButton.styleFrom(
-                            //primary: mainColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             padding: EdgeInsets.only(

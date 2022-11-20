@@ -43,6 +43,7 @@ dependencies:
   flip_card: ^0.6.0
   font_awesome_flutter: ^10.2.1
   flutter_login: ^4.1.0
+  table_calendar: ^3.0.8
 
 dev_dependencies:
   flutter_test:

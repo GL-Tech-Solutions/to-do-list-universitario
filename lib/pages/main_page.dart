@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_aula_1/models/tarefa.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+
+import 'adicionar_tarefa_page.dart';
 
 
 class MainPage extends StatefulWidget {
@@ -12,6 +15,22 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+late List<Tarefa> _tarefas;
+
+  
+  @override
+void initState() {
+  super.initState();
+  _tarefas= {} as List<Tarefa>;
+}
+  adicionarTarefa() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => AdiconarTarefaPage(),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +43,8 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      body: Row(
+      body: 
+      Row(
         children: [
           Container(
             alignment: Alignment.center,
@@ -34,6 +54,12 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+            onPressed: (() => adicionarTarefa()),
+            elevation: 5,
+            backgroundColor: Colors.deepOrange[400],
+            child: Icon(Icons.add, size: 30,)
+            ),
     );
   }
 }
