@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../models/disciplina.dart';
+import '../repositories/disciplina_repository.dart';
+
 class AdicionarFlashcardsPage extends StatefulWidget {
   const AdicionarFlashcardsPage({super.key});
   @override
@@ -7,10 +10,18 @@ class AdicionarFlashcardsPage extends StatefulWidget {
 }
 
 class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
-  final _form = GlobalKey<FormState>(); // Gera uma key (identificador) para o formulário
-  final _nome = TextEditingController();
-  final _professor = TextEditingController();
+  final _form = GlobalKey<FormState>();
+  final _question = TextEditingController();
+  final _answer = TextEditingController();
+  String? _disciplina;
+  final List<Disciplina> _listaDisciplina = DisciplinaRepository.tabela;
 
+  void dropdownCallbackDisciplina(String? value)
+  {
+    setState(() {
+      _disciplina = value;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +45,7 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
                     children: [
                       TextFormField(
                         maxLines: null,
-                        controller: _nome,
+                        controller: _question,
                         style: TextStyle(
                           fontSize: 18
                         ),
@@ -42,14 +53,14 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(16))
                           ),
-                          labelText: 'Nome'
+                          labelText: 'Pergunta'
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 14),
                         child: TextFormField(
                           maxLines: null,
-                          controller: _professor,
+                          controller: _answer,
                           style: TextStyle(
                             fontSize: 18
                           ),
@@ -57,7 +68,26 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(16))
                             ),
-                            labelText: 'Professor'
+                            labelText: 'Resposta'
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 14),
+                        child: DropdownButtonFormField(
+                          isExpanded: true,
+                          items: _listaDisciplina.map((op) => DropdownMenuItem(
+                            value: op.nome,
+                            child: Text(op.nome, overflow: TextOverflow.ellipsis),
+                          )).toList(),
+                          value: _disciplina,
+                          onChanged: dropdownCallbackDisciplina,
+                          style: TextStyle(fontSize: 18, color: Colors.black),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(16))
+                            ),
+                            labelText: 'Disciplina'
                           ),
                         ),
                       ),

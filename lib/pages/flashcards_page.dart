@@ -21,6 +21,14 @@ class _FlashCardsPageState extends State<FlashCardsPage> {
     int _currentIndexNumber = 0;
   double _initial = 0.1;
 
+adicionarFlashcard() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => AdicionarFlashcardsPage(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +61,7 @@ class _FlashCardsPageState extends State<FlashCardsPage> {
                           text: quesAnsList[_currentIndexNumber].question),
                       back: ReusableCard(
                           text: quesAnsList[_currentIndexNumber].answer))),
-              Text("Tab to see Answer"),
+              Text("Toque para ver a resposta"),
               SizedBox(height: 20),
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -88,7 +96,7 @@ class _FlashCardsPageState extends State<FlashCardsPage> {
         ]
       )
     ),     floatingActionButton: FloatingActionButton(
-            onPressed: (() => AdicionarFlashcardsPage()),
+            onPressed: (() => adicionarFlashcard()),
             elevation: 5,
             backgroundColor: Colors.deepOrange[400],
             child: Icon(Icons.add, size: 30,)
