@@ -8,7 +8,7 @@ const users = const {
   'leianny@gmail.com': 12345,
   'gustavo@gmail.com': 12345,
 };
-//precisa vincular com o banco pra dar sequencia com a logica
+//TODO vincular com o banco pra dar sequencia com a logica
 
 class LoginScreen extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 2250);
@@ -42,12 +42,12 @@ class LoginScreen extends StatelessWidget {
       return 'Entre com sua senha';
     });
   }
-
+//TODO Inserir logo que ja temos
   @override
   Widget build(BuildContext context) {
     return FlutterLogin(
       title: 'TO-DO LIST UNIVERSITÁRIO',
-      //logo: AssetImage('assets/images/ecorp-lightblue.png'),
+      //logo: AssetImage(''),
       onLogin: _authUser,
       onSignup: _signupUser,
       onSubmitAnimationCompleted: () {

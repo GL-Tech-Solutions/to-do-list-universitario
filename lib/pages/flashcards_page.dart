@@ -46,7 +46,8 @@ adicionarFlashcard() {
                 padding: const EdgeInsets.all(10.0),
                 child: LinearProgressIndicator(
                   backgroundColor: Colors.white,
-                  valueColor: AlwaysStoppedAnimation(Colors.pinkAccent),
+                  valueColor: AlwaysStoppedAnimation(Colors.pinkAccent), 
+                  // TODO trocar a cor da barra para a cor da disciplina
                   minHeight: 5,
                   value: _initial,
                 ),
