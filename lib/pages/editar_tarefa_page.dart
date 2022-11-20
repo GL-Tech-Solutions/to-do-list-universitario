@@ -1,28 +1,26 @@
-import 'dart:developer';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../models/disciplina.dart';
+import '../models/tarefa.dart';
+import '../repositories/disciplina_repository.dart';
 
-class AdiconarTarefaPage extends StatefulWidget {
-  const AdiconarTarefaPage({super.key});
+// ignore: must_be_immutable
+class EditarTarefaPage extends StatefulWidget {
+  Tarefa tarefa;
+
+  EditarTarefaPage({super.key, required this.tarefa});
 
   @override
-  State<AdiconarTarefaPage> createState() => _AdiconarTarefaPageState();
+  State<EditarTarefaPage> createState() => _EditarTarefaPageState();
 }
 
-class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
+class _EditarTarefaPageState extends State<EditarTarefaPage> {
   final _form = GlobalKey<FormState>(); // Gera uma key (identificador) para o formulário
-  final _nome = TextEditingController(); // Permite editar o texto valor e controlá-lo
   String? _tipo;
   String? _disciplina;
-  var _data = TextEditingController();
-  final _descricao = TextEditingController();
+  var _data;
   final List<Disciplina> _listaDisciplina = DisciplinaRepository.tabela;
   DateTime date = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
@@ -31,6 +29,13 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
     filter: {'x': RegExp(r'[0-9]')},
     type: MaskAutoCompletionType.lazy
   );
+
+  @override
+  void initState() {
+    super.initState();
+    _data = widget.tarefa.data;
+    _tipo = widget.tarefa.tipo;
+  }
 
   void dropdownCallbackTipo(String? value)
   {
@@ -50,7 +55,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Adicionar Tarefa'),
+        title: Text('Editar Tarefa'),
       ),
       body: Center(
         child: Padding(
@@ -66,7 +71,8 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                     children: [
                       TextFormField(
                         maxLines: null,
-                        controller: _nome,
+                        initialValue: widget.tarefa.nome,
+                        controller: null,
                         style: TextStyle(fontSize: 18),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -120,8 +126,8 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                         child: TextFormField(
                           keyboardType: TextInputType.number,
                           inputFormatters: [maskDateFormatter],
-                          maxLines: null,
-                          controller: _data,
+                          initialValue: DateFormat('dd/MM/yyyy').format(_data),
+                          controller: null,
                           style: TextStyle(fontSize: 18),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -137,7 +143,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                   lastDate: DateTime(2030),
                                 );
                                 if (newDate != null) {
-                                  setState(() => _data.text = DateFormat('dd/MM/yyyy').format(DateTime(newDate.year, newDate.month, newDate.day)));
+                                  setState(() => _data = DateFormat('dd/MM/yyyy').format(DateTime(newDate.year, newDate.month, newDate.day)));
                                 }
                               }, 
                               icon: Icon(Icons.calendar_month)
@@ -149,7 +155,8 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                         padding: EdgeInsets.only(top: 14),
                         child: TextFormField(
                           maxLines: 5,
-                          controller: _descricao,
+                          initialValue: widget.tarefa.descricao,
+                          controller: null,
                           style: TextStyle(fontSize: 18),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(

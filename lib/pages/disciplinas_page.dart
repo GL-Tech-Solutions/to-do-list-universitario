@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_aula_1/configs/app_setting.dart';
 import 'package:flutter_aula_1/models/disciplina.dart';
-import 'package:flutter_aula_1/repositories/listar_tarefas_repository.dart';
+import 'package:flutter_aula_1/pages/editar_disciplina_page.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
-import 'package:provider/provider.dart';
 
 import 'adicionar_disciplina_page.dart';
 
@@ -17,17 +15,6 @@ class DisciplinasPage extends StatefulWidget { ////StatefulWidget - Um Widget mu
 
 class _DisciplinasPageState extends State<DisciplinasPage> {
   final tabela = DisciplinaRepository.tabela; //Pega a tabela de disciplinas e coloca nesta variável lista
-
-  /**
-   * Método que fará a rota para a page "DisciplinasDetalhesPage"
-   */
-  /*void mostrarDetalhes(Disciplina disciplina)
-  {
-    Navigator.push(context, MaterialPageRoute(
-      builder: (_) => DisciplinasDetalhesPage(disciplina: disciplina)
-      ),
-    );
-  }*/
 
   String getInitials(String disciplineName) {
     var buffer = StringBuffer();
@@ -50,7 +37,7 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
     return buffer.toString();
   }
 
-adicionarDisciplina() {
+  adicionarDisciplina() {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -58,14 +45,21 @@ adicionarDisciplina() {
       ),
     );
   }
+
+  editarDisciplina(Disciplina disciplina) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => EditarDisciplinaPage(disciplina: disciplina),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) { //Método build cria o widget em si
     return Scaffold( //Scaffold serve para formatar nossa tela em um MaterialApp
       appBar: AppBar(
         title: Text('Disciplinas'),
-        actions: [
-          IconButton(onPressed: null, icon: Icon(Icons.menu))
-        ],
       ),
       body: ListView.separated( //Corpo do App - Neste caso, uma ListView
         itemBuilder: (BuildContext context, int disciplina) {
@@ -97,6 +91,32 @@ adicionarDisciplina() {
                 ),
               ],
             ),
+            trailing: PopupMenuButton(
+              icon: Icon(Icons.more_horiz),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: ListTile(
+                    leading: Icon(Icons.edit, color: Colors.blue),
+                    title: Text('Editar Disciplina'),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 5),
+                    onTap: () {
+                      Navigator.pop(context);
+                      editarDisciplina(tabela[disciplina]);
+                    },
+                  ),
+                ),
+                PopupMenuItem(
+                  child: ListTile(
+                    leading: Icon(Icons.highlight_remove_outlined, color: Colors.red),
+                    title: Text('Remover Disciplina'),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 5),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ],
+            )
           );
         }, 
         padding: const EdgeInsets.all(16), //Espaçamento em todas as laterais de um componente da lista

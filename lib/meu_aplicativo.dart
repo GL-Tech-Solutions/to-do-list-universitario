@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/pages/home_page.dart';
 import 'package:flutter_aula_1/repositories/listar_tarefas_repository.dart';
 import 'package:flutter_aula_1/repositories/listar_tarefas_repository.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 
 class MeuAplicativo extends StatelessWidget { //StatelessWidget - Um Widget imutável
@@ -19,6 +20,11 @@ class MeuAplicativo extends StatelessWidget { //StatelessWidget - Um Widget imut
       theme: ThemeData( //Tema do App. É possível definir sua cor, tema escuro / tema claro, etc
         primarySwatch: Colors.deepOrange //Cor do tema
       ),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [const Locale('pt', 'BR')],
       home: HomePage(), //Página inicial. Aqui puxamos uma classe que possui uma página montada pelo Scaffold
     );
   }

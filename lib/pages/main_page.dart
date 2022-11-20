@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 
@@ -29,7 +27,7 @@ class _MainPageState extends State<MainPage> {
           Container(
             alignment: Alignment.center,
             child: SfCalendar(
-    view: CalendarView.month,
+      view: CalendarView.month,
       ),
           ),
         ],
