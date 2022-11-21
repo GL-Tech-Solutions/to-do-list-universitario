@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MeuAplicativo extends StatelessWidget { //StatelessWidget - Um Widget imutável
   const MeuAplicativo({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     /*MaterialApp Class: MaterialApp is a predefined class in a flutter. It is likely the main or core component of flutter. 
