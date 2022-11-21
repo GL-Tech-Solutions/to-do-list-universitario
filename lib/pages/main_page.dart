@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_aula_1/models/tarefa.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-
 import 'adicionar_tarefa_page.dart';
 
 
