@@ -64,6 +64,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        reverse: true,
         child: Padding(
           padding: EdgeInsets.only(top: 100),
           child: Column(

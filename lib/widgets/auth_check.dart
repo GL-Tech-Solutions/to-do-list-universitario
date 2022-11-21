@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/pages/home_page.dart';
 import 'package:flutter_aula_1/services/auth_service.dart';
 import 'package:provider/provider.dart';
-
 import '../pages/login_page.dart';
-import '../pages/login_screen.dart';
 
 class AuthCheck extends StatefulWidget {
   const AuthCheck({super.key});
