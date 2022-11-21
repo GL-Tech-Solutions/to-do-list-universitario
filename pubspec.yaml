@@ -49,8 +49,6 @@ dependencies:
   table_calendar: ^3.0.8
 
 dev_dependencies:
-  flutter_localizations:
-    sdk: flutter 
   flutter_test:
     sdk: flutter
 

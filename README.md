@@ -11,3 +11,4 @@
 -Criar tarefa_detalhes_dialog
 -Criar page Editar Flashcard
 -Deixar funcional Editar/Adicionar/Remover flashcards
+-Integração completa Firebase
