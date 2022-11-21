@@ -1,8 +1,7 @@
 A fazer:
 
-· Clicar na data e subir bottom sheet com lista de tarefas
+· Clicar na data e subir bottom sheet com lista de tarefas  
 · Formatar a tela inicial para exibir próxima tarefa em baixo do calendario (MI)
-
 · Internacionalização
 · Função de remover disciplina
 · Gerenciamento de estado tarefas pendentes / concluídas
