@@ -126,7 +126,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                         child: TextFormField(
                           keyboardType: TextInputType.number,
                           inputFormatters: [maskDateFormatter],
-                          initialValue: DateFormat('dd/MM/yyyy').format(_data),
+                          initialValue: DateFormat('dd/MM/yyyy').format(_data).toString(),
                           controller: null,
                           style: TextStyle(fontSize: 18),
                           decoration: InputDecoration(

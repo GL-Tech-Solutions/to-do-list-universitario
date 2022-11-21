@@ -19,7 +19,7 @@ class FlashCardsPage extends StatefulWidget {
 
 class _FlashCardsPageState extends State<FlashCardsPage> {
   int _currentIndexNumber = 0;
-  double _initial = 0.1;
+  double _initial = (1 / quesAnsList.length);
 
 adicionarFlashcard() {
     Navigator.push(
@@ -35,6 +35,41 @@ adicionarFlashcard() {
     return Scaffold(
       appBar: AppBar(
         title: Text('FlashCards'),
+        actions: [
+          PopupMenuButton(
+            icon:
+              Icon(Icons.more_vert),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.edit, color: Colors.blue),
+                  title: Text('Editar FlashCard'),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 5),
+                  onTap: () {
+                  },
+                ),
+              ),
+              PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.add_circle_outline_rounded, color: Colors.green),
+                  title: Text('Adicionar FlashCard'),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 5),
+                  onTap: () {
+                  },
+                ),
+              ),
+              PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.highlight_remove_outlined, color: Colors.red),
+                  title: Text('Remover FlashCard'),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 5),
+                  onTap: () {
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
           body: Center(
             child: Column(
@@ -93,29 +128,29 @@ adicionarFlashcard() {
                   ])
         ]
       )
-    ),     floatingActionButton: FloatingActionButton(
+    ),/*     floatingActionButton: FloatingActionButton(
             onPressed: (() => adicionarFlashcard()),
             elevation: 5,
             backgroundColor: Colors.deepOrange[400],
             child: Icon(Icons.add, size: 30,)
-         ),
+         ),*/
     );
   }
 
   void updateToNext() {
     setState(() {
-      _initial = _initial + 0.1;
+      _initial = _initial + (1 / quesAnsList.length);
       if (_initial > 1.0) {
-        _initial = 0.1;
+        _initial = (1 / quesAnsList.length);
       }
     });
   }
 
   void updateToPrev() {
     setState(() {
-      _initial = _initial - 0.1;
+      _initial = _initial - (1 / quesAnsList.length);
       if (_initial < 0.1) {
-        _initial = 1.0;
+        _initial = (1 / quesAnsList.length);
       }
     });
   }

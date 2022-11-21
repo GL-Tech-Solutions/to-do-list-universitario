@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/models/tarefa.dart';
+import 'package:flutter_aula_1/pages/configuracoes_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -23,6 +24,16 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
+
+  configuracoes() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ConfiguracoesPage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +42,7 @@ class _MainPageState extends State<MainPage> {
         actions: [
           IconButton(
             icon: Icon(Icons.settings, color: Colors.white),
-            onPressed: null,
+            onPressed: configuracoes,
           ),
         ],
       ),
