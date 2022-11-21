@@ -19,7 +19,7 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
       child: OutlinedButton(
         onPressed: () => context.read<AuthService>().logout(),
         style: OutlinedButton.styleFrom(
-          foregroundColor: Colors.red,
+          backgroundColor: Colors.red,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
