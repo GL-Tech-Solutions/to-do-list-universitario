@@ -4,7 +4,6 @@ import 'package:flutter_aula_1/pages/configuracoes_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-
 import 'adicionar_tarefa_page.dart';
 
 
