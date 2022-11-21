@@ -18,4 +18,7 @@ List<Flashcard> quesAnsList = [
   Flashcard(
       question: "Outra questão",
       answer: "Resposta aqui"),
+  Flashcard(
+      question: "Uma mais questão",
+      answer: "Resposta"),    
 ];

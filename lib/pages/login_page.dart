@@ -1,61 +1,162 @@
-import 'package:flutter_login/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
-import 'package:flutter_login/flutter_login.dart';
-import 'home_page.dart';
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
-const users = const {
-  'leianny@gmail.com': 12345,
-  'gustavo@gmail.com': 12345,
-};
-//TODO vincular com o banco pra dar sequencia com a logica
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
 
-class LoginScreen extends StatelessWidget {
-  Duration get loginTime => Duration(milliseconds: 2250);
+class _LoginPageState extends State<LoginPage> {
+  final formKey = GlobalKey<FormState>();
+  final email = TextEditingController();
+  final senha = TextEditingController();
 
-  Future<String?> _authUser(LoginData data) {
-    debugPrint('Email: ${data.name}, Senha: ${data.password}');
-    return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(data.name)) {
-        return 'Usuário não encontrado';
+  bool isLogin = true;
+  late String titulo;
+  late String actionButton;
+  late String toggleButton;
+
+  @override
+  void initState() {
+    super.initState();
+    setFormAction(true);
+  }
+
+  setFormAction(bool acao)
+  {
+    setState(() {
+      isLogin = acao;
+      if (isLogin){
+        titulo = 'Bem vindo';
+        actionButton = 'Login';
+        toggleButton = 'Ainda não tem conta? Cadastre-se!';
       }
-      if (users[data.name] != data.password) {
-        return 'Senha incorreta';
+      else {
+        titulo = 'Crie sua conta';
+        actionButton = 'Cadastrar';
+        toggleButton = 'Voltar ao login.';
       }
-      return null;
     });
   }
 
-  Future<String?> _signupUser(SignupData data) {
-    debugPrint('Nome de usuario: ${data.name}, Senha: ${data.password}');
-    return Future.delayed(loginTime).then((_) {
-      return null;
-    });
+  login() async{
+    try {
+      await context.read<AuthService>().login(email.text, senha.text);
+    }
+    on AuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+    }
   }
 
-  Future<String> _recoverPassword(String name) {
-    debugPrint('Nome: $name');
-    return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(name)) {
-        return 'Usuário não encontrado';
-      }
-      return 'Entre com sua senha';
-    });
+  registrar() async{
+    try {
+      await context.read<AuthService>().registrar(email.text, senha.text);
+    }
+    on AuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+    }
   }
-//TODO Inserir logo que ja temos
+
   @override
   Widget build(BuildContext context) {
-    return FlutterLogin(
-      title: 'TO-DO LIST UNIVERSITÁRIO',
-      //logo: AssetImage(''),
-      onLogin: _authUser,
-      onSignup: _signupUser,
-      onSubmitAnimationCompleted: () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => HomePage(),
-        ));
-      },
-      onRecoverPassword: _recoverPassword,
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(top: 100),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('images/logo-pi.png'),
+              Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    titulo,
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: -1.5,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(24),
+                    child: TextFormField(
+                      controller: email,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Email',
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Informe o email corretamente!';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+                    child: TextFormField(
+                      controller: senha,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Senha',
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Informa sua senha!';
+                        } else if (value.length < 6) {
+                          return 'Sua senha deve ter no mínimo 6 caracteres';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(24.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          if (isLogin) {
+                            login();
+                          } else {
+                            registrar();
+                          }
+                        }
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.check),
+                          Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Text(
+                              actionButton,
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () => setFormAction(!isLogin),
+                    child: Text(toggleButton),
+                  ),
+                ],
+              ),
+            ),
+          ]),
+        ),
+      ),
     );
   }
 }

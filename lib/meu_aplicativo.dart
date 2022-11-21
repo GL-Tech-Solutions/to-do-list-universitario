@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/pages/home_page.dart';
 import 'package:flutter_aula_1/repositories/listar_tarefas_repository.dart';
 import 'package:flutter_aula_1/repositories/listar_tarefas_repository.dart';
+import 'package:flutter_aula_1/widgets/auth_check.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 
@@ -25,7 +26,7 @@ class MeuAplicativo extends StatelessWidget { //StatelessWidget - Um Widget imut
         GlobalWidgetsLocalizations.delegate
       ],
       supportedLocales: [const Locale('pt', 'BR')],
-      home: HomePage(), //Página inicial. Aqui puxamos uma classe que possui uma página montada pelo Scaffold
+      home: AuthCheck(), //Página inicial. Aqui puxamos uma classe que possui uma página montada pelo Scaffold
     );
   }
 }
