@@ -18,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   late String titulo;
   late String actionButton;
   late String toggleButton;
+  bool loading = false;
 
   @override
   void initState() {
@@ -43,19 +44,23 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   login() async{
+    setState(() => loading = true);
     try {
       await context.read<AuthService>().login(email.text, senha.text);
     }
     on AuthException catch (e) {
+      setState(() => loading = false);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
     }
   }
 
   registrar() async{
+    setState(() => loading = true);
     try {
       await context.read<AuthService>().registrar(email.text, senha.text);
     }
     on AuthException catch (e) {
+      setState(() => loading = false);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
     }
   }
@@ -90,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: email,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Email',
+                        labelText: 'E-mail',
                       ),
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
@@ -135,7 +140,18 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                        children: (loading)
+                        ? [
+                            Padding(
+                              padding: EdgeInsets.all(16),
+                              child: SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(color: Colors.white)
+                              ),
+                            ),
+                          ]
+                        : [
                           Icon(Icons.check),
                           Padding(
                             padding: EdgeInsets.all(16.0),

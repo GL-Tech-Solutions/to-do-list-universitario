@@ -1,7 +1,69 @@
+import 'dart:collection';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/database/db_firestore.dart';
 import 'package:flutter_aula_1/models/disciplina.dart';
 
-class DisciplinaRepository {
+import '../services/auth_service.dart';
+
+class DisciplinaRepository extends ChangeNotifier {
+  /*List<Disciplina> _lista = [];
+  late FirebaseFirestore db;
+  late AuthService auth;
+
+  DisciplinaRepository({required this.auth}) {
+    _startRepository();
+  }
+
+  _startRepository() async {
+    await _startFirestore();
+    await _readDisciplinas();
+  }
+
+  _startFirestore() {
+    db = DBFirestore.get();
+  }
+
+  _readDisciplinas() async {
+    if (auth.usuario != null && _lista.isEmpty) {
+      final snaphot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas').get(); //É possível fazer uma query direto no firebase (where por exemplo)
+      snaphot.docs.forEach((doc) { 
+        Disciplina disciplina = Disciplina(cod: doc.get('cod'), nome: doc.get('nome'), professor: doc.get('professor'), cor: doc.get('cor'));
+        _lista.add(disciplina);
+        notifyListeners();
+      });
+    }
+  }
+
+  UnmodifiableListView<Disciplina> get lista => UnmodifiableListView(_lista);
+
+  saveAll(List<Disciplina> disciplinas) {
+    disciplinas.forEach((disciplina) async { 
+      if (!_lista.any((atual) => atual.cod == disciplina.cod)) {
+        _lista.add(disciplina);
+        await db.collection('usuarios/${auth.usuario!.uid}/disciplinas')
+          .doc(disciplina.cod.toString())
+          .set({
+            'cod': disciplina.cod,
+            'nome': disciplina.nome,
+            'professor': disciplina.professor,
+            'cor': disciplina.cor,
+          });
+      }
+    });
+    notifyListeners();
+  }
+
+  remove(Disciplina disciplina) async {
+    await db
+      .collection('usuarios/${auth.usuario!.uid}/disciplinas')
+      .doc(disciplina.cod.toString())
+      .delete();
+    _lista.remove(disciplina);
+    notifyListeners();
+  }*/
+
   static List<Disciplina> tabela = [
     Disciplina(
       cod: 0,
