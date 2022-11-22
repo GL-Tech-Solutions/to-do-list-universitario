@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/disciplina.dart';
 import '../repositories/disciplina_repository.dart';
@@ -14,7 +15,7 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
   final _question = TextEditingController();
   final _answer = TextEditingController();
   String? _disciplina;
-  final List<Disciplina> _listaDisciplina = DisciplinaRepository.tabela;
+  late DisciplinaRepository drepository;
 
   void dropdownCallbackDisciplina(String? value)
   {
@@ -24,6 +25,8 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
   }
   @override
   Widget build(BuildContext context) {
+    drepository = context.read<DisciplinaRepository>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -76,7 +79,7 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
                         padding: EdgeInsets.only(top: 14),
                         child: DropdownButtonFormField(
                           isExpanded: true,
-                          items: _listaDisciplina.map((op) => DropdownMenuItem(
+                          items: drepository.lista.map((op) => DropdownMenuItem(
                             value: op.nome,
                             child: Text(op.nome, overflow: TextOverflow.ellipsis),
                           )).toList(),

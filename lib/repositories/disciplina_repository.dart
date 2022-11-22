@@ -8,7 +8,7 @@ import 'package:flutter_aula_1/models/disciplina.dart';
 import '../services/auth_service.dart';
 
 class DisciplinaRepository extends ChangeNotifier {
-  /*List<Disciplina> _lista = [];
+  List<Disciplina> _lista = [];
   late FirebaseFirestore db;
   late AuthService auth;
 
@@ -25,11 +25,24 @@ class DisciplinaRepository extends ChangeNotifier {
     db = DBFirestore.get();
   }
 
+  MaterialColor getColor(String color) {
+    if (color == 'Colors.green')
+    {
+      return Colors.green;
+    }
+    else if (color == 'Colors.blue') {
+      return Colors.blue;
+    }
+    else {
+      return Colors.amber;
+    }
+  }
+
   _readDisciplinas() async {
     if (auth.usuario != null && _lista.isEmpty) {
       final snaphot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas').get(); //É possível fazer uma query direto no firebase (where por exemplo)
       snaphot.docs.forEach((doc) { 
-        Disciplina disciplina = Disciplina(cod: doc.get('cod'), nome: doc.get('nome'), professor: doc.get('professor'), cor: doc.get('cor'));
+        Disciplina disciplina = Disciplina(cod: doc.get('cod'), nome: doc.get('nome'), professor: doc.get('professor'), cor: getColor(doc.get('cor')));
         _lista.add(disciplina);
         notifyListeners();
       });
@@ -62,9 +75,9 @@ class DisciplinaRepository extends ChangeNotifier {
       .delete();
     _lista.remove(disciplina);
     notifyListeners();
-  }*/
+  }
 
-  static List<Disciplina> tabela = [
+  /*static List<Disciplina> tabela = [
     Disciplina(
       cod: 0,
       cor: Colors.primaries[0], 
@@ -107,5 +120,5 @@ class DisciplinaRepository extends ChangeNotifier {
       nome: 'Sistemas Operacionais II', 
       professor: 'Helder',
     ),
-  ];
+  ];*/
 }
