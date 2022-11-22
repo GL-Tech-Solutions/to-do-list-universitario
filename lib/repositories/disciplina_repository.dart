@@ -61,7 +61,7 @@ class DisciplinaRepository extends ChangeNotifier {
             'cod': disciplina.cod,
             'nome': disciplina.nome,
             'professor': disciplina.professor,
-            'cor': disciplina.cor,
+            'cor': 'Colors.green',
           });
       }
     });

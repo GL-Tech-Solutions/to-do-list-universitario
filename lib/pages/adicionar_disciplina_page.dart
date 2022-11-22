@@ -1,8 +1,12 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/disciplina.dart';
 
 class AdicionarDisciplinaPage extends StatefulWidget {
   const AdicionarDisciplinaPage({super.key});
@@ -17,6 +21,13 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
   final _professor = TextEditingController();
   Color color = Colors.primaries[Random().nextInt(Colors.primaries.length)];
 
+  void salvar()
+  {
+    Disciplina disciplina = Disciplina(cod: 1, cor: Colors.green, nome: _nome.text, professor: _professor.text);
+    List<Disciplina> lista = [];
+    lista.add(disciplina);
+    Provider.of<DisciplinaRepository>(context, listen: false).saveAll(lista);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +122,11 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
                   alignment: Alignment.bottomCenter,
                   margin: EdgeInsets.only(top: 24),
                   child: ElevatedButton(
-                    onPressed: null,
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple[800])),
+                    onPressed: (() {
+                      salvar();
+                      Navigator.pop(context);
+                    }),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

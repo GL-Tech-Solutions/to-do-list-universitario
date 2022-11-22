@@ -66,7 +66,7 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
           return disciplinas.lista.isEmpty
           ? ListTile(
               leading: Icon(Icons.book),
-              title: Text('Ainda não disciplinas')
+              title: Text('Ainda não há disciplinas')
             )
           : ListView.separated( //Corpo do App - Neste caso, uma ListView
               itemBuilder: (BuildContext context, int disciplina) {
