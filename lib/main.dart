@@ -19,9 +19,9 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => AuthService()),
         ChangeNotifierProvider(create: (context) => ListarTarefasRepository()),
         ChangeNotifierProvider(create: (context) => Selecionadas()),
-        /*ChangeNotifierProvider(create: (context) => DisciplinaRepository(
+        ChangeNotifierProvider(create: (context) => DisciplinaRepository(
           auth: context.read<AuthService>()
-        )),*/
+        )),
       ],
       child: MeuAplicativo(),
     ),

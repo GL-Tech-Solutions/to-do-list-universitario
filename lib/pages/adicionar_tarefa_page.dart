@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:provider/provider.dart';
 
 import '../models/disciplina.dart';
 
@@ -23,7 +24,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
   String? _disciplina;
   var _data = TextEditingController();
   final _descricao = TextEditingController();
-  final List<Disciplina> _listaDisciplina = DisciplinaRepository.tabela;
+  late DisciplinaRepository drepository;
   DateTime date = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   final maskDateFormatter = MaskTextInputFormatter(
@@ -48,6 +49,8 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
 
   @override
   Widget build(BuildContext context) {
+    drepository = context.read<DisciplinaRepository>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Adicionar Tarefa'),
@@ -100,7 +103,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                         padding: EdgeInsets.only(top: 14),
                         child: DropdownButtonFormField(
                           isExpanded: true,
-                          items: _listaDisciplina.map((op) => DropdownMenuItem(
+                          items: drepository.lista.map((op) => DropdownMenuItem(
                             value: op.nome,
                             child: Text(op.nome, overflow: TextOverflow.ellipsis),
                           )).toList(),

@@ -14,7 +14,7 @@ class AppBarTarefas extends StatefulWidget {
 }
 
 class _AppBarTarefasState extends State<AppBarTarefas> {
-  List<Disciplina> tabelaD = DisciplinaRepository.tabela;
+  late DisciplinaRepository drepository;
   late Selecionadas se;
   
   String getInitials(String disciplineName) {
@@ -41,6 +41,7 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
   @override
   Widget build(BuildContext context) {
     se = context.watch<Selecionadas>();
+    drepository = context.read<DisciplinaRepository>();
     if(se.selecionadas.isEmpty) //Se lista de selecionadas estiver vazia, fica na AppBar padrão
     {
       return SliverAppBar(
@@ -52,7 +53,7 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
           PopupMenuButton(
             icon: Icon(Icons.sort),
             itemBuilder: (context) => 
-              tabelaD.map((op) => 
+              drepository.lista.map((op) => 
                 PopupMenuItem(
                   child: ListTile(
                     shape: RoundedRectangleBorder( //Ajusta os componentes da lista para um formato circular

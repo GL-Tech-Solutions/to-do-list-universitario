@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:provider/provider.dart';
 
 import '../models/disciplina.dart';
 import '../models/tarefa.dart';
@@ -21,7 +22,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
   String? _tipo;
   String? _disciplina;
   var _data;
-  final List<Disciplina> _listaDisciplina = DisciplinaRepository.tabela;
+  late DisciplinaRepository drepository;
   DateTime date = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   final maskDateFormatter = MaskTextInputFormatter(
@@ -53,6 +54,8 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
 
   @override
   Widget build(BuildContext context) {
+    drepository = context.read<DisciplinaRepository>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Editar Tarefa'),
@@ -106,7 +109,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                         padding: EdgeInsets.only(top: 14),
                         child: DropdownButtonFormField(
                           isExpanded: true,
-                          items: _listaDisciplina.map((op) => DropdownMenuItem(
+                          items: drepository.lista.map((op) => DropdownMenuItem(
                             value: op.nome,
                             child: Text(op.nome, overflow: TextOverflow.ellipsis),
                           )).toList(),

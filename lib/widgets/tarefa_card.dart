@@ -20,10 +20,10 @@ class TarefaCard extends StatefulWidget {
 
 class _TarefaCardState extends State<TarefaCard> {
   late ListarTarefasRepository tarefas;
-  List<Tarefa> tabela = TarefaRepository.tabela;
+  late DisciplinaRepository drepository;
   late Selecionadas se;
 
-  void alterarStatusTarefa(int cod)
+  /*void alterarStatusTarefa(int cod)
   {
     setState(() {
       (tabela[cod].status == 'Finalizado')
@@ -32,7 +32,7 @@ class _TarefaCardState extends State<TarefaCard> {
       ? tabela[cod].status = 'Finalizado' : null;
     });
     Provider.of<ListarTarefasRepository>(context, listen: false).refresh();
-  }
+  }*/
 
   void abrirDetalhes(Tarefa tarefa) {
     Navigator.push(
@@ -55,7 +55,9 @@ class _TarefaCardState extends State<TarefaCard> {
   @override
   Widget build(BuildContext context) {
     se = context.watch<Selecionadas>();
+    drepository = context.watch<DisciplinaRepository>();
     tarefas = context.watch<ListarTarefasRepository>();
+
     return Card(
       margin: EdgeInsets.only(top: 8),
       elevation: 2,
@@ -87,25 +89,25 @@ class _TarefaCardState extends State<TarefaCard> {
             border: (se.selecionadas.contains(widget.tarefa)) 
             ? Border(
               top: BorderSide(
-                color: DisciplinaRepository.tabela[widget.tarefa.codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
+                color: drepository.lista[widget.tarefa.codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
                 width: 5
               ),
               left: BorderSide(
-                color: DisciplinaRepository.tabela[widget.tarefa.codDisciplina].cor,
+                color: drepository.lista[widget.tarefa.codDisciplina].cor,
                 width: 2,
               ),
               right: BorderSide(
-                color: DisciplinaRepository.tabela[widget.tarefa.codDisciplina].cor,
+                color: drepository.lista[widget.tarefa.codDisciplina].cor,
                 width: 2,
               ),
               bottom: BorderSide(
-                color: DisciplinaRepository.tabela[widget.tarefa.codDisciplina].cor,
+                color: drepository.lista[widget.tarefa.codDisciplina].cor,
                 width: 2,
               )
             )
             : Border(
               top: BorderSide(
-                color: DisciplinaRepository.tabela[widget.tarefa.codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
+                color: drepository.lista[widget.tarefa.codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
                 width: 5
               ),
             ),
@@ -119,7 +121,7 @@ class _TarefaCardState extends State<TarefaCard> {
                   ? Icon(Icons.circle_outlined)
                   : Icon(Icons.check_circle, color: Colors.green),
                   onPressed: () {
-                    alterarStatusTarefa(widget.tarefa.cod);
+                    //alterarStatusTarefa(widget.tarefa.cod);
                   } 
                 )
               : (se.selecionadas.contains(widget.tarefa)) ?

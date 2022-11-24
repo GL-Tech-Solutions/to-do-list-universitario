@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:provider/provider.dart';
 
 import '../models/disciplina.dart';
+import '../repositories/disciplina_repository.dart';
 
 // ignore: must_be_immutable
 class EditarDisciplinaPage extends StatefulWidget {
@@ -17,12 +19,16 @@ class EditarDisciplinaPage extends StatefulWidget {
 
 class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
   final _form = GlobalKey<FormState>(); // Gera uma key (identificador) para o formulário
+  final _nome = TextEditingController();
+  final _professor = TextEditingController();
   late Color color;
 
   @override
   void initState() {
     super.initState();
     color = widget.disciplina.cor;
+    _nome.text = widget.disciplina.nome;
+    _professor.text = widget.disciplina.professor;
   }
 
   Widget buildColorPicker() => ColorPicker(
@@ -53,6 +59,16 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
     )
  );
 
+ void salvar()
+  {
+    widget.disciplina.nome = _nome.text;
+    widget.disciplina.professor = _professor.text;
+    widget.disciplina.cor = color;
+    List<Disciplina> lista = [];
+    lista.add(widget.disciplina);
+    Provider.of<DisciplinaRepository>(context, listen: false).saveAll(lista);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,8 +92,7 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                     children: [
                       TextFormField(
                         maxLines: null,
-                        initialValue: widget.disciplina.nome,
-                        controller: null,
+                        controller: _nome,
                         style: TextStyle(
                           fontSize: 18
                         ),
@@ -92,8 +107,7 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                         padding: EdgeInsets.only(top: 14),
                         child: TextFormField(
                           maxLines: null,
-                          initialValue: widget.disciplina.professor,
-                          controller: null,
+                          controller: _professor,
                           style: TextStyle(
                             fontSize: 18
                           ),
@@ -142,13 +156,14 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                     ],
                 ),
                 Container(
-                  decoration: BoxDecoration(
-                    color: Colors.purple[800]
-                  ),
                   alignment: Alignment.bottomCenter,
                   margin: EdgeInsets.only(top: 24),
                   child: ElevatedButton(
-                    onPressed: null,
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple[800])),
+                    onPressed: (() {
+                      salvar();
+                      Navigator.pop(context);
+                    }),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
