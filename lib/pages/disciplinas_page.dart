@@ -118,6 +118,7 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
                           title: Text('Remover Disciplina'),
                           contentPadding: EdgeInsets.symmetric(horizontal: 5),
                           onTap: () {
+                            disciplinas.remove(disciplinas.lista[disciplina]);
                             Navigator.pop(context);
                           },
                         ),

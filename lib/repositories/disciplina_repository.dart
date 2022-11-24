@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -25,25 +26,14 @@ class DisciplinaRepository extends ChangeNotifier {
     db = DBFirestore.get();
   }
 
-  MaterialColor getColor(String color) {
-    if (color == 'Colors.green')
-    {
-      return Colors.green;
-    }
-    else if (color == 'Colors.blue') {
-      return Colors.blue;
-    }
-    else {
-      return Colors.amber;
-    }
-  }
-
   _readDisciplinas() async {
-    if (auth.usuario != null && _lista.isEmpty) {
+    if (auth.usuario != null) {
+      _lista = [];
       final snaphot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas').get(); //É possível fazer uma query direto no firebase (where por exemplo)
       snaphot.docs.forEach((doc) { 
-        Disciplina disciplina = Disciplina(cod: doc.get('cod'), nome: doc.get('nome'), professor: doc.get('professor'), cor: getColor(doc.get('cor')));
+        Disciplina disciplina = Disciplina(cod: doc.id, nome: doc.get('nome'), professor: doc.get('professor'), cor: Disciplina.toColor(doc.get('cor')));
         _lista.add(disciplina);
+        _lista.sort((a, b) => a.nome.compareTo(b.nome));
         notifyListeners();
       });
     }
@@ -53,72 +43,25 @@ class DisciplinaRepository extends ChangeNotifier {
 
   saveAll(List<Disciplina> disciplinas) {
     disciplinas.forEach((disciplina) async { 
-      if (!_lista.any((atual) => atual.cod == disciplina.cod)) {
-        _lista.add(disciplina);
         await db.collection('usuarios/${auth.usuario!.uid}/disciplinas')
-          .doc(disciplina.cod.toString())
+          .doc(disciplina.cod ?? null)
           .set({
-            'cod': disciplina.cod,
             'nome': disciplina.nome,
             'professor': disciplina.professor,
-            'cor': 'Colors.green',
+            'cor': disciplina.cor.toString(),
           });
       }
-    });
+    );
+    _readDisciplinas();
     notifyListeners();
   }
 
   remove(Disciplina disciplina) async {
     await db
       .collection('usuarios/${auth.usuario!.uid}/disciplinas')
-      .doc(disciplina.cod.toString())
+      .doc(disciplina.cod)
       .delete();
     _lista.remove(disciplina);
     notifyListeners();
   }
-
-  /*static List<Disciplina> tabela = [
-    Disciplina(
-      cod: 0,
-      cor: Colors.primaries[0], 
-      nome: 'Segurança da Informação', 
-      professor: 'André Luiz',
-    ),
-    Disciplina(
-      cod: 1,
-      cor: Colors.primaries[3], 
-      nome: 'Programação para Dispositivos Móveis', 
-      professor: 'José William',
-    ),
-    Disciplina(
-      cod: 2,
-      cor: Colors.primaries[5], 
-      nome: 'Programação Linear', 
-      professor: 'Carlos Fragoso',
-    ),
-    Disciplina(
-      cod: 3,
-      cor: Colors.primaries[1], 
-      nome: 'Engenharia de Software III', 
-      professor: 'Simone',
-    ),
-    Disciplina(
-      cod: 4,
-      cor: Colors.primaries[8], 
-      nome: 'Inglês V', 
-      professor: 'Elenir',
-    ),
-    Disciplina(
-      cod: 5,
-      cor: Colors.primaries[17], 
-      nome: 'Laboratório de Banco de Dados', 
-      professor: 'Marcio',
-    ),
-    Disciplina(
-      cod: 6,
-      cor: Colors.primaries[12], 
-      nome: 'Sistemas Operacionais II', 
-      professor: 'Helder',
-    ),
-  ];*/
 }

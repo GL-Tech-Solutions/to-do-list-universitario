@@ -23,7 +23,7 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
 
   void salvar()
   {
-    Disciplina disciplina = Disciplina(cod: 1, cor: Colors.green, nome: _nome.text, professor: _professor.text);
+    Disciplina disciplina = Disciplina(cor: color, nome: _nome.text, professor: _professor.text);
     List<Disciplina> lista = [];
     lista.add(disciplina);
     Provider.of<DisciplinaRepository>(context, listen: false).saveAll(lista);
@@ -116,9 +116,6 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
                     ],
                 ),
                 Container(
-                  decoration: BoxDecoration(
-                    color: Colors.purple[800]
-                  ),
                   alignment: Alignment.bottomCenter,
                   margin: EdgeInsets.only(top: 24),
                   child: ElevatedButton(
