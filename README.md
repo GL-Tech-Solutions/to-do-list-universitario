@@ -19,4 +19,5 @@
 · Alterar estrutura model Tarefa para ficar dentro de uma coleção em Disciplinas e conseguir puxar dados de sua Disciplina pai (Exemplo: cor)    
 · Criar query Firebase no TarefaRepository para listar tarefas de forma filtrada (usando where)   
 · Iniciar repositórios assim que iniciar o app   
-**· Deixar funcional todos os Adicionar/Editar/Remover - Discilpinas-Tarefas-Flashcards (Incluindo tarefas selecionadas: Concluir e remover)**
+· Deixar funcional todos os Adicionar/Editar/Remover - Discilpinas-Tarefas-Flashcards (Incluindo tarefas selecionadas: Concluir e remover)**
+
