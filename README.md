@@ -7,9 +7,9 @@
 · Internacionalização   
 · Criar tarefa_detalhes_dialog  
 · Criar page Editar Flashcard   
-· Gerenciamento de estado tarefas pendentes / concluídas  
-· Ajustar editar tarefa para puxar disciplina   
 · Ajustar editar / adicionar tarefa para ter opções de status e visibilidade   
+· Ajustar editar tarefa para puxar disciplina   
+· Gerenciamento de estado tarefas pendentes / concluídas  
 · Filtrar tarefas por disciplina    
 · Clicar na disciplina e ir para tarefas filtrado (MI)  
 
