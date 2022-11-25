@@ -19,7 +19,6 @@ class TarefaCard extends StatefulWidget {
 }
 
 class _TarefaCardState extends State<TarefaCard> {
-  late ListarTarefasRepository tarefas;
   late DisciplinaRepository drepository;
   late Selecionadas se;
 
@@ -56,7 +55,6 @@ class _TarefaCardState extends State<TarefaCard> {
   Widget build(BuildContext context) {
     se = context.watch<Selecionadas>();
     drepository = context.watch<DisciplinaRepository>();
-    tarefas = context.watch<ListarTarefasRepository>();
 
     return Card(
       margin: EdgeInsets.only(top: 8),
@@ -89,25 +87,25 @@ class _TarefaCardState extends State<TarefaCard> {
             border: (se.selecionadas.contains(widget.tarefa)) 
             ? Border(
               top: BorderSide(
-                color: drepository.lista[widget.tarefa.codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
+                color: drepository.lista.firstWhere((element) => element.cod == widget.tarefa.codDisciplina).cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
                 width: 5
               ),
               left: BorderSide(
-                color: drepository.lista[widget.tarefa.codDisciplina].cor,
+                color: drepository.lista.firstWhere((element) => element.cod == widget.tarefa.codDisciplina).cor,
                 width: 2,
               ),
               right: BorderSide(
-                color: drepository.lista[widget.tarefa.codDisciplina].cor,
+                color: drepository.lista.firstWhere((element) => element.cod == widget.tarefa.codDisciplina).cor,
                 width: 2,
               ),
               bottom: BorderSide(
-                color: drepository.lista[widget.tarefa.codDisciplina].cor,
+                color: drepository.lista.firstWhere((element) => element.cod == widget.tarefa.codDisciplina).cor,
                 width: 2,
               )
             )
             : Border(
               top: BorderSide(
-                color: drepository.lista[widget.tarefa.codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
+                color: drepository.lista.firstWhere((element) => element.cod == widget.tarefa.codDisciplina).cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
                 width: 5
               ),
             ),
@@ -248,9 +246,8 @@ class _TarefaCardState extends State<TarefaCard> {
                       title: Text('Remover Tarefa'),
                       contentPadding: EdgeInsets.symmetric(horizontal: 5),
                       onTap: () {
+                        Provider.of<TarefaRepository>(context, listen: false).remove(widget.tarefa);
                         Navigator.pop(context);
-                        Provider.of<ListarTarefasRepository>(context, listen: false)
-                            .remove(widget.tarefa);
                       },
                     ),
                   ),

@@ -6,7 +6,7 @@ import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import '../models/tarefa.dart';
 
 class ListarTarefasRepository extends ChangeNotifier{
-  final _listaInicial = TarefaRepository.tabela;
+  /*final _listaInicial = TarefaRepository.tabela;
   var _lista = TarefaRepository.tabela;
   
   UnmodifiableListView<Tarefa> get lista => UnmodifiableListView(_lista);
@@ -43,5 +43,5 @@ class ListarTarefasRepository extends ChangeNotifier{
         _listaConcluidas.add(tarefa);
       }
     });
-  }*/
+  }*/*/
 }

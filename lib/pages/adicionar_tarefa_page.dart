@@ -4,11 +4,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
+import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 
 import '../models/disciplina.dart';
+import '../models/tarefa.dart';
 
 class AdiconarTarefaPage extends StatefulWidget {
   const AdiconarTarefaPage({super.key});
@@ -26,6 +28,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
   final _descricao = TextEditingController();
   late DisciplinaRepository drepository;
   DateTime date = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  late DateTime dataDate;
 
   final maskDateFormatter = MaskTextInputFormatter(
     mask: 'xx/xx/xxxx',
@@ -45,6 +48,22 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
     setState(() {
       _disciplina = value;
     });
+  }
+
+  void salvar()
+  {
+    Tarefa tarefa = Tarefa(
+      nome: _nome.text,
+      descricao: _descricao.text,
+      codDisciplina: _disciplina!,
+      tipo: _tipo!,
+      data: dataDate,
+      status: 'Finalizado',
+      visibilidade: true
+    );
+    List<Tarefa> lista = [];
+    lista.add(tarefa);
+    Provider.of<TarefaRepository>(context, listen: false).saveAll(lista);
   }
 
   @override
@@ -104,7 +123,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                         child: DropdownButtonFormField(
                           isExpanded: true,
                           items: drepository.lista.map((op) => DropdownMenuItem(
-                            value: op.nome,
+                            value: op.cod,
                             child: Text(op.nome, overflow: TextOverflow.ellipsis),
                           )).toList(),
                           value: _disciplina,
@@ -140,7 +159,10 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                   lastDate: DateTime(2030),
                                 );
                                 if (newDate != null) {
-                                  setState(() => _data.text = DateFormat('dd/MM/yyyy').format(DateTime(newDate.year, newDate.month, newDate.day)));
+                                  setState(() {
+                                    dataDate = newDate;
+                                    _data.text = DateFormat('dd/MM/yyyy').format(DateTime(newDate.year, newDate.month, newDate.day));
+                                  });
                                 }
                               }, 
                               icon: Icon(Icons.calendar_month)
@@ -175,7 +197,10 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                   child: ElevatedButton(
                     style: ButtonStyle(
                     ),
-                    onPressed: null,
+                    onPressed: (() {
+                      salvar();
+                      Navigator.pop(context);
+                    }),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
