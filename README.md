@@ -3,7 +3,7 @@
 ### 📝 Interface / Funcionalidades
 
 · Clicar na data e subir bottom sheet com lista de tarefas  
-· Internacionalização  (FINALIZANDO) 
+· Internacionalização  (FINALIZANDO)  
 · Criar tarefa_detalhes_dialog  
 · Criar page Editar Flashcard   
 
