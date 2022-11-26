@@ -86,14 +86,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
   Widget build(BuildContext context) {
     drepository = context.read<DisciplinaRepository>();
 
-    return /*MaterialApp(
-      localizationsDelegates: [ S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate
-      ],
-      debugShowCheckedModeBanner: false,
-      home: */Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).Editar),
       ),
@@ -139,7 +132,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                           value: _tipo,
                           validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                             if (value == null) {
-                              return 'Informe um tipo!';
+                              return S.of(context).InformeTipo;
                             }
                             return null;
                           },
@@ -164,7 +157,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                           value: _disciplina,
                           validator: (value) {
                             if (value == null) {
-                              return 'Informe uma disciplina!';
+                              return S.of(context).InformeDisciplina;
                             }
                             return null;
                           },

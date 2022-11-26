@@ -67,7 +67,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
       codDisciplina: _disciplina!,
       tipo: _tipo!,
       data: DateTime(int.parse(_data.text.substring(6,10)), int.parse(_data.text.substring(3,5)), int.parse(_data.text.substring(0,2))),
-      status: 'Aberto',
+      status: S.of(context).Aberto,
       visibilidade: _visibilidade
       );
       List<Tarefa> lista = [];

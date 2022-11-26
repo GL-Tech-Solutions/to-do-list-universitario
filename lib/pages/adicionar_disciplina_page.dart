@@ -34,14 +34,7 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
 
   @override
   Widget build(BuildContext context) {
-    return /*MaterialApp(
-      localizationsDelegates: [S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate
-      ],
-      debugShowCheckedModeBanner: false,
-      home: */Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(
           S.of(context).Adicionar
