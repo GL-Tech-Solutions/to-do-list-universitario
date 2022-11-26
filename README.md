@@ -7,10 +7,10 @@
 · Internacionalização   
 · Criar tarefa_detalhes_dialog  
 · Criar page Editar Flashcard   
-· Ajustar editar / adicionar tarefa para ter opções de status e visibilidade   
-· Ajustar editar tarefa para puxar disciplina   
-· Gerenciamento de estado tarefas pendentes / concluídas  
-· Filtrar tarefas por disciplina    
+· Ajustar editar / adicionar tarefa para ter opções de status e visibilidade :white_check_mark:   
+· Ajustar editar tarefa para puxar disciplina :white_check_mark:   
+· Gerenciamento de estado tarefas pendentes / concluídas :white_check_mark:  
+· Filtrar tarefas por disciplina :white_check_mark:    
 · Clicar na disciplina e ir para tarefas filtrado (MI)  
 
 ### :fire: Integração completa Firebase   
@@ -23,5 +23,5 @@
 · Realizar configurações similares para integrar FlashCards ao Firebase      
 · Iniciar repositórios assim que iniciar o app   
 **· Deixar funcional todos os Adicionar/Editar/Remover - Discilpinas** :white_check_mark:   
-**· Deixar funcional todos os Adicionar/Editar/Remover - Tarefas (Incluindo quando selecioná-las - Concluir e Remover)**   
+**· Deixar funcional todos os Adicionar/Editar/Remover - Tarefas (Incluindo quando selecioná-las - Concluir e Remover)** :white_check_mark:   
 **· Deixar funcional todos os Adicionar/Editar/Remover - FlashCards**   
