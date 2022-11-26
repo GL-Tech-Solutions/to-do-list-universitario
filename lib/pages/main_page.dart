@@ -32,6 +32,7 @@ class _MainPageState extends State<MainPage> {
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).Titulo),

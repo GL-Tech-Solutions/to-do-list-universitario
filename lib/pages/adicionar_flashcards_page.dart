@@ -34,6 +34,7 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
       appBar: AppBar(
         title: Text(

@@ -37,6 +37,7 @@ class _PendentesPageState extends State<PendentesPage> {
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
+      debugShowCheckedModeBanner: false,
       home: Container(
       color: Colors.indigo.withOpacity(0.05),
       height: MediaQuery.of(context).size.height,

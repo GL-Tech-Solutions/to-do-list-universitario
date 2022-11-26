@@ -40,6 +40,7 @@ adicionarFlashcard() {
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).FlashCards),

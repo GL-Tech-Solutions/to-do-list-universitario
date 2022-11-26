@@ -59,6 +59,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).Adicionar),

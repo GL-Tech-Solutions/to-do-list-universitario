@@ -64,6 +64,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).Editar),

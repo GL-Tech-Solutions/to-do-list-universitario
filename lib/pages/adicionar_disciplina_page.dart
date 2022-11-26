@@ -39,6 +39,7 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
       appBar: AppBar(
         title: Text(

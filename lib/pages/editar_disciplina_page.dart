@@ -79,6 +79,7 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
       appBar: AppBar(
         title: Text(

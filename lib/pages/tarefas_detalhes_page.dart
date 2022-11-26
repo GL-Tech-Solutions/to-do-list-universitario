@@ -16,6 +16,7 @@ class TarefasDetalhesPage extends StatelessWidget {
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
 
       ),

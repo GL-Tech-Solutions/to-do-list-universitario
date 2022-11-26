@@ -65,6 +65,7 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
+      debugShowCheckedModeBanner: false,
       home: Scaffold( //Scaffold serve para formatar nossa tela em um MaterialApp
       appBar: AppBar(
         title: Text(S.of(context).Disciplinas),

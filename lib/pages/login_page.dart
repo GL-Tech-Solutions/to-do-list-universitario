@@ -76,6 +76,7 @@ class _LoginPageState extends State<LoginPage> {
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
       body: SingleChildScrollView(
         reverse: true,

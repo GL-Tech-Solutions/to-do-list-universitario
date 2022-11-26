@@ -40,6 +40,7 @@ class _HomePageState extends State<HomePage> {
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
       body: PageView(
         controller: pc,
