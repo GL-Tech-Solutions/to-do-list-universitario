@@ -61,12 +61,15 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
 
  void salvar()
   {
-    widget.disciplina.nome = _nome.text;
-    widget.disciplina.professor = _professor.text;
-    widget.disciplina.cor = color;
-    List<Disciplina> lista = [];
-    lista.add(widget.disciplina);
-    Provider.of<DisciplinaRepository>(context, listen: false).saveAll(lista);
+    if (_form.currentState!.validate()) {
+      widget.disciplina.nome = _nome.text;
+      widget.disciplina.professor = _professor.text;
+      widget.disciplina.cor = color;
+      List<Disciplina> lista = [];
+      lista.add(widget.disciplina);
+      Provider.of<DisciplinaRepository>(context, listen: false).saveAll(lista);
+      Navigator.pop(context);
+    }
   }
 
   @override
@@ -102,6 +105,12 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                           ),
                           labelText: 'Nome'
                         ),
+                        validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
+                          if (value == null || value.isEmpty) {
+                            return 'Informe um nome!';
+                          }
+                          return null;
+                        },
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 14),
@@ -117,6 +126,12 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                             ),
                             labelText: 'Professor'
                           ),
+                          validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
+                          if (value == null || value.isEmpty) {
+                            return 'Informe um professor!';
+                          }
+                          return null;
+                        },
                         ),
                       ),
                     ],
@@ -162,7 +177,6 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                     style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple[800])),
                     onPressed: (() {
                       salvar();
-                      Navigator.pop(context);
                     }),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
