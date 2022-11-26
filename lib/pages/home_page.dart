@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         onPageChanged: setPaginaAtual,
         children: [
           MainPage(),
-          DisciplinasPage(),
+          DisciplinasPage(pc: pc),
           TarefasPage(),
           FlashCardsPage(),
         ],

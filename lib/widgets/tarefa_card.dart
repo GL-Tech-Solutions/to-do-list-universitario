@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
@@ -21,20 +23,9 @@ class TarefaCard extends StatefulWidget {
 }
 
 class _TarefaCardState extends State<TarefaCard> {
-  late ListarTarefasRepository tarefas;
   late DisciplinaRepository drepository;
   late Selecionadas se;
-
-  /*void alterarStatusTarefa(int cod)
-  {
-    setState(() {
-      (tabela[cod].status == 'Finalizado')
-      ? tabela[cod].status = 'Aberto'
-      : (tabela[cod].status == 'Aberto')
-      ? tabela[cod].status = 'Finalizado' : null;
-    });
-    Provider.of<ListarTarefasRepository>(context, listen: false).refresh();
-  }*/
+  late TarefaRepository trepository;
 
   void abrirDetalhes(Tarefa tarefa) {
     Navigator.push(
@@ -58,7 +49,7 @@ class _TarefaCardState extends State<TarefaCard> {
   Widget build(BuildContext context) {
     se = context.watch<Selecionadas>();
     drepository = context.watch<DisciplinaRepository>();
-    tarefas = context.watch<ListarTarefasRepository>();
+    trepository = context.watch<TarefaRepository>();
 
     return /*MaterialApp(
       localizationsDelegates: [S.delegate,
@@ -97,25 +88,25 @@ class _TarefaCardState extends State<TarefaCard> {
             border: (se.selecionadas.contains(widget.tarefa)) 
             ? Border(
               top: BorderSide(
-                color: drepository.lista[widget.tarefa.codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
+                color: drepository.lista.firstWhere((element) => element.cod == widget.tarefa.codDisciplina).cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
                 width: 5
               ),
               left: BorderSide(
-                color: drepository.lista[widget.tarefa.codDisciplina].cor,
+                color: drepository.lista.firstWhere((element) => element.cod == widget.tarefa.codDisciplina).cor,
                 width: 2,
               ),
               right: BorderSide(
-                color: drepository.lista[widget.tarefa.codDisciplina].cor,
+                color: drepository.lista.firstWhere((element) => element.cod == widget.tarefa.codDisciplina).cor,
                 width: 2,
               ),
               bottom: BorderSide(
-                color: drepository.lista[widget.tarefa.codDisciplina].cor,
+                color: drepository.lista.firstWhere((element) => element.cod == widget.tarefa.codDisciplina).cor,
                 width: 2,
               )
             )
             : Border(
               top: BorderSide(
-                color: drepository.lista[widget.tarefa.codDisciplina].cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
+                color: drepository.lista.firstWhere((element) => element.cod == widget.tarefa.codDisciplina).cor, //Pega a cor selecionada da disciplina e a coloca na borda superior
                 width: 5
               ),
             ),
@@ -129,7 +120,9 @@ class _TarefaCardState extends State<TarefaCard> {
                   ? Icon(Icons.circle_outlined)
                   : Icon(Icons.check_circle, color: Colors.green),
                   onPressed: () {
-                    //alterarStatusTarefa(widget.tarefa.cod);
+                    List<Tarefa> pressionadas = [];
+                    pressionadas.add(widget.tarefa);
+                    Provider.of<TarefaRepository>(context, listen: false).setStatus(pressionadas);
                   } 
                 )
               : (se.selecionadas.contains(widget.tarefa)) ?
@@ -256,9 +249,10 @@ class _TarefaCardState extends State<TarefaCard> {
                       title: Text(S.of(context).Remover),
                       contentPadding: EdgeInsets.symmetric(horizontal: 5),
                       onTap: () {
+                        List<Tarefa> removidas = [];
+                        removidas.add(widget.tarefa);
+                        Provider.of<TarefaRepository>(context, listen: false).remove(removidas);
                         Navigator.pop(context);
-                        Provider.of<ListarTarefasRepository>(context, listen: false)
-                            .remove(widget.tarefa);
                       },
                     ),
                   ),

@@ -3,14 +3,16 @@ import 'package:flutter_aula_1/models/disciplina.dart';
 import 'package:flutter_aula_1/pages/editar_disciplina_page.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:provider/provider.dart';
 
 import '../generated/l10n.dart';
 import 'adicionar_disciplina_page.dart';
 
 class DisciplinasPage extends StatefulWidget { ////StatefulWidget - Um Widget mutável
+  final PageController? pc;
 
-  const DisciplinasPage({Key? key}) : super(key: key);
+  const DisciplinasPage({Key? key, this.pc}) : super(key: key);
 
   @override
   State<DisciplinasPage> createState() => _DisciplinasPageState();
@@ -83,6 +85,14 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
                   shape: RoundedRectangleBorder( //Ajusta os componentes da lista para um formato circular
                     borderRadius: const BorderRadius.all(Radius.circular(12)),
                     ),
+                  onTap: (() {
+                    Provider.of<TarefaRepository>(context, listen: false).cod = disciplinas.lista[disciplina].cod;
+                    widget.pc?.animateToPage(
+                      2, 
+                      duration: Duration(milliseconds: 200), 
+                      curve: Curves.ease,
+                    );
+                  }),
                   leading: CircleAvatar(
                         backgroundColor: disciplinas.lista[disciplina].cor,
                         child: Text(

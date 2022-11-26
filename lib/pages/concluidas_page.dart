@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../generated/l10n.dart';
 import '../models/tarefa.dart';
 import '../repositories/listar_tarefas_repository.dart';
+import '../repositories/tarefa_respository.dart';
 
 class ConcluidasPage extends StatefulWidget {
   const ConcluidasPage({super.key});
@@ -14,49 +15,33 @@ class ConcluidasPage extends StatefulWidget {
 }
 
 class _ConcluidasPageState extends State<ConcluidasPage> {
-  late ListarTarefasRepository tarefas;
-  List<Tarefa> listaC = [];
-
-  void listarConcluidas()
-  {
-    tarefas = context.watch<ListarTarefasRepository>();
-    tarefas.lista.forEach((tarefa)
-    { 
-      if(!listaC.contains(tarefa) && tarefa.status == S.of(context).Finalizado) {
-        listaC.add(tarefa);
-      }
-    });
-   }
 
   @override
   Widget build(BuildContext context) {
-    listarConcluidas();
-    return /*MaterialApp(
-      localizationsDelegates: [S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate
-      ],
-      debugShowCheckedModeBanner: false,
-      home: */Container(
+    return Container(
       color: Colors.indigo.withOpacity(0.05),
       height: MediaQuery.of(context).size.height,
       padding: EdgeInsets.all(8),
       child: 
-        listaC.isEmpty
-        ? ListTile(
-          leading: Icon(Icons.notes),
-          title: Text(S.of(context).NaoHaTarefas),
-        )
-        : MediaQuery.removePadding(
-          removeTop: true,
-          context: context,
-          child: ListView.builder(
-              itemCount: listaC.length,
-              itemBuilder: (_, index) {
-                return TarefaCard(tarefa: listaC[index]);
-              },
-            ),
+        Consumer<TarefaRepository>(
+          builder:(context, tarefas, child) {
+            return tarefas.listaConcluidas.isEmpty
+          ? ListTile(
+            leading: Icon(Icons.notes),
+            title: Text(S.of(context).NaoHaTarefas)),
+          )
+          : MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: ListView.builder(
+                itemCount: tarefas.listaConcluidas.length,
+                itemBuilder: (_, index) {
+                  //TODO Deixar um if e else if para receber o filtro de disciplinas depois
+                  return TarefaCard(tarefa: tarefas.listaConcluidas[index]);
+                },
+              ),
+            );
+          },
         ),
       //),
       );
