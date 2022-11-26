@@ -34,14 +34,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      localizationsDelegates: [S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate
-      ],
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return Scaffold(
       body: PageView(
         controller: pc,
         physics: NeverScrollableScrollPhysics(),
@@ -70,7 +63,6 @@ class _HomePageState extends State<HomePage> {
           );
         },
         backgroundColor: Colors.grey[100],
-      ),
       ),
     );
   }

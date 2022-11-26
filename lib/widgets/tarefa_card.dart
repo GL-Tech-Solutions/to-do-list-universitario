@@ -60,13 +60,13 @@ class _TarefaCardState extends State<TarefaCard> {
     drepository = context.watch<DisciplinaRepository>();
     tarefas = context.watch<ListarTarefasRepository>();
 
-    return MaterialApp(
+    return /*MaterialApp(
       localizationsDelegates: [S.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
-      home: Card(
+      home: */Card(
       margin: EdgeInsets.only(top: 8),
       elevation: 2,
       child: InkWell(
@@ -268,7 +268,7 @@ class _TarefaCardState extends State<TarefaCard> {
           ),
         ),
       ),
-      ),
+      //),
     );
   }
 }

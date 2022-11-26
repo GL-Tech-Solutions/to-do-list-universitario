@@ -1,6 +1,10 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+
+
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/repositories/locale_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'intl/messages_all.dart';
 
 // **************************************************************************

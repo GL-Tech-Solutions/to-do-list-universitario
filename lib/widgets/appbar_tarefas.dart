@@ -44,13 +44,13 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
   Widget build(BuildContext context) {
     se = context.watch<Selecionadas>();
     drepository = context.read<DisciplinaRepository>();
-    return MaterialApp(
+    /*return MaterialApp(
       localizationsDelegates: [S.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
-      home: 
+      home:*/return
     se.selecionadas.isEmpty ? //Se lista de selecionadas estiver vazia, fica na AppBar padrão
       SliverAppBar(
         title: Text(S.of(context).Tarefas),
@@ -136,7 +136,7 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
           fontSize: 20,
           fontWeight: FontWeight.bold,
         )
-      )
       );
+      //);
     }
 }

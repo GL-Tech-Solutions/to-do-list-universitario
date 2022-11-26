@@ -31,14 +31,14 @@ class _PendentesPageState extends State<PendentesPage> {
   @override
   Widget build(BuildContext context) {
     listarPendentes();
-    return MaterialApp(
+    return /*MaterialApp(
       localizationsDelegates: [S.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
       debugShowCheckedModeBanner: false,
-      home: Container(
+      home:*/ Container(
       color: Colors.indigo.withOpacity(0.05),
       height: MediaQuery.of(context).size.height,
       padding: EdgeInsets.all(8),
@@ -58,7 +58,7 @@ class _PendentesPageState extends State<PendentesPage> {
               },
             ),
         ),
-      ),
+      //),
       );
     }
   }

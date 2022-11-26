@@ -58,14 +58,14 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
   Widget build(BuildContext context) {
     drepository = context.read<DisciplinaRepository>();
 
-    return MaterialApp(
+    return /*MaterialApp(
       localizationsDelegates: [ S.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      home: */Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).Editar),
       ),
@@ -214,7 +214,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
           ),
         ),
       ),
-      ),
+      //),
     );
   }
 }

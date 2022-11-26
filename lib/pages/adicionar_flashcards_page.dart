@@ -28,14 +28,14 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
   Widget build(BuildContext context) {
     drepository = context.read<DisciplinaRepository>();
 
-    return MaterialApp(
+    return /*MaterialApp(
       localizationsDelegates: [S.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      home: */Scaffold(
       appBar: AppBar(
         title: Text(
           S.of(context).Adicionar
@@ -134,7 +134,7 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
           ),
         ),
       ),
-    ),
+    //),
     );
   }
 }

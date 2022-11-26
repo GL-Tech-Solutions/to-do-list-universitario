@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/repositories/locale_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -15,6 +16,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  late LocaleProvider provider;
+  
   adicionarTarefa() {
     Navigator.push(
       context,
@@ -26,14 +29,9 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: [S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate
-      ],
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    provider = context.watch<LocaleProvider>();
+
+    return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).Titulo),
         actions: [
@@ -70,49 +68,24 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
             ),
-            OutlinedButton(
-              onPressed: () => PopupMenuButton(
+            //OutlinedButton(
+              PopupMenuButton(
                 icon: Icon(Icons.more_horiz),
-                itemBuilder: (context) => [
+                itemBuilder: (context) => 
+                AppLocalizationDelegate().supportedLocales.map((op) => 
                   PopupMenuItem(
                     child: ListTile(
                       leading: Icon(Icons.flag, color: Colors.green),
-                      title: Text('PT-BR'),
+                      title: Text(op.toString()),
                       contentPadding: EdgeInsets.symmetric(horizontal: 5),
                       onTap: () {
+                        Provider.of<LocaleProvider>(context, listen: false).setLocale(op);
+                        AppLocalizationDelegate().load(provider.locale);
                         Navigator.of(context).pop();
                       },
-                    ),
-                  ),
-                  PopupMenuItem(
-                    child: ListTile(
-                      leading: Icon(Icons.highlight_remove_outlined, color: Colors.red),
-                      title: Text(S.of(context).Remover),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 5),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ],
+                    ),  
+                  )).toList(),
               ),
-              style: OutlinedButton.styleFrom(
-                backgroundColor: Colors.grey[800],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(Icons.language, color: Colors.black),
-                  Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text(
-                      S.of(context).Idioma,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             OutlinedButton(
               onPressed: () => context.read<AuthService>().logout(),
               style: OutlinedButton.styleFrom(
@@ -153,7 +126,6 @@ class _MainPageState extends State<MainPage> {
             backgroundColor: Colors.deepOrange[400],
             child: Icon(Icons.add, size: 30,)
             ),
-        )
     );
   }
 }

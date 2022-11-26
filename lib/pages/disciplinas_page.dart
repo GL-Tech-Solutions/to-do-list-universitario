@@ -59,14 +59,14 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
 
   @override
   Widget build(BuildContext context) { //Método build cria o widget em si
-    return MaterialApp(
+    return /*MaterialApp(
       localizationsDelegates: [ S.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
       debugShowCheckedModeBanner: false,
-      home: Scaffold( //Scaffold serve para formatar nossa tela em um MaterialApp
+      home: */Scaffold( //Scaffold serve para formatar nossa tela em um MaterialApp
       appBar: AppBar(
         title: Text(S.of(context).Disciplinas),
       ),
@@ -148,7 +148,7 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
          backgroundColor: Colors.deepOrange[400],
          child: Icon(Icons.add, size: 30,)
       ),
-      ),
+      //),
     );
   }
 }

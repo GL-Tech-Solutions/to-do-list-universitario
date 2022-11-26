@@ -34,14 +34,7 @@ adicionarFlashcard() {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: [ S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate
-      ],
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).FlashCards),
         actions: [
@@ -143,7 +136,7 @@ adicionarFlashcard() {
             backgroundColor: Colors.deepOrange[400],
             child: Icon(Icons.add, size: 30,)
          ),*/
-      ),
+      //),
     );
   }
 
