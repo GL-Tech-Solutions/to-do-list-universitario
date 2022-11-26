@@ -59,14 +59,7 @@ class _TarefasPageState extends State<TarefasPage> with SingleTickerProviderStat
   
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: [S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate
-      ],
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
@@ -89,7 +82,6 @@ class _TarefasPageState extends State<TarefasPage> with SingleTickerProviderStat
         backgroundColor: Colors.deepOrange[400],
         child: Icon(Icons.add, size: 30,)
         ),
-      ),
     );
   }
 }

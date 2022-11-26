@@ -44,15 +44,15 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
   Widget build(BuildContext context) {
     se = context.watch<Selecionadas>();
     drepository = context.read<DisciplinaRepository>();
-    if(se.selecionadas.isEmpty) //Se lista de selecionadas estiver vazia, fica na AppBar padrão
-    {
-      return MaterialApp(
+    return MaterialApp(
       localizationsDelegates: [S.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate
       ],
-      home: SliverAppBar(
+      home: 
+    se.selecionadas.isEmpty ? //Se lista de selecionadas estiver vazia, fica na AppBar padrão
+      SliverAppBar(
         title: Text(S.of(context).Tarefas),
         backgroundColor: Colors.deepOrange,
         pinned: true,
@@ -89,12 +89,11 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
             child: widget.tabBar
           ),
         ),
-      ),
-      );
-    }
-    else //Se lista de selecionadas não estiver vazia, fica na AppBar de selecionadas
-    {
-      return SliverAppBar(
+      )
+    
+    : //Se lista de selecionadas não estiver vazia, fica na AppBar de selecionadas
+    
+      SliverAppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back), 
           onPressed: () {
@@ -137,7 +136,7 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
           fontSize: 20,
           fontWeight: FontWeight.bold,
         )
+      )
       );
     }
-  }
 }
