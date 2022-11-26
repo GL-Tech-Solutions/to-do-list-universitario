@@ -11,7 +11,7 @@
 · Ajustar editar tarefa para puxar disciplina :white_check_mark:   
 · Gerenciamento de estado tarefas pendentes / concluídas :white_check_mark:  
 · Filtrar tarefas por disciplina :white_check_mark:    
-· Clicar na disciplina e ir para tarefas filtrado (MI)  
+· Clicar na disciplina e ir para tarefas filtrado (MI) :white_check_mark:  
 
 ### :fire: Integração completa Firebase   
 · Alterar estrutura model Disciplina para aceitar uma Color em vez de MaterialColor :white_check_mark:   
