@@ -4,11 +4,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 
+import '../generated/l10n.dart';
 import '../models/disciplina.dart';
 import '../models/tarefa.dart';
 
@@ -79,9 +81,16 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
   Widget build(BuildContext context) {
     drepository = context.read<DisciplinaRepository>();
 
-    return Scaffold(
+    return /*MaterialApp(
+      localizationsDelegates: [S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate
+      ],
+      debugShowCheckedModeBanner: false,
+      home: */Scaffold(
       appBar: AppBar(
-        title: Text('Adicionar Tarefa'),
+        title: Text(S.of(context).Adicionar),
       ),
       body: Center(
         child: Padding(
@@ -103,7 +112,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(16))
                           ),
-                          labelText: 'Nome'
+                          labelText: S.of(context).Nome
                         ),
                         validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                           if (value == null || value.isEmpty) {
@@ -116,11 +125,11 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                         padding: EdgeInsets.only(top: 14),
                         child: DropdownButtonFormField(
                           items: [
-                            DropdownMenuItem(value: 'Atividade', child: Text('Atividade')),
-                            DropdownMenuItem(value: 'Trabalho', child: Text('Trabalho')),
-                            DropdownMenuItem(value: 'Prova', child: Text('Prova')),
-                            DropdownMenuItem(value: 'Reunião', child: Text('Reunião')),
-                            DropdownMenuItem(value: 'Outros', child: Text('Outros')),
+                            DropdownMenuItem(value: 'Atividade', child: Text(S.of(context).Atividade)),
+                            DropdownMenuItem(value: 'Trabalho', child: Text(S.of(context).Trabalho)),
+                            DropdownMenuItem(value: 'Prova', child: Text(S.of(context).Prova)),
+                            DropdownMenuItem(value: 'Reunião', child: Text(S.of(context).Reuniao)),
+                            DropdownMenuItem(value: 'Outros', child: Text(S.of(context).Outros)),
                           ],
                           value: _tipo,
                           onChanged: dropdownCallbackTipo,
@@ -135,7 +144,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(16))
                             ),
-                            labelText: 'Tipo'
+                            labelText: S.of(context).Tipo
                           ),
                         ),
                       ),
@@ -160,7 +169,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(16))
                             ),
-                            labelText: 'Disciplina'
+                            labelText: S.of(context).Disciplina
                           ),
                         ),
                       ),
@@ -207,6 +216,20 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                 ),
                               ),
                             ),
+                            labelText: S.of(context).DataFinal,
+                            suffixIcon: IconButton(
+                              onPressed: () async {
+                                DateTime? newDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: date,
+                                  firstDate: DateTime(DateTime.now().year),
+                                  lastDate: DateTime(2030),
+                                );
+                                if (newDate != null) {
+                                  setState(() => _data.text = DateFormat('dd/MM/yyyy').format(DateTime(newDate.year, newDate.month, newDate.day)));
+                                }
+                              }, 
+                              icon: Icon(Icons.calendar_month)
                             Container(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -232,7 +255,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(16))
                             ),
-                            labelText: 'Descrição',
+                            labelText: S.of(context).Descricao,
                             alignLabelWithHint: true
                           ),
                         ),
@@ -254,7 +277,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                         Padding(
                           padding: EdgeInsets.all(16),
                           child: Text(
-                            'SALVAR',
+                            S.of(context).Salvar,
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.white
@@ -270,6 +293,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
           ),
         ),
       ),
+      //),
     );
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
-import '../models/disciplina.dart';
+import '../generated/l10n.dart';
 import '../repositories/disciplina_repository.dart';
 
 class AdicionarFlashcardsPage extends StatefulWidget {
@@ -27,10 +28,17 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
   Widget build(BuildContext context) {
     drepository = context.read<DisciplinaRepository>();
 
-    return Scaffold(
+    return /*MaterialApp(
+      localizationsDelegates: [S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate
+      ],
+      debugShowCheckedModeBanner: false,
+      home: */Scaffold(
       appBar: AppBar(
         title: Text(
-          'Adicionar flashcard'
+          S.of(context).Adicionar
         ),
       ),
       body: Center(
@@ -56,7 +64,7 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(16))
                           ),
-                          labelText: 'Pergunta'
+                          labelText: S.of(context).Pergunta
                         ),
                       ),
                       Padding(
@@ -71,7 +79,7 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(16))
                             ),
-                            labelText: 'Resposta'
+                            labelText: S.of(context).Resposta
                           ),
                         ),
                       ),
@@ -90,7 +98,7 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(16))
                             ),
-                            labelText: 'Disciplina'
+                            labelText: S.of(context).Disciplina
                           ),
                         ),
                       ),
@@ -110,7 +118,7 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
                       children: [
                         Padding(padding: EdgeInsets.all(16),
                         child: Text(
-                          'SALVAR',
+                          S.of(context).Salvar,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18
@@ -126,6 +134,7 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
           ),
         ),
       ),
+    //),
     );
   }
 }

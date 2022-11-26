@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
+import '../generated/l10n.dart';
 import '../models/disciplina.dart';
 import '../repositories/disciplina_repository.dart';
 
@@ -40,14 +42,14 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
  void pickColor(BuildContext context) => showDialog(
     context: context, 
     builder: (context) => AlertDialog(
-      title: Text('Escolha a cor para a disciplina'),
+      title: Text(S.of(context).EscolhaACorParaADisciplina),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           buildColorPicker(),
         TextButton(
           child: Text(
-            'SELECIONAR',
+            S.of(context).Selecionar,
         style: TextStyle(
           fontSize: 14,
         ),
@@ -74,10 +76,17 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return /*MaterialApp(
+      localizationsDelegates: [ S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate
+      ],
+      debugShowCheckedModeBanner: false,
+      home: */Scaffold(
       appBar: AppBar(
         title: Text(
-          'Adicionar disciplina'
+          S.of(context).Adicionar
         ),
       ),
       body: Center(
@@ -103,7 +112,7 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(16))
                           ),
-                          labelText: 'Nome'
+                          labelText: S.of(context).Nome
                         ),
                         validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                           if (value == null || value.isEmpty) {
@@ -124,7 +133,7 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(16))
                             ),
-                            labelText: 'Professor'
+                            labelText: S.of(context).Professor
                           ),
                           validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                           if (value == null || value.isEmpty) {
@@ -161,7 +170,7 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                           padding: EdgeInsets.all(10),
                           alignment: Alignment.center
                           ),     
-                        child: Text('Escolher cor',
+                        child: Text(S.of(context).EscolherCor,
                         style: TextStyle(fontSize: 14),
                         ),
                         onPressed: () => pickColor(context),
@@ -199,6 +208,7 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
           ),
         ),
       ),
+      //),
     );
   }
 }

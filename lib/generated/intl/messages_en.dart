@@ -21,5 +21,62 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{};
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Aberto": MessageLookupByLibrary.simpleMessage("Opened"),
+        "Adicionar": MessageLookupByLibrary.simpleMessage("Add"),
+        "Atividade": MessageLookupByLibrary.simpleMessage("Activity"),
+        "Cadastrar": MessageLookupByLibrary.simpleMessage("Register"),
+        "Caracteres": MessageLookupByLibrary.simpleMessage(
+            "Your password must contain at least 6 characters"),
+        "Concluir": MessageLookupByLibrary.simpleMessage("Conclude"),
+        "Config": MessageLookupByLibrary.simpleMessage("Settings"),
+        "Consluidas": MessageLookupByLibrary.simpleMessage("COMPLETED"),
+        "CrieConta":
+            MessageLookupByLibrary.simpleMessage("Create your account!"),
+        "DataFinal": MessageLookupByLibrary.simpleMessage("End date"),
+        "Descricao": MessageLookupByLibrary.simpleMessage("Description"),
+        "Disciplina": MessageLookupByLibrary.simpleMessage("Discipline"),
+        "Disciplinas": MessageLookupByLibrary.simpleMessage("Discipline"),
+        "Editar": MessageLookupByLibrary.simpleMessage("Edit"),
+        "Email": MessageLookupByLibrary.simpleMessage("E-mail"),
+        "EscolhaACorParaADisciplina": MessageLookupByLibrary.simpleMessage(
+            "Choose color for this discipline"),
+        "EscolherCor": MessageLookupByLibrary.simpleMessage("Chose Color"),
+        "Finalizado": MessageLookupByLibrary.simpleMessage("Ended"),
+        "FlashCards": MessageLookupByLibrary.simpleMessage("FlashCards"),
+        "Idioma": MessageLookupByLibrary.simpleMessage("Language"),
+        "InformeCorretamente": MessageLookupByLibrary.simpleMessage(
+            "Please provide a valid email"),
+        "InformeSenha":
+            MessageLookupByLibrary.simpleMessage("Inform your password"),
+        "Inicio": MessageLookupByLibrary.simpleMessage("Init"),
+        "Login": MessageLookupByLibrary.simpleMessage("Login"),
+        "NaoHaDisciplinas":
+            MessageLookupByLibrary.simpleMessage("No disciplines created yet"),
+        "NaoHaTarefas":
+            MessageLookupByLibrary.simpleMessage("No tasks created yet"),
+        "Nome": MessageLookupByLibrary.simpleMessage("Name"),
+        "Outros": MessageLookupByLibrary.simpleMessage("Others"),
+        "Pendentes": MessageLookupByLibrary.simpleMessage("PENDING"),
+        "Pergunta": MessageLookupByLibrary.simpleMessage("Question"),
+        "Privado": MessageLookupByLibrary.simpleMessage("PRIVATE"),
+        "Professor": MessageLookupByLibrary.simpleMessage("Teacher"),
+        "Prova": MessageLookupByLibrary.simpleMessage("Test"),
+        "Publico": MessageLookupByLibrary.simpleMessage("PUBLIC"),
+        "Remover": MessageLookupByLibrary.simpleMessage("Remove"),
+        "Resposta": MessageLookupByLibrary.simpleMessage("Answer"),
+        "Reuniao": MessageLookupByLibrary.simpleMessage("Meeting"),
+        "Sair": MessageLookupByLibrary.simpleMessage("Quit"),
+        "Salvar": MessageLookupByLibrary.simpleMessage("SAVE"),
+        "Selecionadas": MessageLookupByLibrary.simpleMessage("selecteds"),
+        "Selecionar": MessageLookupByLibrary.simpleMessage("SELECT"),
+        "Senha": MessageLookupByLibrary.simpleMessage("Password"),
+        "Tarefas": MessageLookupByLibrary.simpleMessage("Tasks"),
+        "Tipo": MessageLookupByLibrary.simpleMessage("Type"),
+        "Titulo": MessageLookupByLibrary.simpleMessage("University To-do List"),
+        "Trabalho": MessageLookupByLibrary.simpleMessage("Job"),
+        "VerResposta":
+            MessageLookupByLibrary.simpleMessage("Tap to see the answer"),
+        "VoltarAoLogin": MessageLookupByLibrary.simpleMessage("Back to Login")
+      };
 }

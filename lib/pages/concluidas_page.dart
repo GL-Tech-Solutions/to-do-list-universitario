@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/widgets/tarefa_card.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import '../generated/l10n.dart';
 import '../models/tarefa.dart';
 import '../repositories/listar_tarefas_repository.dart';
 import '../repositories/tarefa_respository.dart';
@@ -26,7 +28,7 @@ class _ConcluidasPageState extends State<ConcluidasPage> {
             return tarefas.listaConcluidas.isEmpty
           ? ListTile(
             leading: Icon(Icons.notes),
-            title: Text('Você não possui tarefas concluídas'),
+            title: Text(S.of(context).NaoHaTarefas)),
           )
           : MediaQuery.removePadding(
             removeTop: true,
@@ -41,6 +43,7 @@ class _ConcluidasPageState extends State<ConcluidasPage> {
             );
           },
         ),
+      //),
       );
     }
 }

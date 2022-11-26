@@ -29,9 +29,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+
+  flutter_intl:
+  
   provider: ^6.0.3
   shared_preferences: ^2.0.6
   firebase_core: ^2.3.0
@@ -68,6 +72,8 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   assets:

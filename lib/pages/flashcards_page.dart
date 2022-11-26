@@ -2,8 +2,10 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../generated/l10n.dart';
 import '../models/card.dart';
 import '../models/flashcard.dart';
 import 'adicionar_flashcards_page.dart';
@@ -34,7 +36,7 @@ adicionarFlashcard() {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('FlashCards'),
+        title: Text(S.of(context).FlashCards),
         actions: [
           PopupMenuButton(
             icon:
@@ -43,7 +45,7 @@ adicionarFlashcard() {
               PopupMenuItem(
                 child: ListTile(
                   leading: Icon(Icons.edit, color: Colors.blue),
-                  title: Text('Editar FlashCard'),
+                  title: Text(S.of(context).Editar),
                   contentPadding: EdgeInsets.symmetric(horizontal: 5),
                   onTap: () {
                   },
@@ -52,7 +54,7 @@ adicionarFlashcard() {
               PopupMenuItem(
                 child: ListTile(
                   leading: Icon(Icons.add_circle_outline_rounded, color: Colors.green),
-                  title: Text('Adicionar FlashCard'),
+                  title: Text(S.of(context).Adicionar),
                   contentPadding: EdgeInsets.symmetric(horizontal: 5),
                   onTap: () {
                   },
@@ -61,7 +63,7 @@ adicionarFlashcard() {
               PopupMenuItem(
                 child: ListTile(
                   leading: Icon(Icons.highlight_remove_outlined, color: Colors.red),
-                  title: Text('Remover FlashCard'),
+                  title: Text(S.of(context).Remover),
                   contentPadding: EdgeInsets.symmetric(horizontal: 5),
                   onTap: () {
                   },
@@ -96,7 +98,7 @@ adicionarFlashcard() {
                           text: quesAnsList[_currentIndexNumber].question),
                       back: ReusableCard(
                           text: quesAnsList[_currentIndexNumber].answer))),
-              Text("Toque para ver a resposta"),
+              Text(S.of(context).VerResposta),
               SizedBox(height: 20),
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -134,6 +136,7 @@ adicionarFlashcard() {
             backgroundColor: Colors.deepOrange[400],
             child: Icon(Icons.add, size: 30,)
          ),*/
+      //),
     );
   }
 
