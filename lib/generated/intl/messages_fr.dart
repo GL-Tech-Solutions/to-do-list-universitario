@@ -21,5 +21,78 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'fr';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{};
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Aberto": MessageLookupByLibrary.simpleMessage("Ouvert"),
+        "Adicionar": MessageLookupByLibrary.simpleMessage("Ajouter"),
+        "Atividade": MessageLookupByLibrary.simpleMessage("Activité"),
+        "BemVindo": MessageLookupByLibrary.simpleMessage("Accueillir!"),
+        "Cadastrar": MessageLookupByLibrary.simpleMessage("S\'inscrire"),
+        "Cadastrese": MessageLookupByLibrary.simpleMessage(
+            "Vous n\'avez pas encore de compte? S\'inscrire!"),
+        "Caracteres": MessageLookupByLibrary.simpleMessage(
+            "Votre mot de passe doit contenir au moins 6 caractères"),
+        "Concluir": MessageLookupByLibrary.simpleMessage("Conclure"),
+        "Config": MessageLookupByLibrary.simpleMessage("Réglages"),
+        "Consluidas": MessageLookupByLibrary.simpleMessage("COMPLÉTÉ"),
+        "CrieConta":
+            MessageLookupByLibrary.simpleMessage("Créez votre compte!"),
+        "DataFinal": MessageLookupByLibrary.simpleMessage("Date de fin"),
+        "DataValida":
+            MessageLookupByLibrary.simpleMessage("Entrez une date valide"),
+        "Descricao": MessageLookupByLibrary.simpleMessage("La description"),
+        "Disciplina": MessageLookupByLibrary.simpleMessage("Matière"),
+        "Disciplinas": MessageLookupByLibrary.simpleMessage("Matière"),
+        "Editar": MessageLookupByLibrary.simpleMessage("Éditer"),
+        "Email": MessageLookupByLibrary.simpleMessage("E-mail"),
+        "EscolhaACorParaADisciplina": MessageLookupByLibrary.simpleMessage(
+            "Choisir la couleur pour cette discipline"),
+        "EscolherCor":
+            MessageLookupByLibrary.simpleMessage("Choisir la couleur"),
+        "Finalizado": MessageLookupByLibrary.simpleMessage("Achevé"),
+        "FlashCards": MessageLookupByLibrary.simpleMessage("Cartes Flash"),
+        "Idioma": MessageLookupByLibrary.simpleMessage("Langue"),
+        "InformeCorretamente": MessageLookupByLibrary.simpleMessage(
+            "Veuillez fournir un email valide"),
+        "InformeDisciplina":
+            MessageLookupByLibrary.simpleMessage("Informe uma disciplina"),
+        "InformeNome": MessageLookupByLibrary.simpleMessage("Entrez un nom"),
+        "InformeProf":
+            MessageLookupByLibrary.simpleMessage("Dire à un enseignant"),
+        "InformeSenha": MessageLookupByLibrary.simpleMessage(
+            "Renseignez votre mot de passe"),
+        "InformeTipo": MessageLookupByLibrary.simpleMessage("Tapez un type"),
+        "Inicio": MessageLookupByLibrary.simpleMessage("Début"),
+        "LimparFiltros":
+            MessageLookupByLibrary.simpleMessage("NETTOYER LES FILTRES"),
+        "Login": MessageLookupByLibrary.simpleMessage("Connexion"),
+        "NaoHaDisciplinas": MessageLookupByLibrary.simpleMessage(
+            "Aucune discipline créée pour le moment"),
+        "NaoHaTarefas": MessageLookupByLibrary.simpleMessage(
+            "Aucune tâche créée pour le moment"),
+        "Nome": MessageLookupByLibrary.simpleMessage("Nom"),
+        "Outros": MessageLookupByLibrary.simpleMessage("Les autres"),
+        "Pendentes": MessageLookupByLibrary.simpleMessage("EN ATTENDANT"),
+        "Pergunta": MessageLookupByLibrary.simpleMessage("Question"),
+        "Privado": MessageLookupByLibrary.simpleMessage("PRIVÉ"),
+        "Professor": MessageLookupByLibrary.simpleMessage("Profès"),
+        "Prova": MessageLookupByLibrary.simpleMessage("Test"),
+        "Publico": MessageLookupByLibrary.simpleMessage("PUBLIQUE"),
+        "Remover": MessageLookupByLibrary.simpleMessage("Retirer"),
+        "Resposta": MessageLookupByLibrary.simpleMessage("Réponse"),
+        "Reuniao": MessageLookupByLibrary.simpleMessage("Réunion"),
+        "Sair": MessageLookupByLibrary.simpleMessage("Sortir"),
+        "Salvar": MessageLookupByLibrary.simpleMessage("SAUVER"),
+        "Selecionadas": MessageLookupByLibrary.simpleMessage("choisi"),
+        "Selecionar": MessageLookupByLibrary.simpleMessage("SÉLECTIONNER"),
+        "Senha": MessageLookupByLibrary.simpleMessage("Mot de passe"),
+        "Tarefas": MessageLookupByLibrary.simpleMessage("Tâches"),
+        "Tipo": MessageLookupByLibrary.simpleMessage("Taper"),
+        "Titulo": MessageLookupByLibrary.simpleMessage(
+            "Liste de choses à faire à l\'université"),
+        "Trabalho": MessageLookupByLibrary.simpleMessage("Emploi"),
+        "VerResposta": MessageLookupByLibrary.simpleMessage(
+            "Appuyez pour voir la réponse"),
+        "VoltarAoLogin":
+            MessageLookupByLibrary.simpleMessage("Retour connexion")
+      };
 }

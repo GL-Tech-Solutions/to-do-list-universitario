@@ -5,6 +5,8 @@ import 'package:flutter_aula_1/pages/concluidas_page.dart';
 import 'package:flutter_aula_1/pages/pendentes_page.dart';
 import 'package:flutter_aula_1/widgets/appbar_tarefas.dart';
 
+import '../generated/l10n.dart';
+
 class TarefasPage extends StatefulWidget {
   const TarefasPage({Key? key}) : super(key: key);
 
@@ -40,8 +42,8 @@ class _TarefasPageState extends State<TarefasPage> with SingleTickerProviderStat
     labelStyle: TextStyle(fontWeight: FontWeight.w600),
     controller: _controller,
     tabs: [
-      Tab(text: 'PENDENTES'),
-      Tab(text: 'CONCLUÍDAS')
+      Tab(text: S.of(context).Pendentes),
+      Tab(text: S.of(context).Consluidas)
     ],
   );
 

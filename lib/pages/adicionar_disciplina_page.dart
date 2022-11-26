@@ -1,11 +1,11 @@
 import 'dart:math';
-import 'dart:ui';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../generated/l10n.dart';
 import '../models/disciplina.dart';
 
 class AdicionarDisciplinaPage extends StatefulWidget {
@@ -37,7 +37,7 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Adicionar disciplina'
+          S.of(context).Adicionar
         ),
       ),
       body: Center(
@@ -63,11 +63,11 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(16))
                           ),
-                          labelText: 'Nome'
+                          labelText: S.of(context).Nome
                         ),
                         validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                           if (value == null || value.isEmpty) {
-                            return 'Informe um nome!';
+                            return S.of(context).InformeNome;
                           }
                           return null;
                         },
@@ -84,11 +84,11 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(16))
                             ),
-                            labelText: 'Professor'
+                            labelText: S.of(context).Professor
                           ),
                           validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                           if (value == null || value.isEmpty) {
-                            return 'Informe um professor!';
+                            return S.of(context).InformeProf;
                           }
                           return null;
                         },
@@ -121,7 +121,7 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
                           padding: EdgeInsets.all(10),
                           alignment: Alignment.center
                           ),     
-                        child: Text('Escolher cor',
+                        child: Text(S.of(context).EscolherCor,
                         style: TextStyle(fontSize: 14),
                         ),
                         onPressed: () => pickColor(context),
@@ -143,7 +143,7 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
                       children: [
                         Padding(padding: EdgeInsets.all(16),
                         child: Text(
-                          'SALVAR',
+                          S.of(context).Salvar,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18
@@ -171,14 +171,14 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
  void pickColor(BuildContext context) => showDialog(
     context: context, 
     builder: (context) => AlertDialog(
-      title: Text('Escolha a cor para a disciplina'),
+      title: Text(S.of(context).EscolhaACorParaADisciplina),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           buildColorPicker(),
         TextButton(
           child: Text(
-            'SELECIONAR',
+            S.of(context).Selecionar,
         style: TextStyle(
           fontSize: 14,
         ),

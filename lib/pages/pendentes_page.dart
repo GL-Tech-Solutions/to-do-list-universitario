@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:flutter_aula_1/widgets/tarefa_card.dart';
 import 'package:provider/provider.dart';
-import '../models/tarefa.dart';
-import '../repositories/listar_tarefas_repository.dart';
+import '../generated/l10n.dart';
 
 class PendentesPage extends StatefulWidget {
   const PendentesPage({super.key});
@@ -13,7 +12,6 @@ class PendentesPage extends StatefulWidget {
 }
 
 class _PendentesPageState extends State<PendentesPage> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +24,7 @@ class _PendentesPageState extends State<PendentesPage> {
             return tarefas.listaPendentes.isEmpty
             ? ListTile(
               leading: Icon(Icons.notes),
-              title: Text('Você não possui tarefas pendentes'),
+              title: Text(S.of(context).NaoHaTarefas),
             )
             : MediaQuery.removePadding(
               removeTop: true,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/pages/home_page.dart';
 import 'package:flutter_aula_1/services/auth_service.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import '../generated/l10n.dart';
 import '../pages/login_page.dart';
 
 class AuthCheck extends StatefulWidget {
@@ -26,10 +28,17 @@ class _AuthCheckState extends State<AuthCheck> {
 
   loading()
   {
-    return Scaffold(
+    return MaterialApp(
+      localizationsDelegates: [S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate
+      ],
+      home: Scaffold(
       body: Center(
         child: CircularProgressIndicator(),
       )
+      ),
     );
   }
 }

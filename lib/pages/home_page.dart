@@ -4,6 +4,8 @@ import 'package:flutter_aula_1/pages/main_page.dart';
 import 'package:flutter_aula_1/pages/tarefas_page.dart';
 import 'package:flutter_aula_1/pages/disciplinas_page.dart';
 
+import '../generated/l10n.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -45,10 +47,10 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Início'),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Disciplinas'),
-          BottomNavigationBarItem(icon: Icon(Icons.task), label: 'Tarefas'),
-          BottomNavigationBarItem(icon: Icon(Icons.note), label: 'Flashcards'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: S.of(context).Inicio),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: S.of(context).Disciplinas),
+          BottomNavigationBarItem(icon: Icon(Icons.task), label: S.of(context).Tarefas),
+          BottomNavigationBarItem(icon: Icon(Icons.note), label: S.of(context).FlashCards),
         ],
         currentIndex: paginaAtual,
         onTap: (pagina) {

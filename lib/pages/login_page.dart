@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
+import '../generated/l10n.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -31,14 +33,14 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isLogin = acao;
       if (isLogin){
-        titulo = 'Bem vindo';
-        actionButton = 'Login';
-        toggleButton = 'Ainda não tem conta? Cadastre-se!';
+        titulo = S.of(context).BemVindo;
+        actionButton = S.of(context).Login;
+        toggleButton = S.of(context).Cadastrese;
       }
       else {
-        titulo = 'Crie sua conta';
-        actionButton = 'Cadastrar';
-        toggleButton = 'Voltar ao login.';
+        titulo = S.of(context).CrieConta;
+        actionButton = S.of(context).Cadastrar;
+        toggleButton = S.of(context).VoltarAoLogin;
       }
     });
   }
@@ -95,12 +97,12 @@ class _LoginPageState extends State<LoginPage> {
                       controller: email,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'E-mail',
+                        labelText: S.of(context).Login,
                       ),
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Informe o email corretamente!';
+                          return S.of(context).InformeCorretamente;
                         }
                         return null;
                       },
@@ -114,13 +116,13 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Senha',
+                        labelText: S.of(context).Senha,
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Informa sua senha!';
+                          return S.of(context).InformeSenha;
                         } else if (value.length < 6) {
-                          return 'Sua senha deve ter no mínimo 6 caracteres';
+                          return S.of(context).Caracteres;
                         }
                         return null;
                       },

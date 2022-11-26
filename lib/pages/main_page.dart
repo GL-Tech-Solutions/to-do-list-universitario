@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/repositories/locale_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import '../generated/l10n.dart';
 import '../services/auth_service.dart';
 import 'adicionar_tarefa_page.dart';
 
@@ -13,6 +15,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  late LocaleProvider provider;
+  
   adicionarTarefa() {
     Navigator.push(
       context,
@@ -24,9 +28,11 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    provider = context.watch<LocaleProvider>();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('To-Do List Universitário'),
+        title: Text(S.of(context).Titulo),
         actions: [
           Builder(
             builder: (context) {
@@ -53,7 +59,7 @@ class _MainPageState extends State<MainPage> {
                 color: Colors.grey.withOpacity(0.2)
               ),
               child: Text(
-                'CONFIGURAÇÕES',
+                S.of(context).Config,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
@@ -61,53 +67,28 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
             ),
-            OutlinedButton(
-              onPressed: () => PopupMenuButton(
+            //OutlinedButton(
+              PopupMenuButton(
                 icon: Icon(Icons.more_horiz),
-                itemBuilder: (context) => [
+                itemBuilder: (context) => 
+                AppLocalizationDelegate().supportedLocales.map((op) => 
                   PopupMenuItem(
                     child: ListTile(
                       leading: Icon(Icons.flag, color: Colors.green),
-                      title: Text('PT-BR'),
+                      title: Text(op.toString()),
                       contentPadding: EdgeInsets.symmetric(horizontal: 5),
                       onTap: () {
+                        Provider.of<LocaleProvider>(context, listen: false).setLocale(op);
+                        AppLocalizationDelegate().load(provider.locale);
                         Navigator.of(context).pop();
                       },
-                    ),
-                  ),
-                  PopupMenuItem(
-                    child: ListTile(
-                      leading: Icon(Icons.highlight_remove_outlined, color: Colors.red),
-                      title: Text('Remover Disciplina'),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 5),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ],
+                    ),  
+                  )).toList(),
               ),
-              style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.grey[800],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(Icons.language, color: Colors.black),
-                  Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text(
-                      'Linguagem',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             OutlinedButton(
               onPressed: () => context.read<AuthService>().logout(),
               style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.red,
+                backgroundColor: Colors.red,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -116,7 +97,7 @@ class _MainPageState extends State<MainPage> {
                   Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Text(
-                      'Logout',
+                      S.of(context).Sair,
                       style: TextStyle(fontSize: 18),
                     ),
                   ),

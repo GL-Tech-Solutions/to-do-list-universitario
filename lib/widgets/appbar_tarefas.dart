@@ -1,8 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/disciplina.dart';
+import '../generated/l10n.dart';
 import '../repositories/disciplina_repository.dart';
 import '../repositories/selecionadas_repository.dart';
 import '../repositories/tarefa_respository.dart';
@@ -48,10 +46,10 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
     drepository = context.read<DisciplinaRepository>();
     trepository = context.watch<TarefaRepository>();
 
-    if(se.selecionadas.isEmpty) //Se lista de selecionadas estiver vazia, fica na AppBar padrão
+    if (se.selecionadas.isEmpty)//Se lista de selecionadas estiver vazia, fica na AppBar padrão
     {
-      return SliverAppBar(
-        title: Text('Tarefas'),
+     return SliverAppBar(
+        title: Text(S.of(context).Tarefas),
         backgroundColor: Colors.deepOrange,
         pinned: true,
         floating: true,
@@ -61,7 +59,7 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
               (() => Provider.of<TarefaRepository>(context, listen: false).clearFiltered()),
             child: trepository.cod == null ? Text('') :
               Text(
-                'LIMPAR FILTROS',
+                S.of(context).LimparFiltros,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -108,11 +106,10 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
             color: Colors.white,
             child: widget.tabBar
           ),
-        ),
+        )
       );
     }
-    else //Se lista de selecionadas não estiver vazia, fica na AppBar de selecionadas
-    {
+    else { //Se lista de selecionadas não estiver vazia, fica na AppBar de selecionadas
       return SliverAppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back), 
@@ -120,7 +117,7 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
             Provider.of<Selecionadas>(context, listen: false).limparSelecionadas();
           }
         ),
-        title: Text('${se.selecionadas.length} selecionadas'),
+        title: Text('${se.selecionadas.length}' + S.of(context).Selecionadas),
         actions: [
           PopupMenuButton(
             icon:
@@ -128,8 +125,8 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
             itemBuilder: (context) => [
               PopupMenuItem(
                 child: ListTile(
-                  leading: Icon(Icons.swap_horizontal_circle_sharp, color: Colors.blue),
-                  title: Text('Alterar Status das Tarefas'),
+                  leading: Icon(Icons.check_circle_outline, color: Colors.green),
+                  title: Text(S.of(context).Concluir),
                   contentPadding: EdgeInsets.symmetric(horizontal: 5),
                   onTap: () {
                     Provider.of<TarefaRepository>(context, listen: false).setStatus(se.selecionadas);
@@ -141,7 +138,7 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
               PopupMenuItem(
                 child: ListTile(
                   leading: Icon(Icons.highlight_remove_outlined, color: Colors.red),
-                  title: Text('Remover Tarefas'),
+                  title: Text(S.of(context).Remover),
                   contentPadding: EdgeInsets.symmetric(horizontal: 5),
                   onTap: () {
                     Provider.of<TarefaRepository>(context, listen: false).remove(se.selecionadas);
