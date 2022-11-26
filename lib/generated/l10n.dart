@@ -60,6 +60,46 @@ class S {
     );
   }
 
+  /// `PUBLIC`
+  String get Publico {
+    return Intl.message(
+      'PUBLIC',
+      name: 'Publico',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PRIVATE`
+  String get Privado {
+    return Intl.message(
+      'PRIVATE',
+      name: 'Privado',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `selecteds`
+  String get Selecionadas {
+    return Intl.message(
+      'selecteds',
+      name: 'Selecionadas',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Conclude`
+  String get Concluir {
+    return Intl.message(
+      'Conclude',
+      name: 'Concluir',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Init`
   String get Inicio {
     return Intl.message(

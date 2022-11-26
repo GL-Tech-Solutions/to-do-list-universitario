@@ -1,6 +1,10 @@
 {
     "Titulo": "To-Do List Universitário",
+    "Publico": "PUBLICO",
+    "Privado": "PRIVADO",
     "Inicio": "Início",
+    "Selecionadas": "selecionadas",
+    "Concluir": "Concluir",
     "Disciplinas": "Disciplinas",
     "Disciplina": "Disciplina",
     "Tarefas": "Tarefas",

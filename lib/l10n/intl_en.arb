@@ -1,5 +1,9 @@
 {
     "Titulo": "University To-do List",
+    "Publico": "PUBLIC",
+    "Privado": "PRIVATE",
+    "Selecionadas": "selecteds",
+    "Concluir": "Conclude",
     "Inicio": "Init",
     "Disciplinas": "Discipline",
     "Disciplina": "Discipline",

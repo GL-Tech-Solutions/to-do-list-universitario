@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import '../generated/l10n.dart';
 import '../models/tarefa.dart';
 import '../pages/editar_tarefa_page.dart';
 import '../pages/tarefas_detalhes_page.dart';
@@ -58,7 +60,13 @@ class _TarefaCardState extends State<TarefaCard> {
     drepository = context.watch<DisciplinaRepository>();
     tarefas = context.watch<ListarTarefasRepository>();
 
-    return Card(
+    return MaterialApp(
+      localizationsDelegates: [S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate
+      ],
+      home: Card(
       margin: EdgeInsets.only(top: 8),
       elevation: 2,
       child: InkWell(
@@ -117,7 +125,7 @@ class _TarefaCardState extends State<TarefaCard> {
               (se.selecionadas.isEmpty)
               ? IconButton(
                   iconSize: 30,
-                  icon: (widget.tarefa.status == 'Aberto')
+                  icon: (widget.tarefa.status == S.of(context).Aberto)
                   ? Icon(Icons.circle_outlined)
                   : Icon(Icons.check_circle, color: Colors.green),
                   onPressed: () {
@@ -150,7 +158,7 @@ class _TarefaCardState extends State<TarefaCard> {
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
-                                decoration: (widget.tarefa.status == 'Finalizado') ? TextDecoration.lineThrough : null
+                                decoration: (widget.tarefa.status == S.of(context).Finalizado) ? TextDecoration.lineThrough : null
                               ),
                             ),
                           ),
@@ -166,7 +174,7 @@ class _TarefaCardState extends State<TarefaCard> {
                                 borderRadius: BorderRadius.circular(100)
                               ),
                               child: Text(
-                                'PÚBLICO',
+                                S.of(context).Publico,
                                 style: TextStyle(
                                   fontSize: 9,
                                   fontWeight: FontWeight.bold,
@@ -185,7 +193,7 @@ class _TarefaCardState extends State<TarefaCard> {
                                 borderRadius: BorderRadius.circular(100),
                               ),
                               child: Text(
-                                'PRIVADO',
+                                S.of(context).Privado,
                                 style: TextStyle(
                                   fontSize: 9,
                                   fontWeight: FontWeight.bold,
@@ -234,7 +242,7 @@ class _TarefaCardState extends State<TarefaCard> {
                   PopupMenuItem(
                     child: ListTile(
                       leading: Icon(Icons.edit, color: Colors.blue),
-                      title: Text('Editar Tarefa'),
+                      title: Text(S.of(context).Editar),
                       contentPadding: EdgeInsets.symmetric(horizontal: 5),
                       onTap: () {
                         Navigator.pop(context);
@@ -245,7 +253,7 @@ class _TarefaCardState extends State<TarefaCard> {
                   PopupMenuItem(
                     child: ListTile(
                       leading: Icon(Icons.highlight_remove_outlined, color: Colors.red),
-                      title: Text('Remover Tarefa'),
+                      title: Text(S.of(context).Remover),
                       contentPadding: EdgeInsets.symmetric(horizontal: 5),
                       onTap: () {
                         Navigator.pop(context);
@@ -259,6 +267,7 @@ class _TarefaCardState extends State<TarefaCard> {
             ],
           ),
         ),
+      ),
       ),
     );
   }

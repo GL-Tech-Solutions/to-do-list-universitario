@@ -1,5 +1,9 @@
 {
     "Titulo": "Lista de tareas de la universidad",
+    "Selecionadas": "seleccionado",
+    "Publico": "PÚBLICO",
+    "Privado": "PRIVADO",
+    "Concluir": "Concluir",
     "Inicio": "Inicio",
     "Disciplinas": "Tema",
     "Disciplina": "Tema",

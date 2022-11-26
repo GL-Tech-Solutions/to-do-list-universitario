@@ -1,5 +1,9 @@
 {
     "Titulo": "Liste de choses à faire à l'université",
+    "Concluir": "Conclure",
+    "Publico": "PUBLIQUE",
+    "Privado": "PRIVÉ",
+    "Selecionadas": "choisi",
     "Inicio": "Début",
     "Disciplinas": "Matière",
     "Disciplina": "Matière",
