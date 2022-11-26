@@ -3,8 +3,6 @@ import 'package:flutter_aula_1/pages/flashcards_page.dart';
 import 'package:flutter_aula_1/pages/main_page.dart';
 import 'package:flutter_aula_1/pages/tarefas_page.dart';
 import 'package:flutter_aula_1/pages/disciplinas_page.dart';
-import 'package:flutter_aula_1/generated/intl/messages_all.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../generated/l10n.dart';
 

@@ -1,10 +1,5 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../generated/l10n.dart';
 import '../models/card.dart';
 import '../models/flashcard.dart';
@@ -130,13 +125,7 @@ adicionarFlashcard() {
                   ])
         ]
       )
-    ),/*     floatingActionButton: FloatingActionButton(
-            onPressed: (() => adicionarFlashcard()),
-            elevation: 5,
-            backgroundColor: Colors.deepOrange[400],
-            child: Icon(Icons.add, size: 30,)
-         ),*/
-      //),
+    ),
     );
   }
 

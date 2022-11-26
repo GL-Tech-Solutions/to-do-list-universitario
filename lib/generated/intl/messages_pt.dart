@@ -25,7 +25,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Aberto": MessageLookupByLibrary.simpleMessage("Aberto"),
         "Adicionar": MessageLookupByLibrary.simpleMessage("Adicionar"),
         "Atividade": MessageLookupByLibrary.simpleMessage("Atividade"),
+        "BemVindo": MessageLookupByLibrary.simpleMessage("Bem vindo!"),
         "Cadastrar": MessageLookupByLibrary.simpleMessage("Cadastrar"),
+        "Cadastrese": MessageLookupByLibrary.simpleMessage(
+            "Ainda não tem conta? Cadastre-se!"),
         "Caracteres": MessageLookupByLibrary.simpleMessage(
             "Sua senha deve conter ao menos 6 caracteres"),
         "Concluir": MessageLookupByLibrary.simpleMessage("Concluir"),
@@ -34,6 +37,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "CrieConta": MessageLookupByLibrary.simpleMessage("Crie sua conta!"),
         "DataFinal":
             MessageLookupByLibrary.simpleMessage("Data de finalização"),
+        "DataValida":
+            MessageLookupByLibrary.simpleMessage("Informe uma data válida"),
         "Descricao": MessageLookupByLibrary.simpleMessage("Descrição"),
         "Disciplina": MessageLookupByLibrary.simpleMessage("Disciplina"),
         "Disciplinas": MessageLookupByLibrary.simpleMessage("Disciplinas"),
@@ -47,9 +52,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "Idioma": MessageLookupByLibrary.simpleMessage("Idioma"),
         "InformeCorretamente":
             MessageLookupByLibrary.simpleMessage("Informe um email válido"),
+        "InformeDisciplina":
+            MessageLookupByLibrary.simpleMessage("Informe uma disciplina"),
+        "InformeNome": MessageLookupByLibrary.simpleMessage("Informe um Nome"),
+        "InformeProf":
+            MessageLookupByLibrary.simpleMessage("Informe um professor"),
         "InformeSenha":
             MessageLookupByLibrary.simpleMessage("Informe sua senha"),
+        "InformeTipo": MessageLookupByLibrary.simpleMessage("Informe um tipo"),
         "Inicio": MessageLookupByLibrary.simpleMessage("Início"),
+        "LimparFiltros": MessageLookupByLibrary.simpleMessage("LIMPAR FILTROS"),
         "Login": MessageLookupByLibrary.simpleMessage("Entrar"),
         "NaoHaDisciplinas": MessageLookupByLibrary.simpleMessage(
             "Ainda não há disciplinas criadas"),

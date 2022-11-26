@@ -33,7 +33,7 @@
     "Remover": "Retirer",
     "VerResposta": "Appuyez pour voir la réponse",
     "Login": "Connexion",
-    "Cadastre-se": "Vous n'avez pas encore de compte? S'inscrire!",
+    "Cadastrese": "Vous n'avez pas encore de compte? S'inscrire!",
     "CrieConta": "Créez votre compte!",
     "Cadastrar": "S'inscrire",
     "VoltarAoLogin": "Retour connexion",
@@ -47,5 +47,12 @@
     "Sair": "Sortir",
     "Aberto": "Ouvert",
     "Pendentes": "EN ATTENDANT",
-    "Consluidas": "COMPLÉTÉ"
+    "Consluidas": "COMPLÉTÉ",
+    "InformeNome": "Entrez un nom",
+    "InformeProf": "Dire à un enseignant",
+    "InformeTipo": "Tapez un type",
+    "InformeDisciplina": "Informe uma disciplina",
+    "DataValida": "Entrez une date valide",
+    "BemVindo": "Accueillir!",
+    "LimparFiltros": "NETTOYER LES FILTRES"
 }

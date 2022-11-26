@@ -33,7 +33,7 @@
     "Remover": "Remove",
     "VerResposta": "Tap to see the answer",
     "Login": "Login",
-    "Cadastre-se": "Don't have an account? Register!",
+    "Cadastrese": "Don't have an account? Register!",
     "CrieConta": "Create your account!",
     "Cadastrar": "Register",
     "VoltarAoLogin": "Back to Login",
@@ -47,5 +47,12 @@
     "Sair": "Quit",
     "Aberto": "Opened",
     "Pendentes": "PENDING",
-    "Consluidas": "COMPLETED"
+    "Consluidas": "COMPLETED",
+    "InformeProf": "Type a teacher",
+    "InformeNome": "Type a name",
+    "InformeTipo": "Type a type",
+    "InformeDisciplina": "Informe uma disciplina",
+    "DataValida": "Enter a valid date",
+    "BemVindo": "Welcome!",
+    "LimparFiltros": "CLEAN FILTERS"
 }

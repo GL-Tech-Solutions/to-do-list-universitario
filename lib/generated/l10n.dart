@@ -1,10 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-
-
 import 'package:flutter/material.dart';
-import 'package:flutter_aula_1/repositories/locale_provider.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -394,7 +390,15 @@ class S {
     );
   }
 
-  // skipped getter for the 'Cadastre-se' key
+  /// `Don't have an account? Register!`
+  String get Cadastrese {
+    return Intl.message(
+      'Don\'t have an account? Register!',
+      name: 'Cadastrese',
+      desc: '',
+      args: [],
+    );
+  }
 
   /// `Create your account!`
   String get CrieConta {
@@ -531,6 +535,76 @@ class S {
     return Intl.message(
       'COMPLETED',
       name: 'Consluidas',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type a teacher`
+  String get InformeProf {
+    return Intl.message(
+      'Type a teacher',
+      name: 'InformeProf',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type a name`
+  String get InformeNome {
+    return Intl.message(
+      'Type a name',
+      name: 'InformeNome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type a type`
+  String get InformeTipo {
+    return Intl.message(
+      'Type a type',
+      name: 'InformeTipo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Informe uma disciplina`
+  String get InformeDisciplina {
+    return Intl.message(
+      'Informe uma disciplina',
+      name: 'InformeDisciplina',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a valid date`
+  String get DataValida {
+    return Intl.message(
+      'Enter a valid date',
+      name: 'DataValida',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome!`
+  String get BemVindo {
+    return Intl.message(
+      'Welcome!',
+      name: 'BemVindo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CLEAN FILTERS`
+  String get LimparFiltros {
+    return Intl.message(
+      'CLEAN FILTERS',
+      name: 'LimparFiltros',
       desc: '',
       args: [],
     );

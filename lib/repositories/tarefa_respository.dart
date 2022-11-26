@@ -1,9 +1,7 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_aula_1/models/disciplina.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
-import 'package:provider/provider.dart';
 import '../database/db_firestore.dart';
 import '../models/tarefa.dart';
 import '../services/auth_service.dart';

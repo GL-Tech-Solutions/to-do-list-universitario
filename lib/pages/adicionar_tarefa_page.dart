@@ -116,7 +116,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                         ),
                         validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                           if (value == null || value.isEmpty) {
-                            return 'Informe um nome!';
+                            return S.of(context).InformeNome;
                           }
                           return null;
                         },
@@ -136,7 +136,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                           style: TextStyle(fontSize: 18, color: Colors.black),
                           validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                             if (value == null) {
-                              return 'Informe um tipo!';
+                              return S.of(context).InformeTipo;
                             }
                             return null;
                           },
@@ -159,7 +159,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                           value: _disciplina,
                           validator: (value) {
                             if (value == null) {
-                              return 'Informe uma disciplina!';
+                              return ;
                             }
                             return null;
                           },
@@ -188,7 +188,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                 style: TextStyle(fontSize: 18),
                                 validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                                   if (value == null || value.isEmpty || value.length < 10) {
-                                    return 'Informe uma data válida!';
+                                    return S.of(context).DataValida;
                                   }
                                   return null;
                                 },
@@ -196,7 +196,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.all(Radius.circular(16))
                                   ),
-                                  labelText: 'Data Final',
+                                  labelText: S.of(context).DataFinal,
                                   suffixIcon: IconButton(
                                     onPressed: () async {
                                       DateTime? newDate = await showDatePicker(
@@ -216,20 +216,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                 ),
                               ),
                             ),
-                            labelText: S.of(context).DataFinal,
-                            suffixIcon: IconButton(
-                              onPressed: () async {
-                                DateTime? newDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: date,
-                                  firstDate: DateTime(DateTime.now().year),
-                                  lastDate: DateTime(2030),
-                                );
-                                if (newDate != null) {
-                                  setState(() => _data.text = DateFormat('dd/MM/yyyy').format(DateTime(newDate.year, newDate.month, newDate.day)));
-                                }
-                              }, 
-                              icon: Icon(Icons.calendar_month)
+                           
                             Container(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

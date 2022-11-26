@@ -1,10 +1,8 @@
 import 'dart:math';
-import 'dart:ui';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../generated/l10n.dart';
@@ -76,7 +74,7 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
                         ),
                         validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                           if (value == null || value.isEmpty) {
-                            return 'Informe um nome!';
+                            return S.of(context).InformeNome;
                           }
                           return null;
                         },
@@ -97,7 +95,7 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
                           ),
                           validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                           if (value == null || value.isEmpty) {
-                            return 'Informe um professor!';
+                            return S.of(context).InformeProf;
                           }
                           return null;
                         },
@@ -168,7 +166,6 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
           ),
         ),
       ),
-      //),
     );
   }
 

@@ -1,9 +1,5 @@
-import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
-
-import '../models/tarefa.dart';
 
 class ListarTarefasRepository extends ChangeNotifier{
   /*final _listaInicial = TarefaRepository.tabela;

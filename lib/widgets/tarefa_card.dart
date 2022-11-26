@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../generated/l10n.dart';
@@ -9,7 +6,6 @@ import '../models/tarefa.dart';
 import '../pages/editar_tarefa_page.dart';
 import '../pages/tarefas_detalhes_page.dart';
 import '../repositories/disciplina_repository.dart';
-import '../repositories/listar_tarefas_repository.dart';
 import '../repositories/selecionadas_repository.dart';
 import '../repositories/tarefa_respository.dart';
 

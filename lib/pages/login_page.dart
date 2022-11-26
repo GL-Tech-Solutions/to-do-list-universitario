@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/services/auth_service.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../generated/l10n.dart';
@@ -34,14 +33,14 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isLogin = acao;
       if (isLogin){
-        titulo = 'Bem vindo';
-        actionButton = 'Login';
-        toggleButton = 'Ainda não tem conta? Cadastre-se!';
+        titulo = S.of(context).BemVindo;
+        actionButton = S.of(context).Login;
+        toggleButton = S.of(context).Cadastrese;
       }
       else {
-        titulo = 'Crie sua conta';
-        actionButton = 'Cadastrar';
-        toggleButton = 'Voltar ao login.';
+        titulo = S.of(context).CrieConta;
+        actionButton = S.of(context).Cadastrar;
+        toggleButton = S.of(context).VoltarAoLogin;
       }
     });
   }
@@ -70,14 +69,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return /*MaterialApp(
-      localizationsDelegates: [S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate
-      ],
-      debugShowCheckedModeBanner: false,
-      home: */Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         reverse: true,
         child: Padding(
@@ -184,7 +176,6 @@ class _LoginPageState extends State<LoginPage> {
           ]),
         ),
       ),
-      //),
     );
   }
 }

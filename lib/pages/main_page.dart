@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/repositories/locale_provider.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import '../generated/l10n.dart';

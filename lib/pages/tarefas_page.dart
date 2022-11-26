@@ -4,7 +4,6 @@ import 'package:flutter_aula_1/pages/adicionar_tarefa_page.dart';
 import 'package:flutter_aula_1/pages/concluidas_page.dart';
 import 'package:flutter_aula_1/pages/pendentes_page.dart';
 import 'package:flutter_aula_1/widgets/appbar_tarefas.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../generated/l10n.dart';
 

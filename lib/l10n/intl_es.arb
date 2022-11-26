@@ -33,7 +33,7 @@
     "Remover": "Remover",
     "VerResposta": "Toca para ver la respuesta",
     "Login": "Acceso",
-    "Cadastre-se": "¿Aun no tiene una cuenta? ¡Inscribirse!",
+    "Cadastrese": "¿Aun no tiene una cuenta? ¡Inscribirse!",
     "CrieConta": "¡Cree su cuenta!",
     "Cadastrar": "Inscribirse",
     "VoltarAoLogin": "Conexión de retorno",
@@ -47,5 +47,11 @@
     "Sair": "Salir",
     "Aberto": "Abierto",
     "Pendentes": "PENDIENTE",
-    "Consluidas": "TERMINADO"
+    "Consluidas": "TERMINADO",
+    "InformeProf": "Dile a un maestro",
+    "InformeTipo": "Escriba un tipo",
+    "InformeDisciplina": "Informe uma disciplina",
+    "DataValida": "Introduzca una fecha válida",
+    "BemVindo": "¡Bienvenido!",
+    "LimparFiltros": "LIMPIAR FILTROS"
 }

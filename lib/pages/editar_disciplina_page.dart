@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../generated/l10n.dart';
@@ -76,14 +73,7 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
 
   @override
   Widget build(BuildContext context) {
-    return /*MaterialApp(
-      localizationsDelegates: [ S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate
-      ],
-      debugShowCheckedModeBanner: false,
-      home: */Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(
           S.of(context).Adicionar
@@ -116,7 +106,7 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                         ),
                         validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                           if (value == null || value.isEmpty) {
-                            return 'Informe um nome!';
+                            return S.of(context).InformeNome;
                           }
                           return null;
                         },
@@ -137,7 +127,7 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                           ),
                           validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                           if (value == null || value.isEmpty) {
-                            return 'Informe um professor!';
+                            return S.of(context).InformeProf;
                           }
                           return null;
                         },
@@ -192,7 +182,7 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                       children: [
                         Padding(padding: EdgeInsets.all(16),
                         child: Text(
-                          'SALVAR',
+                          S.of(context).Salvar,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18
@@ -208,7 +198,6 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
           ),
         ),
       ),
-      //),
     );
   }
 }
