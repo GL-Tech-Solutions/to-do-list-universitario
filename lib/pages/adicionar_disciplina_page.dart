@@ -23,10 +23,13 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
 
   void salvar()
   {
-    Disciplina disciplina = Disciplina(cor: color, nome: _nome.text, professor: _professor.text);
-    List<Disciplina> lista = [];
-    lista.add(disciplina);
-    Provider.of<DisciplinaRepository>(context, listen: false).saveAll(lista);
+    if (_form.currentState!.validate()) {
+      Disciplina disciplina = Disciplina(cor: color, nome: _nome.text, professor: _professor.text);
+      List<Disciplina> lista = [];
+      lista.add(disciplina);
+      Provider.of<DisciplinaRepository>(context, listen: false).saveAll(lista);
+      Navigator.pop(context);
+    }
   }
 
   @override
@@ -62,6 +65,12 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
                           ),
                           labelText: 'Nome'
                         ),
+                        validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
+                          if (value == null || value.isEmpty) {
+                            return 'Informe um nome!';
+                          }
+                          return null;
+                        },
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 14),
@@ -77,6 +86,12 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
                             ),
                             labelText: 'Professor'
                           ),
+                          validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
+                          if (value == null || value.isEmpty) {
+                            return 'Informe um professor!';
+                          }
+                          return null;
+                        },
                         ),
                       ),
                     ],
@@ -122,7 +137,6 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
                     style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple[800])),
                     onPressed: (() {
                       salvar();
-                      Navigator.pop(context);
                     }),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -26,9 +26,9 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
   String? _disciplina;
   var _data = TextEditingController();
   final _descricao = TextEditingController();
+  bool _visibilidade = false;
   late DisciplinaRepository drepository;
   DateTime date = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-  late DateTime dataDate;
 
   final maskDateFormatter = MaskTextInputFormatter(
     mask: 'xx/xx/xxxx',
@@ -50,20 +50,29 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
     });
   }
 
+  void alterarVisibilidade () {
+    setState(() {
+      (_visibilidade) ? _visibilidade = false : _visibilidade = true;
+    });
+  }
+
   void salvar()
   {
-    Tarefa tarefa = Tarefa(
+    if (_form.currentState!.validate()) {
+      Tarefa tarefa = Tarefa(
       nome: _nome.text,
       descricao: _descricao.text,
       codDisciplina: _disciplina!,
       tipo: _tipo!,
-      data: dataDate,
-      status: 'Finalizado',
-      visibilidade: true
-    );
-    List<Tarefa> lista = [];
-    lista.add(tarefa);
-    Provider.of<TarefaRepository>(context, listen: false).saveAll(lista);
+      data: DateTime(int.parse(_data.text.substring(6,10)), int.parse(_data.text.substring(3,5)), int.parse(_data.text.substring(0,2))),
+      status: 'Aberto',
+      visibilidade: _visibilidade
+      );
+      List<Tarefa> lista = [];
+      lista.add(tarefa);
+      Provider.of<TarefaRepository>(context, listen: false).saveAll(lista);
+      Navigator.pop(context);
+    }
   }
 
   @override
@@ -96,6 +105,12 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                           ),
                           labelText: 'Nome'
                         ),
+                        validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
+                          if (value == null || value.isEmpty) {
+                            return 'Informe um nome!';
+                          }
+                          return null;
+                        },
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 14),
@@ -110,6 +125,12 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                           value: _tipo,
                           onChanged: dropdownCallbackTipo,
                           style: TextStyle(fontSize: 18, color: Colors.black),
+                          validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
+                            if (value == null) {
+                              return 'Informe um tipo!';
+                            }
+                            return null;
+                          },
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(16))
@@ -127,6 +148,12 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                             child: Text(op.nome, overflow: TextOverflow.ellipsis),
                           )).toList(),
                           value: _disciplina,
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Informe uma disciplina!';
+                            }
+                            return null;
+                          },
                           onChanged: dropdownCallbackDisciplina,
                           style: TextStyle(fontSize: 18, color: Colors.black),
                           decoration: InputDecoration(
@@ -139,35 +166,60 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 14),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [maskDateFormatter],
-                          maxLines: null,
-                          controller: _data,
-                          style: TextStyle(fontSize: 18),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(16))
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: 200,
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [maskDateFormatter],
+                                maxLines: null,
+                                controller: _data,
+                                style: TextStyle(fontSize: 18),
+                                validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
+                                  if (value == null || value.isEmpty || value.length < 10) {
+                                    return 'Informe uma data válida!';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(16))
+                                  ),
+                                  labelText: 'Data Final',
+                                  suffixIcon: IconButton(
+                                    onPressed: () async {
+                                      DateTime? newDate = await showDatePicker(
+                                        context: context,
+                                        initialDate: date,
+                                        firstDate: DateTime(DateTime.now().year),
+                                        lastDate: DateTime(2030),
+                                      );
+                                      if (newDate != null) {
+                                        setState(() {
+                                          _data.text = DateFormat('dd/MM/yyyy').format(DateTime(newDate.year, newDate.month, newDate.day));
+                                        });
+                                      }
+                                    }, 
+                                    icon: Icon(Icons.calendar_month)
+                                  )
+                                ),
+                              ),
                             ),
-                            labelText: 'Data de Finalização',
-                            suffixIcon: IconButton(
-                              onPressed: () async {
-                                DateTime? newDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: date,
-                                  firstDate: DateTime(DateTime.now().year),
-                                  lastDate: DateTime(2030),
-                                );
-                                if (newDate != null) {
-                                  setState(() {
-                                    dataDate = newDate;
-                                    _data.text = DateFormat('dd/MM/yyyy').format(DateTime(newDate.year, newDate.month, newDate.day));
-                                  });
-                                }
-                              }, 
-                              icon: Icon(Icons.calendar_month)
+                            Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                Text(
+                                  (_visibilidade) ? 'PÚBLICO' : 'PRIVADO',
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: (_visibilidade) ? Colors.green : Colors.red),
+                                ),
+                                Switch(value: _visibilidade,onChanged: (value) => alterarVisibilidade())
+                                ],
+                              ),
                             )
-                          ),
+                          ],
                         ),
                       ),
                       Padding(
@@ -189,17 +241,12 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                   )
                 ),
                 Container(
-                  decoration: BoxDecoration(
-                    color: Colors.purple[800]
-                  ),
                   alignment: Alignment.bottomCenter,
                   margin: EdgeInsets.only(top: 24),
                   child: ElevatedButton(
-                    style: ButtonStyle(
-                    ),
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple[800])),
                     onPressed: (() {
                       salvar();
-                      Navigator.pop(context);
                     }),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

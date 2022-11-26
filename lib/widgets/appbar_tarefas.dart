@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/disciplina.dart';
 import '../repositories/disciplina_repository.dart';
 import '../repositories/selecionadas_repository.dart';
+import '../repositories/tarefa_respository.dart';
 
 class AppBarTarefas extends StatefulWidget {
   TabBar tabBar;
@@ -16,6 +19,7 @@ class AppBarTarefas extends StatefulWidget {
 class _AppBarTarefasState extends State<AppBarTarefas> {
   late DisciplinaRepository drepository;
   late Selecionadas se;
+  late TarefaRepository trepository;
   
   String getInitials(String disciplineName) {
     var buffer = StringBuffer();
@@ -42,6 +46,8 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
   Widget build(BuildContext context) {
     se = context.watch<Selecionadas>();
     drepository = context.read<DisciplinaRepository>();
+    trepository = context.watch<TarefaRepository>();
+
     if(se.selecionadas.isEmpty) //Se lista de selecionadas estiver vazia, fica na AppBar padrão
     {
       return SliverAppBar(
@@ -50,12 +56,27 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
         pinned: true,
         floating: true,
         actions: [
+          TextButton(
+            onPressed: trepository.cod == null ? null :
+              (() => Provider.of<TarefaRepository>(context, listen: false).clearFiltered()),
+            child: trepository.cod == null ? Text('') :
+              Text(
+                'LIMPAR FILTROS',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white
+                )
+              )
+          ),
           PopupMenuButton(
             icon: Icon(Icons.sort),
             itemBuilder: (context) => 
               drepository.lista.map((op) => 
                 PopupMenuItem(
+                  onTap: (() => Provider.of<TarefaRepository>(context, listen: false).cod = op.cod),
                   child: ListTile(
+                    tileColor: trepository.cod == op.cod ? Colors.deepOrange.withOpacity(0.8) : null,
                     shape: RoundedRectangleBorder( //Ajusta os componentes da lista para um formato circular
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                     ),
@@ -69,7 +90,14 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
                         ),
                       ),
                     ),
-                    title: Text(op.nome),
+                    title: trepository.cod != op.cod ? Text(op.nome) :
+                      Text(
+                        op.nome,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white
+                        ),
+                      )
                   ),
                 )).toList(),
           ),
@@ -100,10 +128,13 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
             itemBuilder: (context) => [
               PopupMenuItem(
                 child: ListTile(
-                  leading: Icon(Icons.check_circle_outline, color: Colors.green),
-                  title: Text('Concluir Tarefas'),
+                  leading: Icon(Icons.swap_horizontal_circle_sharp, color: Colors.blue),
+                  title: Text('Alterar Status das Tarefas'),
                   contentPadding: EdgeInsets.symmetric(horizontal: 5),
                   onTap: () {
+                    Provider.of<TarefaRepository>(context, listen: false).setStatus(se.selecionadas);
+                    Provider.of<Selecionadas>(context, listen: false).limparSelecionadas();
+                    Navigator.pop(context);
                   },
                 ),
               ),
@@ -113,6 +144,9 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
                   title: Text('Remover Tarefas'),
                   contentPadding: EdgeInsets.symmetric(horizontal: 5),
                   onTap: () {
+                    Provider.of<TarefaRepository>(context, listen: false).remove(se.selecionadas);
+                    Provider.of<Selecionadas>(context, listen: false).limparSelecionadas();
+                    Navigator.pop(context);
                   },
                 ),
               ),

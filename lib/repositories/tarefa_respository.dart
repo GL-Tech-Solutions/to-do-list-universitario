@@ -13,6 +13,7 @@ class TarefaRepository extends ChangeNotifier{
   late List<String?> codDisciplinas = [];
   List<Tarefa> _listaP = [];
   List<Tarefa> _listaC = [];
+  String? _cod = null;
   late FirebaseFirestore db;
   late AuthService auth;
 
@@ -24,8 +25,8 @@ class TarefaRepository extends ChangeNotifier{
   _startRepository() async {
     await _startFirestore();
     await _listDisciplinas();
-    await _readPendentes();
-    await _readConcluidas();
+    await _readPendentes(_cod);
+    await _readConcluidas(_cod);
   }
 
   _startFirestore() {
@@ -43,12 +44,23 @@ class TarefaRepository extends ChangeNotifier{
     return date;
   }
 
-  _readPendentes() async {
+  _readPendentes(String? codDisciplina) async {
     if (auth.usuario != null) {
       _listaP = [];
       codDisciplinas.forEach((cod) async {
-        final snaphot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas/$cod/tarefas').where('status', isEqualTo: 'Aberto').get();//É possível fazer uma query direto no firebase (where por exemplo)
-        snaphot.docs.forEach((doc) { 
+        final snapshot;
+        if (codDisciplina != null) {
+          snapshot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas/$cod/tarefas')
+          .where('status', isEqualTo: 'Aberto')
+          .where('codDisciplina', isEqualTo: codDisciplina)
+          .get();//É possível fazer uma query direto no firebase (where por exemplo)
+        }
+        else {
+          snapshot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas/$cod/tarefas')
+          .where('status', isEqualTo: 'Aberto')
+          .get();//É possível fazer uma query direto no firebase (where por exemplo)
+        }
+        snapshot.docs.forEach((doc) { 
         Tarefa tarefa = Tarefa(
           cod: doc.id,
           nome: doc.get('nome'),
@@ -67,12 +79,23 @@ class TarefaRepository extends ChangeNotifier{
     }
   }
 
-  _readConcluidas() async {
+  _readConcluidas(String? codDisciplina) async {
     if (auth.usuario != null) {
       _listaC = [];
       codDisciplinas.forEach((cod) async {
-        final snaphot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas/$cod/tarefas').where('status', isEqualTo: 'Finalizado').get();//É possível fazer uma query direto no firebase (where por exemplo)
-        snaphot.docs.forEach((doc) { 
+        final snapshot;
+        if (codDisciplina != null) {
+          snapshot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas/$cod/tarefas')
+          .where('status', isEqualTo: 'Finalizado')
+          .where('codDisciplina', isEqualTo: codDisciplina)
+          .get();//É possível fazer uma query direto no firebase (where por exemplo)
+        }
+        else {
+          snapshot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas/$cod/tarefas')
+          .where('status', isEqualTo: 'Finalizado')
+          .get();//É possível fazer uma query direto no firebase (where por exemplo)
+        }
+        snapshot.docs.forEach((doc) { 
         Tarefa tarefa = Tarefa(
           cod: doc.id,
           nome: doc.get('nome'),
@@ -91,6 +114,22 @@ class TarefaRepository extends ChangeNotifier{
     }
   }
 
+  set cod(String? codDisciplina) {
+    _cod = codDisciplina;
+    _readPendentes(_cod);
+    _readConcluidas(_cod);
+    notifyListeners();
+  }
+
+  clearFiltered()
+  {
+    _cod = null;
+    _readPendentes(_cod);
+    _readConcluidas(_cod);
+    notifyListeners();
+  }
+
+  String? get cod => (_cod);
   UnmodifiableListView<Tarefa> get listaPendentes => UnmodifiableListView(_listaP);
   UnmodifiableListView<Tarefa> get listaConcluidas => UnmodifiableListView(_listaC);
 
@@ -109,36 +148,53 @@ class TarefaRepository extends ChangeNotifier{
           });
       }
     );
-    _readPendentes();
-    _readConcluidas();
+    _readPendentes(_cod);
+    _readConcluidas(_cod);
     notifyListeners();
   }
 
-  remove(Tarefa tarefa) async {
-    await db
+  remove(List<Tarefa> tarefas) async {
+    tarefas.forEach((tarefa) async {
+      await db
       .collection('usuarios/${auth.usuario!.uid}/disciplinas/${tarefa.codDisciplina}/tarefas')
       .doc(tarefa.cod)
       .delete();
-    if(tarefa.status == 'Aberto') {
-      _listaP.remove(tarefa);
-    }
-    else if(tarefa.status == 'Finalizado') {
-      _listaC.remove(tarefa);
-    }
-    notifyListeners();
+      if(tarefa.status == 'Aberto') {
+        _listaP.remove(tarefa);
+      }
+      else if(tarefa.status == 'Finalizado') {
+        _listaC.remove(tarefa);
+      }
+      notifyListeners();
+    });
   }
 
-  setStatus(Tarefa tarefa) async {
-    await db
-      .collection('usuarios/${auth.usuario!.uid}/disciplinas/${tarefa.codDisciplina}/tarefas')
-      .doc(tarefa.cod)
-      .delete();
-    if(tarefa.status == 'Aberto') {
+  setStatus(List<Tarefa> tarefas) async {
+    tarefas.forEach((tarefa) async {
+      if(tarefa.status == 'Aberto') {
+      tarefa.status = 'Finalizado';
       _listaP.remove(tarefa);
-    }
-    else if(tarefa.status == 'Finalizado') {
+      _listaC.add(tarefa);
+      }
+      else if(tarefa.status == 'Finalizado') {
+      tarefa.status = 'Aberto';
       _listaC.remove(tarefa);
-    }
-    notifyListeners();
+      _listaP.add(tarefa);
+      }
+      await db
+        .collection('usuarios/${auth.usuario!.uid}/disciplinas/${tarefa.codDisciplina}/tarefas')
+        .doc(tarefa.cod)
+        .set({
+          'nome': tarefa.nome,
+          'descricao': tarefa.descricao,
+          'codDisciplina': tarefa.codDisciplina,
+          'tipo': tarefa.tipo,
+          'data': tarefa.data,
+          'status': tarefa.status,
+          'visibilidade': tarefa.visibilidade
+        });
+      _readConcluidas(_cod);
+      notifyListeners();
+    });
   }
 }
