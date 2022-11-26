@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import '../generated/l10n.dart';
 import '../services/auth_service.dart';
 import 'adicionar_tarefa_page.dart';
 
@@ -24,9 +26,15 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      localizationsDelegates: [S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate
+      ],
+      home: Scaffold(
       appBar: AppBar(
-        title: Text('To-Do List Universitário'),
+        title: Text(S.of(context).Titulo),
         actions: [
           Builder(
             builder: (context) {
@@ -53,7 +61,7 @@ class _MainPageState extends State<MainPage> {
                 color: Colors.grey.withOpacity(0.2)
               ),
               child: Text(
-                'CONFIGURAÇÕES',
+                S.of(context).Config,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
@@ -78,7 +86,7 @@ class _MainPageState extends State<MainPage> {
                   PopupMenuItem(
                     child: ListTile(
                       leading: Icon(Icons.highlight_remove_outlined, color: Colors.red),
-                      title: Text('Remover Disciplina'),
+                      title: Text(S.of(context).Remover),
                       contentPadding: EdgeInsets.symmetric(horizontal: 5),
                       onTap: () {
                         Navigator.pop(context);
@@ -88,7 +96,7 @@ class _MainPageState extends State<MainPage> {
                 ],
               ),
               style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.grey[800],
+                backgroundColor: Colors.grey[800],
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -97,7 +105,7 @@ class _MainPageState extends State<MainPage> {
                   Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Text(
-                      'Linguagem',
+                      S.of(context).Idioma,
                       style: TextStyle(fontSize: 18),
                     ),
                   ),
@@ -107,7 +115,7 @@ class _MainPageState extends State<MainPage> {
             OutlinedButton(
               onPressed: () => context.read<AuthService>().logout(),
               style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.red,
+                backgroundColor: Colors.red,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -116,7 +124,7 @@ class _MainPageState extends State<MainPage> {
                   Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Text(
-                      'Logout',
+                      S.of(context).Sair,
                       style: TextStyle(fontSize: 18),
                     ),
                   ),
@@ -144,6 +152,7 @@ class _MainPageState extends State<MainPage> {
             backgroundColor: Colors.deepOrange[400],
             child: Icon(Icons.add, size: 30,)
             ),
+        )
     );
   }
 }

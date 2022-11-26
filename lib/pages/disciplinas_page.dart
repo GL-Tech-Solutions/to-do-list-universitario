@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/models/disciplina.dart';
 import 'package:flutter_aula_1/pages/editar_disciplina_page.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
+import '../generated/l10n.dart';
 import 'adicionar_disciplina_page.dart';
 
 class DisciplinasPage extends StatefulWidget { ////StatefulWidget - Um Widget mutável
@@ -57,16 +59,22 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
 
   @override
   Widget build(BuildContext context) { //Método build cria o widget em si
-    return Scaffold( //Scaffold serve para formatar nossa tela em um MaterialApp
+    return MaterialApp(
+      localizationsDelegates: [ S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate
+      ],
+      home: Scaffold( //Scaffold serve para formatar nossa tela em um MaterialApp
       appBar: AppBar(
-        title: Text('Disciplinas'),
+        title: Text(S.of(context).Disciplinas),
       ),
       body: Consumer<DisciplinaRepository>(
         builder: (context, disciplinas, child) {
           return disciplinas.lista.isEmpty
           ? ListTile(
               leading: Icon(Icons.book),
-              title: Text('Ainda não há disciplinas')
+              title: Text(S.of(context).NaoHaDisciplinas)
             )
           : ListView.separated( //Corpo do App - Neste caso, uma ListView
               itemBuilder: (BuildContext context, int disciplina) {
@@ -104,7 +112,7 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
                       PopupMenuItem(
                         child: ListTile(
                           leading: Icon(Icons.edit, color: Colors.blue),
-                          title: Text('Editar Disciplina'),
+                          title: Text(S.of(context).Editar),
                           contentPadding: EdgeInsets.symmetric(horizontal: 5),
                           onTap: () {
                             Navigator.pop(context);
@@ -115,7 +123,7 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
                       PopupMenuItem(
                         child: ListTile(
                           leading: Icon(Icons.highlight_remove_outlined, color: Colors.red),
-                          title: Text('Remover Disciplina'),
+                          title: Text(S.of(context).Remover),
                           contentPadding: EdgeInsets.symmetric(horizontal: 5),
                           onTap: () {
                             disciplinas.remove(disciplinas.lista[disciplina]);
@@ -138,6 +146,7 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
          elevation: 5,
          backgroundColor: Colors.deepOrange[400],
          child: Icon(Icons.add, size: 30,)
+      ),
       ),
     );
   }

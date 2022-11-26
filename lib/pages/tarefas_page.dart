@@ -4,6 +4,9 @@ import 'package:flutter_aula_1/pages/adicionar_tarefa_page.dart';
 import 'package:flutter_aula_1/pages/concluidas_page.dart';
 import 'package:flutter_aula_1/pages/pendentes_page.dart';
 import 'package:flutter_aula_1/widgets/appbar_tarefas.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import '../generated/l10n.dart';
 
 class TarefasPage extends StatefulWidget {
   const TarefasPage({Key? key}) : super(key: key);
@@ -40,8 +43,8 @@ class _TarefasPageState extends State<TarefasPage> with SingleTickerProviderStat
     labelStyle: TextStyle(fontWeight: FontWeight.w600),
     controller: _controller,
     tabs: [
-      Tab(text: 'PENDENTES'),
-      Tab(text: 'CONCLUÍDAS')
+      Tab(text: S.of(context).Pendentes),
+      Tab(text: S.of(context).Consluidas)
     ],
   );
 
@@ -56,7 +59,13 @@ class _TarefasPageState extends State<TarefasPage> with SingleTickerProviderStat
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      localizationsDelegates: [S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate
+      ],
+      home: Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
@@ -79,6 +88,7 @@ class _TarefasPageState extends State<TarefasPage> with SingleTickerProviderStat
         backgroundColor: Colors.deepOrange[400],
         child: Icon(Icons.add, size: 30,)
         ),
+      ),
     );
   }
 }

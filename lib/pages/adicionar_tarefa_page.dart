@@ -4,10 +4,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 
+import '../generated/l10n.dart';
 import '../models/disciplina.dart';
 
 class AdiconarTarefaPage extends StatefulWidget {
@@ -51,9 +53,15 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
   Widget build(BuildContext context) {
     drepository = context.read<DisciplinaRepository>();
 
-    return Scaffold(
+    return MaterialApp(
+      localizationsDelegates: [S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate
+      ],
+      home: Scaffold(
       appBar: AppBar(
-        title: Text('Adicionar Tarefa'),
+        title: Text(S.of(context).Adicionar),
       ),
       body: Center(
         child: Padding(
@@ -75,18 +83,18 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(16))
                           ),
-                          labelText: 'Nome'
+                          labelText: S.of(context).Nome
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 14),
                         child: DropdownButtonFormField(
                           items: [
-                            DropdownMenuItem(value: 'Atividade', child: Text('Atividade')),
-                            DropdownMenuItem(value: 'Trabalho', child: Text('Trabalho')),
-                            DropdownMenuItem(value: 'Prova', child: Text('Prova')),
-                            DropdownMenuItem(value: 'Reunião', child: Text('Reunião')),
-                            DropdownMenuItem(value: 'Outros', child: Text('Outros')),
+                            DropdownMenuItem(value: 'Atividade', child: Text(S.of(context).Atividade)),
+                            DropdownMenuItem(value: 'Trabalho', child: Text(S.of(context).Trabalho)),
+                            DropdownMenuItem(value: 'Prova', child: Text(S.of(context).Prova)),
+                            DropdownMenuItem(value: 'Reunião', child: Text(S.of(context).Reuniao)),
+                            DropdownMenuItem(value: 'Outros', child: Text(S.of(context).Outros)),
                           ],
                           value: _tipo,
                           onChanged: dropdownCallbackTipo,
@@ -95,7 +103,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(16))
                             ),
-                            labelText: 'Tipo'
+                            labelText: S.of(context).Tipo
                           ),
                         ),
                       ),
@@ -114,7 +122,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(16))
                             ),
-                            labelText: 'Disciplina'
+                            labelText: S.of(context).Disciplina
                           ),
                         ),
                       ),
@@ -130,7 +138,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(16))
                             ),
-                            labelText: 'Data de Finalização',
+                            labelText: S.of(context).DataFinal,
                             suffixIcon: IconButton(
                               onPressed: () async {
                                 DateTime? newDate = await showDatePicker(
@@ -158,7 +166,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(16))
                             ),
-                            labelText: 'Descrição',
+                            labelText: S.of(context).Descricao,
                             alignLabelWithHint: true
                           ),
                         ),
@@ -182,7 +190,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                         Padding(
                           padding: EdgeInsets.all(16),
                           child: Text(
-                            'SALVAR',
+                            S.of(context).Salvar,
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.white
@@ -197,6 +205,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
             ),
           ),
         ),
+      ),
       ),
     );
   }

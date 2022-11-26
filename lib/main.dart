@@ -7,6 +7,8 @@ import 'package:flutter_aula_1/services/auth_service.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'meu_aplicativo.dart';
+import 'package:flutter_aula_1/generated/intl/messages_all.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

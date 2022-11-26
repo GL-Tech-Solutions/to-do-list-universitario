@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/widgets/tarefa_card.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import '../generated/l10n.dart';
 import '../models/tarefa.dart';
 import '../repositories/listar_tarefas_repository.dart';
 
@@ -20,7 +22,7 @@ class _ConcluidasPageState extends State<ConcluidasPage> {
     tarefas = context.watch<ListarTarefasRepository>();
     tarefas.lista.forEach((tarefa)
     { 
-      if(!listaC.contains(tarefa) && tarefa.status == 'Finalizado') {
+      if(!listaC.contains(tarefa) && tarefa.status == S.of(context).Finalizado) {
         listaC.add(tarefa);
       }
     });
@@ -29,7 +31,13 @@ class _ConcluidasPageState extends State<ConcluidasPage> {
   @override
   Widget build(BuildContext context) {
     listarConcluidas();
-    return Container(
+    return MaterialApp(
+      localizationsDelegates: [S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate
+      ],
+      home: Container(
       color: Colors.indigo.withOpacity(0.05),
       height: MediaQuery.of(context).size.height,
       padding: EdgeInsets.all(8),
@@ -37,7 +45,7 @@ class _ConcluidasPageState extends State<ConcluidasPage> {
         listaC.isEmpty
         ? ListTile(
           leading: Icon(Icons.notes),
-          title: Text('Ainda não há Tarefas criadas'),
+          title: Text(S.of(context).NaoHaTarefas),
         )
         : MediaQuery.removePadding(
           removeTop: true,
@@ -49,6 +57,7 @@ class _ConcluidasPageState extends State<ConcluidasPage> {
               },
             ),
         ),
+      ),
       );
     }
 }
