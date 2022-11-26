@@ -193,7 +193,6 @@ class TarefaRepository extends ChangeNotifier{
           'status': tarefa.status,
           'visibilidade': tarefa.visibilidade
         });
-      _readConcluidas(_cod);
       notifyListeners();
     });
   }
