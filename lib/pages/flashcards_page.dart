@@ -20,7 +20,7 @@ class FlashCardsPage extends StatefulWidget {
 class _FlashCardsPageState extends State<FlashCardsPage> {
   GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
   int _currentIndexNumber = 0;
-  double _initial = (1 / quesAnsList.length);
+  late double _initial = (1 / flashrepository.listaFlashcard.length);
   late FlashcardRepository flashrepository;
 
 adicionarFlashcard() {
