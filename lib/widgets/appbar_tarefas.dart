@@ -117,8 +117,8 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
             itemBuilder: (context) => [
               PopupMenuItem(
                 child: ListTile(
-                  leading: Icon(Icons.check_circle_outline, color: Colors.green),
-                  title: Text(S.of(context).Concluir),
+                  leading: Icon(Icons.swap_horizontal_circle_sharp, color: Colors.blue),
+                  title: Text('Alterar Status'),
                   contentPadding: EdgeInsets.symmetric(horizontal: 5),
                   onTap: () {
                     Provider.of<TarefaRepository>(context, listen: false).setStatus(se.selecionadas);

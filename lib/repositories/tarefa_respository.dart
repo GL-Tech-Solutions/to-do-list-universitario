@@ -10,6 +10,7 @@ class TarefaRepository extends ChangeNotifier{
   late DisciplinaRepository drepository;
   late List<String?> codDisciplinas = [];
   List<Tarefa> _listaP = [];
+  List<Tarefa> _listaPInicial = [];
   List<Tarefa> _listaC = [];
   String? _cod = null;
   late FirebaseFirestore db;
@@ -69,6 +70,8 @@ class TarefaRepository extends ChangeNotifier{
           status: doc.get('status'),
           visibilidade: doc.get('visibilidade')
         );
+        _listaPInicial.add(tarefa);
+        _listaPInicial.sort((a, b) => a.nome.compareTo(b.nome));
         _listaP.add(tarefa);
         _listaP.sort((a, b) => a.nome.compareTo(b.nome));
         notifyListeners();
@@ -128,6 +131,7 @@ class TarefaRepository extends ChangeNotifier{
   }
 
   String? get cod => (_cod);
+  UnmodifiableListView<Tarefa> get listaPendentesInicial => UnmodifiableListView(_listaPInicial);
   UnmodifiableListView<Tarefa> get listaPendentes => UnmodifiableListView(_listaP);
   UnmodifiableListView<Tarefa> get listaConcluidas => UnmodifiableListView(_listaC);
 

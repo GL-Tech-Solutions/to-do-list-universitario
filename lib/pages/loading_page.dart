@@ -19,11 +19,11 @@ class _LoadingPageState extends State<LoadingPage> {
       backgroundColor: Colors.deepOrange,
       body: Consumer<DisciplinaRepository>(
         builder: (context, disciplinas, child) {
-          return disciplinas.lista.isEmpty
+          return disciplinas.listaInicial.isEmpty
           ? Center(child: CircularProgressIndicator(color: Colors.white))
           : Consumer<TarefaRepository>(
           builder: (context, tarefas, child) {
-            return tarefas.listaPendentes.isEmpty
+            return tarefas.listaPendentesInicial.isEmpty
             ? Center(child: CircularProgressIndicator(color: Colors.white))
             : HomePage();
             }
