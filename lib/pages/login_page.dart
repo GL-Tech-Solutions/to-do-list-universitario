@@ -24,8 +24,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    super.initState();
-    setFormAction(true);
+      super.initState();
+      setFormAction(true);
   }
 
   setFormAction(bool acao)
@@ -33,14 +33,14 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isLogin = acao;
       if (isLogin){
-        titulo = S.of(context).BemVindo;
-        actionButton = S.of(context).Login;
-        toggleButton = S.of(context).Cadastrese;
+        titulo = 'Bem-vindo';//S.of(context).BemVindo;
+        actionButton = 'Login';//S.of(context).Login;
+        toggleButton = 'Ainda não possui conta? Cadastre-se!';//S.of(context).Cadastrese;
       }
       else {
-        titulo = S.of(context).CrieConta;
-        actionButton = S.of(context).Cadastrar;
-        toggleButton = S.of(context).VoltarAoLogin;
+        titulo = 'Crie uma conta';//S.of(context).CrieConta;
+        actionButton = 'Cadastrar';//S.of(context).Cadastrar;
+        toggleButton = 'Voltar à tela de login';//S.of(context).VoltarAoLogin;
       }
     });
   }

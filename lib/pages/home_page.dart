@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
         physics: NeverScrollableScrollPhysics(),
         onPageChanged: setPaginaAtual,
         children: [
-          MainPage(),
+          MainPage(pc: pc),
           DisciplinasPage(pc: pc),
           TarefasPage(),
           FlashCardsPage(),

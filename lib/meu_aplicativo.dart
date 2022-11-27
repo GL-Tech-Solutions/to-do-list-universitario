@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_aula_1/pages/home_page.dart';
-import 'package:flutter_aula_1/repositories/listar_tarefas_repository.dart';
-import 'package:flutter_aula_1/repositories/listar_tarefas_repository.dart';
 import 'package:flutter_aula_1/repositories/locale_provider.dart';
 import 'package:flutter_aula_1/widgets/auth_check.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

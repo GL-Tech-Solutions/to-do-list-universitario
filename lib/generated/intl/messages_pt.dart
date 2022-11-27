@@ -74,7 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Privado": MessageLookupByLibrary.simpleMessage("PRIVADO"),
         "Professor": MessageLookupByLibrary.simpleMessage("Professor"),
         "Prova": MessageLookupByLibrary.simpleMessage("Prova"),
-        "Publico": MessageLookupByLibrary.simpleMessage("PUBLICO"),
+        "Publico": MessageLookupByLibrary.simpleMessage("PÚBLICO"),
         "Remover": MessageLookupByLibrary.simpleMessage("Remover"),
         "Resposta": MessageLookupByLibrary.simpleMessage("Resposta"),
         "Reuniao": MessageLookupByLibrary.simpleMessage("Reunião"),

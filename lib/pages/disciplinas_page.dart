@@ -3,6 +3,7 @@ import 'package:flutter_aula_1/models/disciplina.dart';
 import 'package:flutter_aula_1/pages/editar_disciplina_page.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
+import 'package:flutter_aula_1/widgets/icon_disciplina.dart';
 import 'package:provider/provider.dart';
 
 import '../generated/l10n.dart';
@@ -18,27 +19,6 @@ class DisciplinasPage extends StatefulWidget { ////StatefulWidget - Um Widget mu
 }
 
 class _DisciplinasPageState extends State<DisciplinasPage> {
-
-  String getInitials(String disciplineName) {
-    var buffer = StringBuffer();
-    var split = disciplineName.split(' ');
-    String initial = "";
-    int limit = 0;
-
-    for (int i=0; i<split.length; i++) 
-    {
-      initial = split[i][0];
-      if (initial == initial.toUpperCase())
-      {
-        buffer.write(initial);
-        limit++;
-        if (limit == 2)
-          break;
-      }
-    }
-
-    return buffer.toString();
-  }
 
   adicionarDisciplina() {
     Navigator.push(
@@ -60,14 +40,7 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
 
   @override
   Widget build(BuildContext context) { //Método build cria o widget em si
-    return /*MaterialApp(
-      localizationsDelegates: [ S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate
-      ],
-      debugShowCheckedModeBanner: false,
-      home: */Scaffold( //Scaffold serve para formatar nossa tela em um MaterialApp
+    return Scaffold( //Scaffold serve para formatar nossa tela em um MaterialApp
       appBar: AppBar(
         title: Text(S.of(context).Disciplinas),
       ),
@@ -92,16 +65,7 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
                       curve: Curves.ease,
                     );
                   }),
-                  leading: CircleAvatar(
-                        backgroundColor: disciplinas.lista[disciplina].cor,
-                        child: Text(
-                          getInitials(disciplinas.lista[disciplina].nome),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+                  leading: IconDisciplina(disciplina: disciplinas.lista[disciplina]),
                   title: Row(
                     children: [
                       Flexible(

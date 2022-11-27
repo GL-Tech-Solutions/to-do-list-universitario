@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/widgets/icon_disciplina.dart';
 import 'package:provider/provider.dart';
 import '../generated/l10n.dart';
 import '../repositories/disciplina_repository.dart';
@@ -78,16 +79,7 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
                     shape: RoundedRectangleBorder( //Ajusta os componentes da lista para um formato circular
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                     ),
-                    leading: CircleAvatar(
-                      backgroundColor: op.cor,
-                      child: Text(
-                        getInitials(op.nome),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                    leading: IconDisciplina(disciplina: op),
                     title: trepository.cod != op.cod ? Text(op.nome) :
                       Text(
                         op.nome,

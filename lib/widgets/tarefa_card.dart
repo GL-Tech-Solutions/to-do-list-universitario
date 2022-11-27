@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../generated/l10n.dart';
 import '../models/tarefa.dart';
 import '../pages/editar_tarefa_page.dart';
-import '../pages/tarefas_detalhes_page.dart';
+import 'tarefas_detalhes_dialog.dart';
 import '../repositories/disciplina_repository.dart';
 import '../repositories/selecionadas_repository.dart';
 import '../repositories/tarefa_respository.dart';
@@ -23,12 +23,10 @@ class _TarefaCardState extends State<TarefaCard> {
   late Selecionadas se;
   late TarefaRepository trepository;
 
-  void abrirDetalhes(Tarefa tarefa) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => TarefasDetalhesPage(tarefa: tarefa),
-      ),
+  void mostrarDetalhes (BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => TarefasDetalhesDialog(tarefa: widget.tarefa)
     );
   }
 
@@ -47,13 +45,7 @@ class _TarefaCardState extends State<TarefaCard> {
     drepository = context.watch<DisciplinaRepository>();
     trepository = context.watch<TarefaRepository>();
 
-    return /*MaterialApp(
-      localizationsDelegates: [S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate
-      ],
-      home: */Card(
+    return Card(
       margin: EdgeInsets.only(top: 8),
       elevation: 2,
       child: InkWell(
@@ -61,7 +53,7 @@ class _TarefaCardState extends State<TarefaCard> {
               setState(() { //Altera o estado do widget, permitindo um rebuild
               if (se.selecionadas.isEmpty)
               {
-                abrirDetalhes(widget.tarefa);
+                mostrarDetalhes(context);
               }
               else if (se.selecionadas.isNotEmpty && !se.selecionadas.contains(widget.tarefa))
               {
@@ -112,7 +104,7 @@ class _TarefaCardState extends State<TarefaCard> {
               (se.selecionadas.isEmpty)
               ? IconButton(
                   iconSize: 30,
-                  icon: (widget.tarefa.status == S.of(context).Aberto)
+                  icon: (widget.tarefa.status == 'Aberto')
                   ? Icon(Icons.circle_outlined)
                   : Icon(Icons.check_circle, color: Colors.green),
                   onPressed: () {
@@ -147,7 +139,7 @@ class _TarefaCardState extends State<TarefaCard> {
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
-                                decoration: (widget.tarefa.status == S.of(context).Finalizado) ? TextDecoration.lineThrough : null
+                                decoration: (widget.tarefa.status == 'Finalizado') ? TextDecoration.lineThrough : null
                               ),
                             ),
                           ),
@@ -258,7 +250,6 @@ class _TarefaCardState extends State<TarefaCard> {
           ),
         ),
       ),
-      //),
     );
   }
 }

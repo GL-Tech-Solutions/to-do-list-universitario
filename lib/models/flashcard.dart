@@ -1,11 +1,9 @@
-import 'package:flutter_aula_1/models/disciplina.dart';
-
 class Flashcard {
-  final String question;
-  final String answer;
-  late Disciplina disciplina;
+  String? cod;
+  String question;
+  String answer;
 
-  Flashcard({required this.question, required this.answer});
+  Flashcard({this.cod ,required this.question, required this.answer});
 }
 
 List<Flashcard> quesAnsList = [

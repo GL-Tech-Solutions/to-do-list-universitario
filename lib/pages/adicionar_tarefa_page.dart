@@ -1,17 +1,10 @@
-import 'dart:developer';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
-
 import '../generated/l10n.dart';
-import '../models/disciplina.dart';
 import '../models/tarefa.dart';
 
 class AdiconarTarefaPage extends StatefulWidget {
@@ -67,12 +60,12 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
       codDisciplina: _disciplina!,
       tipo: _tipo!,
       data: DateTime(int.parse(_data.text.substring(6,10)), int.parse(_data.text.substring(3,5)), int.parse(_data.text.substring(0,2))),
-      status: S.of(context).Aberto,
+      status: 'Aberto',
       visibilidade: _visibilidade
       );
       List<Tarefa> lista = [];
       lista.add(tarefa);
-      Provider.of<TarefaRepository>(context, listen: false).saveAll(lista);
+      Provider.of<TarefaRepository>(context, listen: false).saveAll(lista, tarefa);
       Navigator.pop(context);
     }
   }
@@ -81,14 +74,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
   Widget build(BuildContext context) {
     drepository = context.read<DisciplinaRepository>();
 
-    return /*MaterialApp(
-      localizationsDelegates: [S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate
-      ],
-      debugShowCheckedModeBanner: false,
-      home: */Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).Adicionar),
       ),

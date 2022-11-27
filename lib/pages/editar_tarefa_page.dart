@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/models/disciplina.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -23,10 +24,12 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
   final _nome = TextEditingController(); // Permite editar o texto valor e controlá-lo
   String? _tipo;
   String? _disciplina;
+  String? disciplinaInicial;
   var _data = TextEditingController();
   final _descricao = TextEditingController();
   bool _visibilidade = false;
   late DisciplinaRepository drepository;
+  late Tarefa tInicial;
   DateTime date = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   final maskDateFormatter = MaskTextInputFormatter(
@@ -44,6 +47,8 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
     _data.text = DateFormat('dd/MM/yyyy').format(DateTime(widget.tarefa.data.year, widget.tarefa.data.month, widget.tarefa.data.day));
     _descricao.text = widget.tarefa.descricao!;
     _visibilidade = widget.tarefa.visibilidade;
+
+    tInicial = Tarefa(cod: widget.tarefa.cod,nome: widget.tarefa.nome, codDisciplina: widget.tarefa.codDisciplina, tipo: widget.tarefa.tipo, data: widget.tarefa.data, descricao: widget.tarefa.descricao!, visibilidade: widget.tarefa.visibilidade);
   }
 
   void dropdownCallbackTipo(String? value)
@@ -77,7 +82,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
       widget.tarefa.visibilidade = _visibilidade;
       List<Tarefa> lista = [];
       lista.add(widget.tarefa);
-      Provider.of<TarefaRepository>(context, listen: false).saveAll(lista);
+      Provider.of<TarefaRepository>(context, listen: false).saveAll(lista, tInicial);
       Navigator.pop(context);
     }
   }

@@ -131,8 +131,13 @@ class TarefaRepository extends ChangeNotifier{
   UnmodifiableListView<Tarefa> get listaPendentes => UnmodifiableListView(_listaP);
   UnmodifiableListView<Tarefa> get listaConcluidas => UnmodifiableListView(_listaC);
 
-  saveAll(List<Tarefa> tarefas) {
-    tarefas.forEach((tarefa) async { 
+  saveAll(List<Tarefa> tarefas, Tarefa tInicial) {
+    tarefas.forEach((tarefa) async {
+        if (tarefa.codDisciplina != tInicial.codDisciplina) {
+          List<Tarefa> remover = [];
+            remover.add(tInicial);
+          remove(remover);
+        }
         await db.collection('usuarios/${auth.usuario!.uid}/disciplinas/${tarefa.codDisciplina}/tarefas')
           .doc(tarefa.cod ?? null)
           .set({
@@ -173,11 +178,13 @@ class TarefaRepository extends ChangeNotifier{
       tarefa.status = 'Finalizado';
       _listaP.remove(tarefa);
       _listaC.add(tarefa);
+      _listaC.sort((a, b) => a.nome.compareTo(b.nome));
       }
       else if(tarefa.status == 'Finalizado') {
       tarefa.status = 'Aberto';
       _listaC.remove(tarefa);
       _listaP.add(tarefa);
+      _listaP.sort((a, b) => a.nome.compareTo(b.nome));
       }
       await db
         .collection('usuarios/${auth.usuario!.uid}/disciplinas/${tarefa.codDisciplina}/tarefas')

@@ -1,32 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/models/flashcard.dart';
 import 'package:provider/provider.dart';
-
 import '../generated/l10n.dart';
-import '../repositories/disciplina_repository.dart';
+import '../repositories/flashcard_repository.dart';
 
-class AdicionarFlashcardsPage extends StatefulWidget {
-  const AdicionarFlashcardsPage({super.key});
+class EditarFlashCardPage extends StatefulWidget {
+  final Flashcard flashcard;
+
+  const EditarFlashCardPage({super.key, required this.flashcard});
+
   @override
-  State<AdicionarFlashcardsPage> createState() => _AdicionarFlashCardsPageState();
+  State<EditarFlashCardPage> createState() => _EditarFlashCardPageState();
 }
 
-class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
+class _EditarFlashCardPageState extends State<EditarFlashCardPage> {
   final _form = GlobalKey<FormState>();
   final _question = TextEditingController();
   final _answer = TextEditingController();
-  String? _disciplina;
-  late DisciplinaRepository drepository;
 
-  void dropdownCallbackDisciplina(String? value)
-  {
-    setState(() {
-      _disciplina = value;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _question.text = widget.flashcard.question;
+    _answer.text = widget.flashcard.answer;
   }
+
+  void salvar()
+  {
+    if (_form.currentState!.validate()) {
+      widget.flashcard.question = _question.text;
+      widget.flashcard.answer = _answer.text;
+      List<Flashcard> lista = [];
+      lista.add(widget.flashcard);
+      Provider.of<FlashcardRepository>(context, listen: false).saveAll(lista);
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    drepository = context.read<DisciplinaRepository>();
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -58,6 +70,12 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
                           ),
                           labelText: S.of(context).Pergunta
                         ),
+                        validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
+                          if (value == null || value.isEmpty) {
+                            return 'Insira uma pergunta!';
+                          }
+                          return null;
+                        },
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 14),
@@ -73,38 +91,25 @@ class _AdicionarFlashCardsPageState extends State<AdicionarFlashcardsPage> {
                             ),
                             labelText: S.of(context).Resposta
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 14),
-                        child: DropdownButtonFormField(
-                          isExpanded: true,
-                          items: drepository.lista.map((op) => DropdownMenuItem(
-                            value: op.nome,
-                            child: Text(op.nome, overflow: TextOverflow.ellipsis),
-                          )).toList(),
-                          value: _disciplina,
-                          onChanged: dropdownCallbackDisciplina,
-                          style: TextStyle(fontSize: 18, color: Colors.black),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(16))
-                            ),
-                            labelText: S.of(context).Disciplina
-                          ),
+                          validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
+                          if (value == null || value.isEmpty) {
+                            return 'Insira uma respota!';
+                          }
+                          return null;
+                        },
                         ),
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  decoration: BoxDecoration(
-                    color: Colors.purple[800]
-                  ),
                   alignment: Alignment.bottomCenter,
                   margin: EdgeInsets.only(top: 24),
                   child: ElevatedButton(
-                    onPressed: null,
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple[800])),
+                    onPressed: (() {
+                      salvar();
+                    }),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
