@@ -51,6 +51,7 @@ dependencies:
   flip_card: ^0.6.0
   font_awesome_flutter: ^10.2.1
   table_calendar: ^3.0.8
+  flutter_launcher_icons: ^0.11.0
 
 dev_dependencies:
   flutter_test:
@@ -105,3 +106,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_intl:
   enabled: true
+flutter_icons:
+  android: true
+  ios: true
+  image_path: images/clock-icon.png
