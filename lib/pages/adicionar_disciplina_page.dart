@@ -171,7 +171,7 @@ class _AdicionarDisciplinaPageState extends State<AdicionarDisciplinaPage> {
  void pickColor(BuildContext context) => showDialog(
     context: context, 
     builder: (context) => AlertDialog(
-      title: Text(S.of(context).EscolhaACorParaADisciplina),
+      title: Text('Escolha a cor'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
