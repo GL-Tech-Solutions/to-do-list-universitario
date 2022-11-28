@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int paginaAtual = 0;
+  int paginaAtual = 1;
   late PageController pc;
 
   @override

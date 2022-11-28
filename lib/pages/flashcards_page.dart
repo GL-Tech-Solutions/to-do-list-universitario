@@ -58,7 +58,7 @@ adicionarFlashcard() {
                   leading: Icon(Icons.edit, color: Colors.blue),
                   title: Text(S.of(context).Editar),
                   contentPadding: EdgeInsets.symmetric(horizontal: 5),
-                  onTap: () => editarFlashcard(flashrepository.listaFlashcard[_currentIndexNumber])
+                  onTap: () => flashrepository.listaFlashcard.isNotEmpty ? (flashrepository.listaFlashcard[_currentIndexNumber]) : null
                 ),
               ),
               PopupMenuItem(
@@ -74,7 +74,7 @@ adicionarFlashcard() {
                   leading: Icon(Icons.highlight_remove_outlined, color: Colors.red),
                   title: Text(S.of(context).Remover),
                   contentPadding: EdgeInsets.symmetric(horizontal: 5),
-                  onTap: () => Provider.of<FlashcardRepository>(context, listen: false).remove(flashrepository.listaFlashcard[_currentIndexNumber])
+                  onTap: () => flashrepository.listaFlashcard.isNotEmpty ? Provider.of<FlashcardRepository>(context, listen: false).remove(flashrepository.listaFlashcard[_currentIndexNumber]) : null
                 ),
               ),
             ],
@@ -84,7 +84,7 @@ adicionarFlashcard() {
           body: Consumer<FlashcardRepository>(
             builder: (context, flashcards, child) {
              return flashcards.listaFlashcard.isEmpty
-             ? Text('Você não possui flashcards')
+             ? Center(child: Text('Você não possui flashcards'))
              : Center(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

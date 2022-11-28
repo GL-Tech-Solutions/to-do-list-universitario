@@ -13,6 +13,7 @@ class LoadingPage extends StatefulWidget {
 
 class _LoadingPageState extends State<LoadingPage> {
 
+  //TODO! Fazer funcional para novos usuários
   @override
   Widget build(BuildContext context) {
     return Scaffold(
