@@ -27,7 +27,6 @@ class _MainPageState extends State<MainPage> {
   late LocaleProvider provider;
   late DisciplinaRepository drepository;
   late TarefaRepository trepository;
-  late List<Tarefa> listaTarefasP;
   
   adicionarTarefa() {
     Navigator.push(
@@ -41,7 +40,7 @@ class _MainPageState extends State<MainPage> {
   List<Appointment> getTarefas() {
     List<Appointment> tarefas = <Appointment>[];
 
-    listaTarefasP.forEach((tarefa) { 
+    trepository.listaPendentes.forEach((tarefa) { 
       DateTime startTime = DateTime(tarefa.data.year, tarefa.data.month, tarefa.data.day);
       DateTime endTime = startTime.add(Duration());
 
@@ -65,7 +64,6 @@ class _MainPageState extends State<MainPage> {
     provider = context.watch<LocaleProvider>();
     drepository = context.watch<DisciplinaRepository>();
     trepository = context.watch<TarefaRepository>();
-    listaTarefasP = trepository.listaPendentes;
     
     return Scaffold(
       appBar: AppBar(

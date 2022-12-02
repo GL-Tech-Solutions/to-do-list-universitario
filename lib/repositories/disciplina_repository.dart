@@ -9,7 +9,6 @@ import '../services/auth_service.dart';
 
 class DisciplinaRepository extends ChangeNotifier {
   List<Disciplina> _lista = [];
-  List<Disciplina> _listaInicial = [];
   late FirebaseFirestore db;
   late AuthService auth;
 
@@ -19,21 +18,37 @@ class DisciplinaRepository extends ChangeNotifier {
 
   _startRepository() async {
     await _startFirestore();
-    await _readDisciplinas();
   }
 
   _startFirestore() {
     db = DBFirestore.get();
   }
 
+  Future<CollectionReference<Object?>> initalizeDisciplinas() async {
+    final disciplinas;
+    if (auth.usuario != null) {
+      disciplinas = db.collection('usuarios/${auth.usuario!.uid}/disciplinas');
+      final snapshot = await disciplinas.get();
+      _lista = [];
+      snapshot.docs.forEach((doc) { 
+        Disciplina disciplina = Disciplina(cod: doc.id, nome: doc.get('nome'), professor: doc.get('professor'), cor: Disciplina.toColor(doc.get('cor')));
+        _lista.add(disciplina);
+        _lista.sort((a, b) => a.nome.compareTo(b.nome));
+        notifyListeners();
+      });
+    }
+    else {
+      disciplinas = null;
+    }
+    return disciplinas;
+  }
+
   _readDisciplinas() async {
     if (auth.usuario != null) {
+      final snapshot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas').get();
       _lista = [];
-      final snaphot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas').get(); //É possível fazer uma query direto no firebase (where por exemplo)
-      snaphot.docs.forEach((doc) { 
+      snapshot.docs.forEach((doc) { 
         Disciplina disciplina = Disciplina(cod: doc.id, nome: doc.get('nome'), professor: doc.get('professor'), cor: Disciplina.toColor(doc.get('cor')));
-        _listaInicial.add(disciplina);
-        _listaInicial.sort((a, b) => a.nome.compareTo(b.nome));
         _lista.add(disciplina);
         _lista.sort((a, b) => a.nome.compareTo(b.nome));
         notifyListeners();
@@ -41,7 +56,6 @@ class DisciplinaRepository extends ChangeNotifier {
     }
   }
 
-  UnmodifiableListView<Disciplina> get listaInicial => UnmodifiableListView(_listaInicial);
   UnmodifiableListView<Disciplina> get lista => UnmodifiableListView(_lista);
 
   saveAll(List<Disciplina> disciplinas) {
