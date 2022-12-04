@@ -29,7 +29,8 @@ Future<void> main() async {
         )),
         ChangeNotifierProvider(create: (context) => TarefaRepository(
           auth: context.read<AuthService>(),
-          drepository: context.read<DisciplinaRepository>()
+          //! Entender mais sobre injeção de dependências
+          drepository: Provider.of<DisciplinaRepository>(context, listen: false)//context.read<DisciplinaRepository>()
         )),
       ],
       child: MeuAplicativo(),

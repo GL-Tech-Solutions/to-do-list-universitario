@@ -2,11 +2,12 @@ import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
+import 'package:flutter_aula_1/repositories/disposable_provider.dart';
 import '../database/db_firestore.dart';
 import '../models/tarefa.dart';
 import '../services/auth_service.dart';
 
-class TarefaRepository extends ChangeNotifier{
+class TarefaRepository extends DisposableProvider{
   late DisciplinaRepository drepository;
   late List<String?> codDisciplinas = [];
   List<Tarefa> _listaP = [];
@@ -17,7 +18,13 @@ class TarefaRepository extends ChangeNotifier{
 
   TarefaRepository({required this.auth, required this.drepository}) {
     _startRepository();
+  }
 
+  @override
+  void dispose() {
+    _listaP = [];
+    super.dispose();
+    notifyListeners();
   }
 
   _startRepository() async {
@@ -41,6 +48,36 @@ class TarefaRepository extends ChangeNotifier{
     DateTime date = t.toDate();
     return date;
   }
+
+  Future<CollectionReference<Object?>?> initializeTarefas() async {
+    CollectionReference<Object?>? tf;
+    if(auth.usuario != null) {
+      _listaC = [];
+      codDisciplinas.forEach((cod) async {
+        tf = db.collection('usuarios/${auth.usuario!.uid}/disciplinas/$cod/tarefas');
+        final snapshot = await tf!.get();
+        snapshot.docs.forEach((doc) { 
+          Tarefa tarefa = Tarefa(
+            cod: doc.id,
+            nome: doc.get('nome'),
+            descricao: doc.get('descricao'),
+            codDisciplina: doc.get('codDisciplina'),
+            tipo: doc.get('tipo'),
+            data: convertTimeStamp(doc.get('data')),
+            status: doc.get('status'),
+            visibilidade: doc.get('visibilidade')
+          );
+          _listaP.add(tarefa);
+          _listaP.sort((a, b) => a.nome.compareTo(b.nome));
+          notifyListeners();
+          });
+        });
+      }
+      else {
+        tf = null;
+      }
+      return tf;
+    }
 
   _readPendentes(String? codDisciplina) async {
     if (auth.usuario != null) {
@@ -200,5 +237,12 @@ class TarefaRepository extends ChangeNotifier{
         });
       notifyListeners();
     });
+  }
+  
+  @override
+  void disposeValues() {
+    codDisciplinas = [];
+    _listaP = [];
+    _listaC = [];
   }
 }

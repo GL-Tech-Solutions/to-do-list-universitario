@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 
+import '../repositories/app_provider.dart';
+
 class AuthException implements Exception {
   String message;
   AuthException(this.message);
@@ -62,8 +64,9 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  logout() async {
+  logout(BuildContext context) async {
     await _auth.signOut();
+    AppProvider.disposeAllDisposableProviders(context);
     _getUser();
   }
 } 

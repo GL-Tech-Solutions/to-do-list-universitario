@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/main.dart';
+import 'package:flutter_aula_1/meu_aplicativo.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:flutter_aula_1/repositories/locale_provider.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
@@ -120,7 +122,9 @@ class _MainPageState extends State<MainPage> {
                   )).toList(),
               ),
             OutlinedButton(
-              onPressed: () => context.read<AuthService>().logout(),
+              onPressed: () {
+                context.read<AuthService>().logout(context);
+              },
               style: OutlinedButton.styleFrom(
                 foregroundColor: Colors.red,
               ),

@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/meu_aplicativo.dart';
 import 'package:flutter_aula_1/pages/home_page.dart';
+import 'package:flutter_aula_1/pages/loading_flashcard_page.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
-import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
+import 'package:flutter_aula_1/repositories/flashcard_repository.dart';
 import 'package:flutter_aula_1/services/auth_service.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +19,11 @@ class AuthCheck extends StatefulWidget {
 }
 
 class _AuthCheckState extends State<AuthCheck> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     AuthService auth = Provider.of<AuthService>(context);
@@ -32,7 +40,7 @@ class _AuthCheckState extends State<AuthCheck> {
         future: drepository.initalizeDisciplinas(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return HomePage();
+            return LoadingFlashcardPage();
           } 
           else {
             return Scaffold(

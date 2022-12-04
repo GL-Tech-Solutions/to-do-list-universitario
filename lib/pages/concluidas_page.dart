@@ -33,7 +33,6 @@ class _ConcluidasPageState extends State<ConcluidasPage> {
             child: ListView.builder(
                 itemCount: tarefas.listaConcluidas.length,
                 itemBuilder: (_, index) {
-                  //TODO Deixar um if e else if para receber o filtro de disciplinas depois
                   return TarefaCard(tarefa: tarefas.listaConcluidas[index]);
                 },
               ),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
+import 'package:flutter_aula_1/repositories/flashcard_repository.dart';
+import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:flutter_aula_1/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +27,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-      super.initState();
-      setFormAction(true);
+    super.initState();
+    setFormAction(true);
   }
 
   setFormAction(bool acao)

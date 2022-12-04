@@ -40,6 +40,7 @@ class DisciplinaRepository extends ChangeNotifier {
     else {
       disciplinas = null;
     }
+    debugPrint('Disciplina');
     return disciplinas;
   }
 

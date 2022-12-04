@@ -32,7 +32,6 @@ class _PendentesPageState extends State<PendentesPage> {
               child: ListView.builder(
                 itemCount: tarefas.listaPendentes.length,
                 itemBuilder: (_, index) {
-                  //TODO Deixar um if e else if para receber o filtro de disciplinas depois
                     return TarefaCard(tarefa: tarefas.listaPendentes[index]);
                 },
               ),

@@ -12,6 +12,7 @@ class MeuAplicativo extends StatelessWidget { //StatelessWidget - Um Widget imut
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
+    
     create: ((context) => LocaleProvider()),
     builder: (context, child) {
       final provider = Provider.of<LocaleProvider>(context);

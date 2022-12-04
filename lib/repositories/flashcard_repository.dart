@@ -2,10 +2,11 @@ import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/database/db_firestore.dart';
+import 'package:flutter_aula_1/repositories/disposable_provider.dart';
 import '../models/flashcard.dart';
 import '../services/auth_service.dart';
 
-class FlashcardRepository extends ChangeNotifier {
+class FlashcardRepository extends DisposableProvider {
   List<Flashcard> _lista = [];
   late FirebaseFirestore db;
   late AuthService auth;
@@ -16,11 +17,30 @@ class FlashcardRepository extends ChangeNotifier {
 
   _startRepository() async {
     await _startFirestore();
-    await _readFlashcards();
+   // await _readFlashcards();
   }
 
   _startFirestore() {
     db = DBFirestore.get();
+  }
+
+  Future<CollectionReference<Object?>> initalizeFlashCards() async {
+    final flashcards;
+    if (auth.usuario != null) {
+      flashcards = db.collection('usuarios/${auth.usuario!.uid}/flashcards');
+      final snapshot = await flashcards.get();
+      _lista = [];
+      snapshot.docs.forEach((doc) { 
+        Flashcard flashcard = Flashcard(cod: doc.id, question: doc.get('question'), answer: doc.get('answer'));
+        _lista.add(flashcard);
+        notifyListeners();
+      });
+    }
+    else {
+      flashcards = null;
+    }
+    debugPrint('asasa');
+    return flashcards;
   }
 
   _readFlashcards() async {
@@ -58,5 +78,10 @@ class FlashcardRepository extends ChangeNotifier {
       .delete();
     _lista.remove(flashcard);
     notifyListeners();
+  }
+  
+  @override
+  void disposeValues() {
+    _lista = [];
   }
 }
