@@ -40,10 +40,3 @@ Desenvolvido por Gustavo de Paula e Leianny Poiani. Com logo de [Renis Souza](ht
   <img alt="Disciplinas Page" src=".github/disciplinas_page.png" width="24%">
   <img alt="Tarefas pendentes Page" src=".github/pendent_tarefas_page.png" width="24%">
 </p>
-
-<p align="center">
-  <img alt="Tarefa information Dialog" src=".github/tarefa_information_dialog.png" width="24%">
-  <img alt="Tarefas concluídas Page" src=".github/concluded_tarefas_page.png" width="24%">
-  <img alt="Add Taerfa Page" src=".github/add_tarefa_page.png" width="24%">
-  <img alt="Flashcards Page" src=".github/flashcards_page.png" width="24%">
-</p>
