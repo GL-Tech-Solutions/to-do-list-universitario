@@ -37,30 +37,26 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
       );
 
   void pickColor(BuildContext context) => showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-            title: Text('Escolha a cor'),
-            content: Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  buildColorPicker(),
-                  TextButton(
-                    child: Flexible(
-                      child: Text(
-                        S.of(context).Selecionar,
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                    onPressed: () => Navigator.of(context).pop(),
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Escolha a cor'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              buildColorPicker(),
+              TextButton(
+                child: Text(
+                  S.of(context).Selecionar,
+                  style: TextStyle(
+                    fontSize: 14,
                   ),
-                ],
+                ),
+                onPressed: () => Navigator.of(context).pop(),
               ),
-            ),
-          ));
+            ],
+          ),
+        ),
+      );
 
   void salvar() async {
     if (_form.currentState!.validate()) {

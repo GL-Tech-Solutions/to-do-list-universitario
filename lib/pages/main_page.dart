@@ -76,22 +76,49 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
             PopupMenuButton(
-              icon: Icon(Icons.more_horiz),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.language,
+                      color: Colors.indigo[400],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Text(
+                        'Idiomas',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               itemBuilder: (context) => AppLocalizationDelegate()
                   .supportedLocales
-                  .map((op) => PopupMenuItem(
-                        child: ListTile(
-                          leading: Icon(Icons.flag, color: Colors.green),
-                          title: Text(op.toString()),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 5),
-                          onTap: () {
-                            Provider.of<LocaleProvider>(context, listen: false)
-                                .setLocale(op);
-                            AppLocalizationDelegate().load(provider.locale);
-                            Navigator.of(context).pop();
-                          },
+                  .map(
+                    (op) => PopupMenuItem(
+                      child: ListTile(
+                        title: Text(
+                          op.toString() == 'en'
+                              ? 'Inglês'
+                              : op.toString() == 'es'
+                                  ? 'Espanhol'
+                                  : op.toString() == 'fr'
+                                      ? 'Francês'
+                                      : 'Português Brasileiro',
                         ),
-                      ))
+                        contentPadding: EdgeInsets.symmetric(horizontal: 5),
+                        onTap: () {
+                          Provider.of<LocaleProvider>(context, listen: false)
+                              .setLocale(op);
+                          AppLocalizationDelegate().load(provider.locale);
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
             OutlinedButton(

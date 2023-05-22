@@ -63,7 +63,7 @@ class _AuthCheckState extends State<AuthCheck> {
   Future<bool> _loadRepositories() async {
     try {
       await context.read<DisciplinaRepository>().startRepository();
-      //await context.read<FlashcardRepository>().startRepository();
+      await context.read<FlashcardRepository>().startRepository();
       return true;
     } on Exception catch (e, s) {
       log(e.toString(), error: e, stackTrace: s);
