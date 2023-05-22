@@ -1,208 +1,216 @@
-import 'dart:collection';
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_aula_1/models/disciplina.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import '../database/db_firestore.dart';
 import '../models/tarefa.dart';
 import '../services/auth_service.dart';
 
-class TarefaRepository extends ChangeNotifier{
-  late DisciplinaRepository drepository;
-  late List<String?> codDisciplinas = [];
-  List<Tarefa> _listaP = [];
-  List<Tarefa> _listaPInicial = [];
-  List<Tarefa> _listaC = [];
-  String? _cod = null;
+class TarefaRepository extends ChangeNotifier {
+  DisciplinaRepository drepository;
   late FirebaseFirestore db;
   late AuthService auth;
+  String? codDisciplinaFilter;
 
   TarefaRepository({required this.auth, required this.drepository}) {
-    _startRepository();
-
+    startRepository();
   }
 
-  _startRepository() async {
-    await _startFirestore();
-    await _listDisciplinas();
-    await _readPendentes(_cod);
-    await _readConcluidas(_cod);
+  startRepository() {
+    _startFirestore();
   }
 
   _startFirestore() {
     db = DBFirestore.get();
   }
 
-  _listDisciplinas() async {
-    drepository.lista.forEach((disciplina) { 
-      codDisciplinas.add(disciplina.cod);
-    });
-  }
+  Future<List<Tarefa>> readTarefas() async {
+    try {
+      List<Tarefa> tarefas = [];
 
-  DateTime convertTimeStamp (Timestamp t) {
-    DateTime date = t.toDate();
-    return date;
-  }
-
-  _readPendentes(String? codDisciplina) async {
-    if (auth.usuario != null) {
-      _listaP = [];
-      codDisciplinas.forEach((cod) async {
-        final snapshot;
-        if (codDisciplina != null) {
-          snapshot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas/$cod/tarefas')
-          .where('status', isEqualTo: 'Aberto')
-          .where('codDisciplina', isEqualTo: codDisciplina)
-          .get();//É possível fazer uma query direto no firebase (where por exemplo)
+      if (auth.usuario != null) {
+        for (Disciplina disciplina in drepository.lista) {
+          final snapshot = await db
+              .collection(
+                  'usuarios/${auth.usuario!.uid}/disciplinas/${disciplina.cod}/tarefas')
+              .get();
+          if (snapshot.docs.isNotEmpty) {
+            tarefas.addAll(snapshot.docs
+                .map(
+                  (doc) => Tarefa.fromMap(
+                    doc.data(),
+                  ).copyWith(cod: doc.id),
+                )
+                .toList());
+            tarefas.sort((a, b) => a.nome.compareTo(b.nome));
+          }
         }
-        else {
-          snapshot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas/$cod/tarefas')
-          .where('status', isEqualTo: 'Aberto')
-          .get();//É possível fazer uma query direto no firebase (where por exemplo)
-        }
-        snapshot.docs.forEach((doc) { 
-        Tarefa tarefa = Tarefa(
-          cod: doc.id,
-          nome: doc.get('nome'),
-          descricao: doc.get('descricao'),
-          codDisciplina: doc.get('codDisciplina'),
-          tipo: doc.get('tipo'),
-          data: convertTimeStamp(doc.get('data')),
-          status: doc.get('status'),
-          visibilidade: doc.get('visibilidade')
-        );
-        _listaPInicial.add(tarefa);
-        _listaPInicial.sort((a, b) => a.nome.compareTo(b.nome));
-        _listaP.add(tarefa);
-        _listaP.sort((a, b) => a.nome.compareTo(b.nome));
-        notifyListeners();
-        });
-      });
-    }
-  }
-
-  _readConcluidas(String? codDisciplina) async {
-    if (auth.usuario != null) {
-      _listaC = [];
-      codDisciplinas.forEach((cod) async {
-        final snapshot;
-        if (codDisciplina != null) {
-          snapshot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas/$cod/tarefas')
-          .where('status', isEqualTo: 'Finalizado')
-          .where('codDisciplina', isEqualTo: codDisciplina)
-          .get();//É possível fazer uma query direto no firebase (where por exemplo)
-        }
-        else {
-          snapshot = await db.collection('usuarios/${auth.usuario!.uid}/disciplinas/$cod/tarefas')
-          .where('status', isEqualTo: 'Finalizado')
-          .get();//É possível fazer uma query direto no firebase (where por exemplo)
-        }
-        snapshot.docs.forEach((doc) { 
-        Tarefa tarefa = Tarefa(
-          cod: doc.id,
-          nome: doc.get('nome'),
-          descricao: doc.get('descricao'),
-          codDisciplina: doc.get('codDisciplina'),
-          tipo: doc.get('tipo'),
-          data: convertTimeStamp(doc.get('data')),
-          status: doc.get('status'),
-          visibilidade: doc.get('visibilidade')
-        );
-        _listaC.add(tarefa);
-        _listaC.sort((a, b) => a.nome.compareTo(b.nome));
-        notifyListeners();
-        });
-      });
-    }
-  }
-
-  set cod(String? codDisciplina) {
-    _cod = codDisciplina;
-    _readPendentes(_cod);
-    _readConcluidas(_cod);
-    notifyListeners();
-  }
-
-  clearFiltered()
-  {
-    _cod = null;
-    _readPendentes(_cod);
-    _readConcluidas(_cod);
-    notifyListeners();
-  }
-
-  String? get cod => (_cod);
-  UnmodifiableListView<Tarefa> get listaPendentesInicial => UnmodifiableListView(_listaPInicial);
-  UnmodifiableListView<Tarefa> get listaPendentes => UnmodifiableListView(_listaP);
-  UnmodifiableListView<Tarefa> get listaConcluidas => UnmodifiableListView(_listaC);
-
-  saveAll(List<Tarefa> tarefas, Tarefa tInicial) {
-    tarefas.forEach((tarefa) async {
-        if (tarefa.codDisciplina != tInicial.codDisciplina) {
-          List<Tarefa> remover = [];
-            remover.add(tInicial);
-          remove(remover);
-        }
-        await db.collection('usuarios/${auth.usuario!.uid}/disciplinas/${tarefa.codDisciplina}/tarefas')
-          .doc(tarefa.cod ?? null)
-          .set({
-            'nome': tarefa.nome,
-            'descricao': tarefa.descricao,
-            'codDisciplina': tarefa.codDisciplina,
-            'tipo': tarefa.tipo,
-            'data': tarefa.data,
-            'status': tarefa.status,
-            'visibilidade': tarefa.visibilidade
-          });
+        return tarefas;
       }
-    );
-    _readPendentes(_cod);
-    _readConcluidas(_cod);
-    notifyListeners();
+      return tarefas;
+    } on FirebaseException catch (e, s) {
+      log(e.toString(), error: e, stackTrace: s);
+      throw Exception('Houve um problema ao salvar a tarefa');
+    }
+  }
+
+  Future<List<Tarefa>> readTarefasPendentes() async {
+    try {
+      List<Tarefa> tarefas = [];
+
+      if (auth.usuario != null) {
+        for (Disciplina disciplina in drepository.lista) {
+          final snapshot = await db
+              .collection(
+                  'usuarios/${auth.usuario!.uid}/disciplinas/${disciplina.cod}/tarefas')
+              .where('status', isEqualTo: 'Aberto')
+              .get();
+          if (snapshot.docs.isNotEmpty) {
+            tarefas.addAll(snapshot.docs
+                .map(
+                  (doc) => Tarefa.fromMap(
+                    doc.data(),
+                  ).copyWith(cod: doc.id),
+                )
+                .toList());
+            tarefas.sort((a, b) => a.nome.compareTo(b.nome));
+          }
+        }
+        return tarefas;
+      }
+      return tarefas;
+    } on FirebaseException catch (e, s) {
+      log(e.toString(), error: e, stackTrace: s);
+      throw Exception('Houve um problema ao salvar a tarefa');
+    }
+  }
+
+  Future<List<Tarefa>> readTarefasConcluidas() async {
+    try {
+      List<Tarefa> tarefas = [];
+
+      if (auth.usuario != null) {
+        for (Disciplina disciplina in drepository.lista) {
+          final snapshot = await db
+              .collection(
+                  'usuarios/${auth.usuario!.uid}/disciplinas/${disciplina.cod}/tarefas')
+              .where('status', isEqualTo: 'Finalizado')
+              .get();
+          if (snapshot.docs.isNotEmpty) {
+            tarefas.addAll(snapshot.docs
+                .map(
+                  (doc) => Tarefa.fromMap(
+                    doc.data(),
+                  ).copyWith(cod: doc.id),
+                )
+                .toList());
+            tarefas.sort((a, b) => a.nome.compareTo(b.nome));
+          }
+        }
+        return tarefas;
+      }
+      return tarefas;
+    } on FirebaseException catch (e, s) {
+      log(e.toString(), error: e, stackTrace: s);
+      throw Exception('Houve um problema ao salvar a tarefa');
+    }
+  }
+
+  Future<List<Tarefa>> readFiltered(String? codDisciplina) async {
+    List<Tarefa> tarefas = [];
+
+    if (auth.usuario != null) {
+      if (codDisciplina != null) {
+        final snapshot = await db
+            .collection(
+                'usuarios/${auth.usuario!.uid}/disciplinas/$codDisciplina/tarefas')
+            .get();
+
+        if (snapshot.docs.isNotEmpty) {
+          tarefas.addAll(snapshot.docs
+              .map(
+                (doc) => Tarefa.fromMap(
+                  doc.data(),
+                ),
+              )
+              .toList());
+          tarefas.sort((a, b) => a.nome.compareTo(b.nome));
+          return tarefas;
+        }
+      }
+    }
+    return tarefas;
+  }
+
+  Future<void> saveTarefa(Tarefa tarefa) async {
+    try {
+      if (auth.usuario != null) {
+        await db
+            .collection(
+                'usuarios/${auth.usuario!.uid}/disciplinas/${tarefa.codDisciplina}/tarefas')
+            .add(tarefa.toMap());
+        notifyListeners();
+      }
+    } on FirebaseException catch (e, s) {
+      log(e.toString(), error: e, stackTrace: s);
+      throw Exception('Houve um problema ao salvar a tarefa');
+    }
+  }
+
+  Future<void> updateTarefa(Tarefa tarefa) async {
+    try {
+      if (auth.usuario != null) {
+        await db
+            .collection(
+                'usuarios/${auth.usuario!.uid}/disciplinas/${tarefa.codDisciplina}/tarefas')
+            .doc(tarefa.cod)
+            .update(tarefa.toMap());
+        notifyListeners();
+      }
+    } on FirebaseException catch (e, s) {
+      log(e.toString(), error: e, stackTrace: s);
+      throw Exception('Houve um problema ao atualizar a tarefa');
+    }
   }
 
   remove(List<Tarefa> tarefas) async {
-    tarefas.forEach((tarefa) async {
-      await db
-      .collection('usuarios/${auth.usuario!.uid}/disciplinas/${tarefa.codDisciplina}/tarefas')
-      .doc(tarefa.cod)
-      .delete();
-      if(tarefa.status == 'Aberto') {
-        _listaP.remove(tarefa);
+    try {
+      if (auth.usuario != null) {
+        for (Tarefa tarefa in tarefas) {
+          await db
+              .collection(
+                  'usuarios/${auth.usuario!.uid}/disciplinas/${tarefa.codDisciplina}/tarefas')
+              .doc(tarefa.cod)
+              .delete();
+        }
+        notifyListeners();
       }
-      else if(tarefa.status == 'Finalizado') {
-        _listaC.remove(tarefa);
-      }
-      notifyListeners();
-    });
+    } on FirebaseException catch (e, s) {
+      log(e.toString(), error: e, stackTrace: s);
+      throw Exception('Houve um problema ao atualizar a tarefa');
+    }
   }
 
   setStatus(List<Tarefa> tarefas) async {
-    tarefas.forEach((tarefa) async {
-      if(tarefa.status == 'Aberto') {
-      tarefa.status = 'Finalizado';
-      _listaP.remove(tarefa);
-      _listaC.add(tarefa);
-      _listaC.sort((a, b) => a.nome.compareTo(b.nome));
+    for (Tarefa tarefa in tarefas) {
+      if (tarefa.status == 'Aberto') {
+        tarefa.status = 'Finalizado';
+      } else if (tarefa.status == 'Finalizado') {
+        tarefa.status = 'Aberto';
       }
-      else if(tarefa.status == 'Finalizado') {
-      tarefa.status = 'Aberto';
-      _listaC.remove(tarefa);
-      _listaP.add(tarefa);
-      _listaP.sort((a, b) => a.nome.compareTo(b.nome));
-      }
-      await db
-        .collection('usuarios/${auth.usuario!.uid}/disciplinas/${tarefa.codDisciplina}/tarefas')
-        .doc(tarefa.cod)
-        .set({
-          'nome': tarefa.nome,
-          'descricao': tarefa.descricao,
-          'codDisciplina': tarefa.codDisciplina,
-          'tipo': tarefa.tipo,
-          'data': tarefa.data,
-          'status': tarefa.status,
-          'visibilidade': tarefa.visibilidade
-        });
-      notifyListeners();
-    });
+      await updateTarefa(tarefa);
+    }
+    notifyListeners();
+  }
+
+  void setFilter(String? codDisciplina) {
+    codDisciplinaFilter = codDisciplina;
+    notifyListeners();
+  }
+
+  void clearFilter() {
+    codDisciplinaFilter = null;
+    notifyListeners();
   }
 }

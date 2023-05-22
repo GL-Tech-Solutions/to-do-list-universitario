@@ -7,7 +7,7 @@ class AuthException implements Exception {
 }
 
 class AuthService extends ChangeNotifier {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   User? usuario;
   bool isLoading = true;
 
@@ -15,10 +15,9 @@ class AuthService extends ChangeNotifier {
     _authCheck();
   }
 
-  _authCheck()
-  {
-    _auth.authStateChanges().listen((User? user) { 
-      usuario = (user == null) ? null : user;
+  _authCheck() {
+    _auth.authStateChanges().listen((User? user) {
+      usuario = user;
       isLoading = false;
       notifyListeners();
     });
@@ -28,20 +27,18 @@ class AuthService extends ChangeNotifier {
     usuario = _auth.currentUser;
     notifyListeners();
   }
-  
+
   registrar(String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       _getUser();
-    }
-    on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw AuthException('A senha é muito fraca!');
-      }
-      else if (e.code == 'email-already-in-use') {
+      } else if (e.code == 'email-already-in-use') {
         throw AuthException('Este e-mail já está em uso');
-      }
-      else if (e.code == 'invalid-email') {
+      } else if (e.code == 'invalid-email') {
         throw AuthException('E-mail inválido');
       }
     }
@@ -51,12 +48,10 @@ class AuthService extends ChangeNotifier {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       _getUser();
-    }
-    on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw AuthException('E-mail não encontrado. Cadastre-se');
-      }
-      else if (e.code == 'wrong-password') {
+      } else if (e.code == 'wrong-password') {
         throw AuthException('Senha incorreta. Tente novamente');
       }
     }
@@ -66,4 +61,4 @@ class AuthService extends ChangeNotifier {
     await _auth.signOut();
     _getUser();
   }
-} 
+}

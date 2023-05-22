@@ -11,52 +11,58 @@ class FlashcardRepository extends ChangeNotifier {
   late AuthService auth;
 
   FlashcardRepository({required this.auth}) {
-    _startRepository();
+    startRepository();
   }
 
-  _startRepository() async {
-    await _startFirestore();
-    await _readFlashcards();
+  startRepository() async {
+    _startFirestore();
+    await readFlashcards();
   }
 
   _startFirestore() {
     db = DBFirestore.get();
   }
 
-  _readFlashcards() async {
+  readFlashcards() async {
     if (auth.usuario != null) {
       _lista = [];
-      final snaphot = await db.collection('usuarios/${auth.usuario!.uid}/flashcards').get(); //É possível fazer uma query direto no firebase (where por exemplo)
-      snaphot.docs.forEach((doc) { 
-        Flashcard flashcard = Flashcard(cod: doc.id, question: doc.get('question'), answer: doc.get('answer'));
+      final snaphot = await db
+          .collection('usuarios/${auth.usuario!.uid}/flashcards')
+          .get(); //É possível fazer uma query direto no firebase (where por exemplo)
+      snaphot.docs.forEach((doc) {
+        Flashcard flashcard = Flashcard(
+            cod: doc.id,
+            question: doc.get('question'),
+            answer: doc.get('answer'));
         _lista.add(flashcard);
-        notifyListeners();
       });
+      notifyListeners();
     }
   }
 
-  UnmodifiableListView<Flashcard> get listaFlashcard => UnmodifiableListView(_lista);
+  UnmodifiableListView<Flashcard> get listaFlashcard =>
+      UnmodifiableListView(_lista);
 
   saveAll(List<Flashcard> flashcards) {
-    flashcards.forEach((flashcard) async { 
-        await db.collection('usuarios/${auth.usuario!.uid}/flashcards')
+    flashcards.forEach((flashcard) async {
+      await db
+          .collection('usuarios/${auth.usuario!.uid}/flashcards')
           .doc(flashcard.cod ?? null)
-          .set({
-            'question': flashcard.question,
-            'answer': flashcard.answer
-          });
-      }
-    );
-    _readFlashcards();
-    notifyListeners();
+          .set({'question': flashcard.question, 'answer': flashcard.answer});
+    });
+    readFlashcards();
   }
 
   remove(Flashcard flashcard) async {
     await db
-      .collection('usuarios/${auth.usuario!.uid}/flashcards')
-      .doc(flashcard.cod)
-      .delete();
+        .collection('usuarios/${auth.usuario!.uid}/flashcards')
+        .doc(flashcard.cod)
+        .delete();
     _lista.remove(flashcard);
     notifyListeners();
+  }
+
+  void resetLists() {
+    _lista = [];
   }
 }

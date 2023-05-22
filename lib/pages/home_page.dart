@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int paginaAtual = 1;
+  int paginaAtual = 0;
   late PageController pc;
 
   @override
@@ -23,8 +23,7 @@ class _HomePageState extends State<HomePage> {
     pc = PageController(initialPage: paginaAtual);
   }
 
-  setPaginaAtual(pagina)
-  {
+  setPaginaAtual(pagina) {
     setState(() {
       paginaAtual = pagina;
     });
@@ -47,16 +46,20 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: S.of(context).Inicio),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: S.of(context).Disciplinas),
-          BottomNavigationBarItem(icon: Icon(Icons.task), label: S.of(context).Tarefas),
-          BottomNavigationBarItem(icon: Icon(Icons.note), label: S.of(context).FlashCards),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home), label: S.of(context).Inicio),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.book), label: S.of(context).Disciplinas),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.task), label: S.of(context).Tarefas),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.note), label: S.of(context).FlashCards),
         ],
         currentIndex: paginaAtual,
         onTap: (pagina) {
           pc.animateToPage(
-            pagina, 
-            duration: Duration(milliseconds: 200), 
+            pagina,
+            duration: Duration(milliseconds: 200),
             curve: Curves.ease,
           );
         },

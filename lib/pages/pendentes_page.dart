@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/models/tarefa.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:flutter_aula_1/widgets/tarefa_card.dart';
 import 'package:provider/provider.dart';
 import '../generated/l10n.dart';
 
 class PendentesPage extends StatefulWidget {
-  const PendentesPage({super.key});
+  final List<Tarefa> listaPendentes;
+
+  const PendentesPage({
+    super.key,
+    required this.listaPendentes,
+  });
 
   @override
   State<PendentesPage> createState() => _PendentesPageState();
@@ -18,27 +24,23 @@ class _PendentesPageState extends State<PendentesPage> {
       color: Colors.indigo.withOpacity(0.05),
       height: MediaQuery.of(context).size.height,
       padding: EdgeInsets.all(8),
-      child: 
-        Consumer<TarefaRepository>(
-          builder: (context, tarefas, child) {
-            return tarefas.listaPendentes.isEmpty
-            ? ListTile(
+      child: widget.listaPendentes.isEmpty
+          ? ListTile(
               leading: Icon(Icons.notes),
               title: Text(S.of(context).NaoHaTarefas),
             )
-            : MediaQuery.removePadding(
+          : MediaQuery.removePadding(
               removeTop: true,
               context: context,
               child: ListView.builder(
-                itemCount: tarefas.listaPendentes.length,
+                itemCount: widget.listaPendentes.length,
                 itemBuilder: (_, index) {
-                  //TODO Deixar um if e else if para receber o filtro de disciplinas depois
-                    return TarefaCard(tarefa: tarefas.listaPendentes[index]);
+                  return TarefaCard(
+                    tarefa: widget.listaPendentes[index],
+                  );
                 },
               ),
-            );
-        }
-      )
+            ),
     );
   }
 }
