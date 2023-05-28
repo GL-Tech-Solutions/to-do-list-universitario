@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/pages/home_page.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:flutter_aula_1/repositories/flashcard_repository.dart';
-import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:flutter_aula_1/services/auth_service.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import '../generated/l10n.dart';
 import '../pages/login_page.dart';
 
 class AuthCheck extends StatefulWidget {
@@ -23,7 +20,6 @@ class _AuthCheckState extends State<AuthCheck> {
     AuthService auth = Provider.of<AuthService>(context);
 
     if (auth.isLoading) {
-      log('Carregando usuário');
       return _loading();
     } else if (auth.usuario == null) {
       return LoginPage();
@@ -32,7 +28,6 @@ class _AuthCheckState extends State<AuthCheck> {
         future: _loadRepositories(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            log('Carregando...');
             return _loading();
           }
 
@@ -63,6 +58,7 @@ class _AuthCheckState extends State<AuthCheck> {
   Future<bool> _loadRepositories() async {
     try {
       await context.read<DisciplinaRepository>().startRepository();
+      // ignore: use_build_context_synchronously
       await context.read<FlashcardRepository>().startRepository();
       return true;
     } on Exception catch (e, s) {

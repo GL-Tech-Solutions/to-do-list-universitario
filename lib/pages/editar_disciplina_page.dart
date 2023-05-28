@@ -1,10 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
-
-import '../generated/l10n.dart';
 import '../models/disciplina.dart';
 import '../repositories/disciplina_repository.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: must_be_immutable
 class EditarDisciplinaPage extends StatefulWidget {
@@ -39,14 +39,14 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
   void pickColor(BuildContext context) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Escolha a cor'),
+          title: Text(AppLocalizations.of(context)!.escolherCor),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               buildColorPicker(),
               TextButton(
                 child: Text(
-                  S.of(context).Selecionar,
+                  AppLocalizations.of(context)!.selecionar,
                   style: TextStyle(
                     fontSize: 14,
                   ),
@@ -65,6 +65,7 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
       widget.disciplina.cor = color;
       await Provider.of<DisciplinaRepository>(context, listen: false)
           .updateDisciplina(widget.disciplina);
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
     }
   }
@@ -73,7 +74,7 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).Adicionar),
+        title: Text(AppLocalizations.of(context)!.adicionar),
       ),
       body: Center(
         child: Padding(
@@ -95,11 +96,11 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                             border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(16))),
-                            labelText: S.of(context).Nome),
+                            labelText: AppLocalizations.of(context)!.nome),
                         validator: (value) {
                           // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                           if (value == null || value.isEmpty) {
-                            return S.of(context).InformeNome;
+                            return AppLocalizations.of(context)!.informeNome;
                           }
                           return null;
                         },
@@ -114,11 +115,12 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(16))),
-                              labelText: S.of(context).Professor),
+                              labelText:
+                                  AppLocalizations.of(context)!.professor),
                           validator: (value) {
                             // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                             if (value == null || value.isEmpty) {
-                              return S.of(context).InformeProf;
+                              return AppLocalizations.of(context)!.informeProf;
                             }
                             return null;
                           },
@@ -153,8 +155,8 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                           style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.all(10),
                               alignment: Alignment.center),
-                          child: Text(
-                            S.of(context).EscolherCor,
+                          child: AutoSizeText(
+                            AppLocalizations.of(context)!.escolherCor,
                             style: TextStyle(fontSize: 14),
                           ),
                           onPressed: () => pickColor(context),
@@ -179,7 +181,7 @@ class _EditarDisciplinaPageState extends State<EditarDisciplinaPage> {
                         Padding(
                           padding: EdgeInsets.all(16),
                           child: Text(
-                            S.of(context).Salvar,
+                            AppLocalizations.of(context)!.salvar,
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                         )

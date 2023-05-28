@@ -29,6 +29,7 @@ class FlashcardRepository extends ChangeNotifier {
       final snaphot = await db
           .collection('usuarios/${auth.usuario!.uid}/flashcards')
           .get(); //É possível fazer uma query direto no firebase (where por exemplo)
+      // ignore: avoid_function_literals_in_foreach_calls
       snaphot.docs.forEach((doc) {
         Flashcard flashcard = Flashcard(
             cod: doc.id,
@@ -44,10 +45,11 @@ class FlashcardRepository extends ChangeNotifier {
       UnmodifiableListView(_lista);
 
   saveAll(List<Flashcard> flashcards) {
+    // ignore: avoid_function_literals_in_foreach_calls
     flashcards.forEach((flashcard) async {
       await db
           .collection('usuarios/${auth.usuario!.uid}/flashcards')
-          .doc(flashcard.cod ?? null)
+          .doc(flashcard.cod)
           .set({'question': flashcard.question, 'answer': flashcard.answer});
     });
     readFlashcards();

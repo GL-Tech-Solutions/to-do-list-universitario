@@ -3,8 +3,7 @@ import 'package:flutter_aula_1/pages/flashcards_page.dart';
 import 'package:flutter_aula_1/pages/main_page.dart';
 import 'package:flutter_aula_1/pages/tarefas_page.dart';
 import 'package:flutter_aula_1/pages/disciplinas_page.dart';
-
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -47,13 +46,17 @@ class _HomePageState extends State<HomePage> {
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home), label: S.of(context).Inicio),
+              icon: Icon(Icons.home),
+              label: AppLocalizations.of(context)!.inicio),
           BottomNavigationBarItem(
-              icon: Icon(Icons.book), label: S.of(context).Disciplinas),
+              icon: Icon(Icons.book),
+              label: AppLocalizations.of(context)!.disciplina),
           BottomNavigationBarItem(
-              icon: Icon(Icons.task), label: S.of(context).Tarefas),
+              icon: Icon(Icons.task),
+              label: AppLocalizations.of(context)!.tarefas),
           BottomNavigationBarItem(
-              icon: Icon(Icons.note), label: S.of(context).FlashCards),
+              icon: Icon(Icons.note),
+              label: AppLocalizations.of(context)!.flashCards),
         ],
         currentIndex: paginaAtual,
         onTap: (pagina) {

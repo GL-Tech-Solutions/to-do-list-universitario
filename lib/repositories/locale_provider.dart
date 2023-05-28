@@ -1,20 +1,22 @@
-import 'package:flutter/cupertino.dart';
-
-import '../generated/l10n.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/l10n/l10n.dart';
 
 class LocaleProvider extends ChangeNotifier {
-  Locale _locale = Locale('pt');
+  Locale? _locale;
 
-  Locale get locale => _locale;
+  Locale? get locale => _locale;
 
   void setLocale(Locale locale) {
-    if (!AppLocalizationDelegate().supportedLocales.contains(locale)) {
-      _locale = locale;
+    if (!L10n.all.contains(locale)) {
+      return;
     }
+
+    _locale = locale;
+    notifyListeners();
   }
 
   void clearLocale() {
-    _locale = Locale('pt');
+    _locale = null;
     notifyListeners();
   }
 }

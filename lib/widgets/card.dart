@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ReusableCard extends StatelessWidget {
-  ReusableCard({required this.text});
+  const ReusableCard({super.key, required this.text});
   final String text;
 
   @override
@@ -15,8 +15,7 @@ class ReusableCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Center(
-            child:
-                Text(text, textAlign: TextAlign.center),
+            child: Text(text, textAlign: TextAlign.center),
           ),
         ),
       ),

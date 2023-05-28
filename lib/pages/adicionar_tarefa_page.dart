@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/models/disciplina.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
@@ -7,8 +6,8 @@ import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
-import '../generated/l10n.dart';
 import '../models/tarefa.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdiconarTarefaPage extends StatefulWidget {
   const AdiconarTarefaPage({super.key});
@@ -24,7 +23,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
       TextEditingController(); // Permite editar o texto valor e controlá-lo
   String? _tipo;
   String? _disciplina;
-  var _data = TextEditingController();
+  final _data = TextEditingController();
   final _descricao = TextEditingController();
   bool _visibilidade = false;
   late DisciplinaRepository drepository;
@@ -69,6 +68,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
           visibilidade: _visibilidade);
       await Provider.of<TarefaRepository>(context, listen: false)
           .saveTarefa(tarefa);
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
     }
   }
@@ -80,7 +80,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).Adicionar),
+        title: Text(AppLocalizations.of(context)!.adicionar),
       ),
       body: Center(
         child: Padding(
@@ -102,11 +102,11 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(16))),
-                              labelText: S.of(context).Nome),
+                              labelText: AppLocalizations.of(context)!.nome),
                           validator: (value) {
                             // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                             if (value == null || value.isEmpty) {
-                              return S.of(context).InformeNome;
+                              return AppLocalizations.of(context)!.informeNome;
                             }
                             return null;
                           },
@@ -117,19 +117,24 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                             items: [
                               DropdownMenuItem(
                                   value: 'Atividade',
-                                  child: Text(S.of(context).Atividade)),
+                                  child: Text(
+                                      AppLocalizations.of(context)!.atividade)),
                               DropdownMenuItem(
                                   value: 'Trabalho',
-                                  child: Text(S.of(context).Trabalho)),
+                                  child: Text(
+                                      AppLocalizations.of(context)!.trabalho)),
                               DropdownMenuItem(
                                   value: 'Prova',
-                                  child: Text(S.of(context).Prova)),
+                                  child: Text(
+                                      AppLocalizations.of(context)!.prova)),
                               DropdownMenuItem(
                                   value: 'Reunião',
-                                  child: Text(S.of(context).Reuniao)),
+                                  child: Text(
+                                      AppLocalizations.of(context)!.reuniao)),
                               DropdownMenuItem(
                                   value: 'Outros',
-                                  child: Text(S.of(context).Outros)),
+                                  child: Text(
+                                      AppLocalizations.of(context)!.outros)),
                             ],
                             value: _tipo,
                             onChanged: dropdownCallbackTipo,
@@ -137,7 +142,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                             validator: (value) {
                               // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                               if (value == null) {
-                                return S.of(context).InformeTipo;
+                                return 'InformeTipo';
                               }
                               return null;
                             },
@@ -145,7 +150,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(16))),
-                                labelText: S.of(context).Tipo),
+                                labelText: 'Tipo'),
                           ),
                         ),
                         Padding(
@@ -174,7 +179,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(16))),
-                                labelText: S.of(context).Disciplina),
+                                labelText: 'Disciplina'),
                           ),
                         ),
                         Padding(
@@ -195,7 +200,8 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                     if (value == null ||
                                         value.isEmpty ||
                                         value.length < 10) {
-                                      return S.of(context).DataValida;
+                                      return AppLocalizations.of(context)!
+                                          .dataValida;
                                     }
                                     return null;
                                   },
@@ -203,7 +209,8 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                       border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(16))),
-                                      labelText: S.of(context).DataFinal,
+                                      labelText: AppLocalizations.of(context)!
+                                          .dataFinal,
                                       suffixIcon: IconButton(
                                           onPressed: () async {
                                             DateTime? newDate =
@@ -228,13 +235,17 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                           icon: Icon(Icons.calendar_month))),
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      (_visibilidade) ? 'PÚBLICO' : 'PRIVADO',
+                                    AutoSizeText(
+                                      (_visibilidade)
+                                          ? AppLocalizations.of(context)!
+                                              .publico
+                                          : AppLocalizations.of(context)!
+                                              .privado,
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
@@ -262,7 +273,8 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(16))),
-                                labelText: S.of(context).Descricao,
+                                labelText:
+                                    AppLocalizations.of(context)!.descricao,
                                 alignLabelWithHint: true),
                           ),
                         ),
@@ -272,31 +284,31 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                   alignment: Alignment.bottomCenter,
                   margin: EdgeInsets.only(top: 24),
                   child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.purple[800])),
-                      onPressed: (() {
-                        salvar();
-                      }),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.all(16),
-                              child: Text(
-                                S.of(context).Salvar,
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.white),
-                              ))
-                        ],
-                      )),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.purple[800])),
+                    onPressed: (() {
+                      salvar();
+                    }),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.all(16),
+                            child: Text(
+                              AppLocalizations.of(context)!.salvar,
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ))
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
         ),
       ),
-      //),
     );
   }
 }

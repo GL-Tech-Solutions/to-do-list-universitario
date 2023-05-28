@@ -1,18 +1,17 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:flutter_aula_1/repositories/flashcard_repository.dart';
-import 'package:flutter_aula_1/repositories/locale_provider.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:flutter_aula_1/widgets/icon_disciplina.dart';
+import 'package:flutter_aula_1/repositories/locale_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import '../generated/l10n.dart';
+import '../l10n/l10n.dart';
 import '../models/tarefa.dart';
 import '../services/auth_service.dart';
 import '../widgets/tarefas_detalhes_dialog.dart';
 import 'adicionar_tarefa_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainPage extends StatefulWidget {
   final PageController pc;
@@ -24,7 +23,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  late LocaleProvider provider;
   late DisciplinaRepository drepository;
 
   adicionarTarefa() {
@@ -38,20 +36,20 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    provider = context.watch<LocaleProvider>();
     drepository = context.watch<DisciplinaRepository>();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).Titulo),
+        title: Text(AppLocalizations.of(context)!.titulo),
         actions: [
           Builder(
             builder: (context) {
               return IconButton(
-                  icon: Icon(Icons.settings, color: Colors.white),
-                  onPressed: () {
-                    Scaffold.of(context).openEndDrawer();
-                  });
+                icon: Icon(Icons.settings, color: Colors.white),
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+              );
             },
           ),
         ],
@@ -68,7 +66,7 @@ class _MainPageState extends State<MainPage> {
                       alignment: Alignment.center),
                   color: Colors.grey.withOpacity(0.2)),
               child: Text(
-                S.of(context).Config,
+                AppLocalizations.of(context)!.config,
                 style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -88,32 +86,30 @@ class _MainPageState extends State<MainPage> {
                     Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Text(
-                        'Idiomas',
+                        AppLocalizations.of(context)!.idioma,
                         style: TextStyle(fontSize: 14),
                       ),
                     ),
                   ],
                 ),
               ),
-              itemBuilder: (context) => AppLocalizationDelegate()
-                  .supportedLocales
+              itemBuilder: (context) => L10n.all
                   .map(
                     (op) => PopupMenuItem(
                       child: ListTile(
                         title: Text(
-                          op.toString() == 'en'
-                              ? 'Inglês'
-                              : op.toString() == 'es'
-                                  ? 'Espanhol'
-                                  : op.toString() == 'fr'
-                                      ? 'Francês'
-                                      : 'Português Brasileiro',
+                          op.languageCode == 'en'
+                              ? AppLocalizations.of(context)!.ingles
+                              : op.languageCode == 'es'
+                                  ? AppLocalizations.of(context)!.espanhol
+                                  : op.languageCode == 'fr'
+                                      ? AppLocalizations.of(context)!.frances
+                                      : AppLocalizations.of(context)!
+                                          .portuguesBrasileiro,
                         ),
                         contentPadding: EdgeInsets.symmetric(horizontal: 5),
                         onTap: () {
-                          Provider.of<LocaleProvider>(context, listen: false)
-                              .setLocale(op);
-                          AppLocalizationDelegate().load(provider.locale);
+                          context.read<LocaleProvider>().setLocale(op);
                           Navigator.of(context).pop();
                         },
                       ),
@@ -137,7 +133,7 @@ class _MainPageState extends State<MainPage> {
                   Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Text(
-                      S.of(context).Sair,
+                      AppLocalizations.of(context)!.sair,
                       style: TextStyle(fontSize: 18),
                     ),
                   ),
@@ -189,6 +185,7 @@ class _MainPageState extends State<MainPage> {
                   onTap: (CalendarTapDetails details) {
                     if (details.appointments!.isNotEmpty) {
                       List<Appointment> info = [];
+                      // ignore: avoid_function_literals_in_foreach_calls
                       details.appointments!.forEach((appointment) {
                         info.add(appointment);
                       });

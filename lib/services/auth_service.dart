@@ -35,11 +35,11 @@ class AuthService extends ChangeNotifier {
       _getUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        throw AuthException('A senha é muito fraca!');
+        throw AuthException('weak-password');
       } else if (e.code == 'email-already-in-use') {
-        throw AuthException('Este e-mail já está em uso');
+        throw AuthException('email-already-in-use');
       } else if (e.code == 'invalid-email') {
-        throw AuthException('E-mail inválido');
+        throw AuthException('invalid-email');
       }
     }
   }
@@ -50,9 +50,9 @@ class AuthService extends ChangeNotifier {
       _getUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        throw AuthException('E-mail não encontrado. Cadastre-se');
+        throw AuthException('user-not-found');
       } else if (e.code == 'wrong-password') {
-        throw AuthException('Senha incorreta. Tente novamente');
+        throw AuthException('wrong-password');
       }
     }
   }

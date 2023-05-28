@@ -1,13 +1,12 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_aula_1/models/disciplina.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
-
-import '../generated/l10n.dart';
 import '../models/tarefa.dart';
 import '../repositories/disciplina_repository.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: must_be_immutable
 class EditarTarefaPage extends StatefulWidget {
@@ -27,7 +26,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
   String? _tipo;
   String? _disciplina;
   String? disciplinaInicial;
-  var _data = TextEditingController();
+  final _data = TextEditingController();
   final _descricao = TextEditingController();
   bool _visibilidade = false;
   late DisciplinaRepository drepository;
@@ -99,6 +98,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
       );
       await Provider.of<TarefaRepository>(context, listen: false)
           .updateTarefa(tInicial);
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
     }
   }
@@ -109,7 +109,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).Editar),
+        title: Text(AppLocalizations.of(context)!.editar),
       ),
       body: Center(
         child: Padding(
@@ -131,11 +131,11 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(16))),
-                              labelText: S.of(context).Nome),
+                              labelText: AppLocalizations.of(context)!.nome),
                           validator: (value) {
                             // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                             if (value == null || value.isEmpty) {
-                              return 'Informe um nome!';
+                              return AppLocalizations.of(context)!.informeNome;
                             }
                             return null;
                           },
@@ -146,25 +146,30 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                             items: [
                               DropdownMenuItem(
                                   value: 'Atividade',
-                                  child: Text(S.of(context).Atividade)),
+                                  child: Text(
+                                      AppLocalizations.of(context)!.atividade)),
                               DropdownMenuItem(
                                   value: 'Trabalho',
-                                  child: Text(S.of(context).Trabalho)),
+                                  child: Text(
+                                      AppLocalizations.of(context)!.trabalho)),
                               DropdownMenuItem(
                                   value: 'Prova',
-                                  child: Text(S.of(context).Prova)),
+                                  child: Text(
+                                      AppLocalizations.of(context)!.prova)),
                               DropdownMenuItem(
                                   value: 'Reunião',
-                                  child: Text(S.of(context).Reuniao)),
+                                  child: Text(
+                                      AppLocalizations.of(context)!.reuniao)),
                               DropdownMenuItem(
                                   value: 'Outros',
-                                  child: Text(S.of(context).Outros)),
+                                  child: Text(
+                                      AppLocalizations.of(context)!.outros)),
                             ],
                             value: _tipo,
                             validator: (value) {
                               // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                               if (value == null) {
-                                return S.of(context).InformeTipo;
+                                return 'InformeTipo';
                               }
                               return null;
                             },
@@ -174,7 +179,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(16))),
-                                labelText: S.of(context).Tipo),
+                                labelText: 'Tipo'),
                           ),
                         ),
                         Padding(
@@ -191,7 +196,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                             value: _disciplina,
                             validator: (value) {
                               if (value == null) {
-                                return S.of(context).InformeDisciplina;
+                                return 'InformeDisciplina';
                               }
                               return null;
                             },
@@ -201,7 +206,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(16))),
-                                labelText: S.of(context).Disciplina),
+                                labelText: 'Disciplina'),
                           ),
                         ),
                         Padding(
@@ -222,7 +227,8 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                                     if (value == null ||
                                         value.isEmpty ||
                                         value.length < 10) {
-                                      return S.of(context).DataValida;
+                                      return AppLocalizations.of(context)!
+                                          .dataValida;
                                     }
                                     return null;
                                   },
@@ -230,7 +236,8 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                                       border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(16))),
-                                      labelText: S.of(context).DataFinal,
+                                      labelText: AppLocalizations.of(context)!
+                                          .dataFinal,
                                       suffixIcon: IconButton(
                                           onPressed: () async {
                                             DateTime? newDate =
@@ -255,13 +262,17 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                                           icon: Icon(Icons.calendar_month))),
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      (_visibilidade) ? 'PÚBLICO' : 'PRIVADO',
+                                    AutoSizeText(
+                                      (_visibilidade)
+                                          ? AppLocalizations.of(context)!
+                                              .publico
+                                          : AppLocalizations.of(context)!
+                                              .privado,
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
@@ -289,7 +300,8 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(16))),
-                                labelText: S.of(context).Descricao,
+                                labelText:
+                                    AppLocalizations.of(context)!.descricao,
                                 alignLabelWithHint: true),
                           ),
                         ),
@@ -311,7 +323,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                           Padding(
                               padding: EdgeInsets.all(16),
                               child: Text(
-                                S.of(context).Salvar,
+                                AppLocalizations.of(context)!.salvar,
                                 style: TextStyle(
                                     fontSize: 18, color: Colors.white),
                               ))

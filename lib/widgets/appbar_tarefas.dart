@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/widgets/icon_disciplina.dart';
 import 'package:provider/provider.dart';
-import '../generated/l10n.dart';
 import '../repositories/disciplina_repository.dart';
 import '../repositories/selecionadas_repository.dart';
 import '../repositories/tarefa_respository.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+// ignore: must_be_immutable
 class AppBarTarefas extends StatefulWidget {
   TabBar tabBar;
 
@@ -48,7 +49,7 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
         .isEmpty) //Se lista de selecionadas estiver vazia, fica na AppBar padrão
     {
       return SliverAppBar(
-          title: Text(S.of(context).Tarefas),
+          title: Text(AppLocalizations.of(context)!.tarefas),
           backgroundColor: Colors.deepOrange,
           pinned: true,
           floating: true,
@@ -61,7 +62,7 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
                             .clearFilter(),
                 child: trepository.codDisciplinaFilter == null
                     ? Text('')
-                    : Text(S.of(context).LimparFiltros,
+                    : Text(AppLocalizations.of(context)!.limparFiltros,
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
@@ -112,7 +113,7 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
                     .limparSelecionadas();
               }),
           title: Text(
-              '${se.selecionadas.length}  + ${S.of(context).Selecionadas}'),
+              '${se.selecionadas.length}  + ${AppLocalizations.of(context)!.selecionadas}'),
           actions: [
             PopupMenuButton(
               icon: Icon(Icons.more_vert),
@@ -121,7 +122,7 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
                   child: ListTile(
                     leading: Icon(Icons.swap_horizontal_circle_sharp,
                         color: Colors.blue),
-                    title: Text('Alterar Status'),
+                    title: Text(AppLocalizations.of(context)!.alterarStatus),
                     contentPadding: EdgeInsets.symmetric(horizontal: 5),
                     onTap: () {
                       Provider.of<TarefaRepository>(context, listen: false)
@@ -136,7 +137,7 @@ class _AppBarTarefasState extends State<AppBarTarefas> {
                   child: ListTile(
                     leading: Icon(Icons.highlight_remove_outlined,
                         color: Colors.red),
-                    title: Text(S.of(context).Remover),
+                    title: Text(AppLocalizations.of(context)!.remover),
                     contentPadding: EdgeInsets.symmetric(horizontal: 5),
                     onTap: () {
                       Provider.of<TarefaRepository>(context, listen: false)

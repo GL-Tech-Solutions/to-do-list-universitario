@@ -1,6 +1,0 @@
-arb-dir: lib/l10n
-template-arb-file: app-en.arb
-template-arb-file: app-es.arb
-template-arb-file: app-fr.arb
-template-arb-file: app-pt.arb
-ouput-localization-file: app_localizations.dart

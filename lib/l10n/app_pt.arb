@@ -1,0 +1,290 @@
+{
+    "language": "Português",
+    "@language":{
+        "description": "Teste"
+    },
+    "titulo": "To-Do List Universitário",
+    "@titulo":{
+        "description": "Teste"
+    },
+    "publico": "PÚBLICO",
+    "@publico":{
+        "description": "Teste"
+    },
+    "privado": "PRIVADO",
+    "@privado":{
+        "description": "Teste"
+    },
+    "inicio": "Início",
+    "@inicio":{
+        "description": "Teste"
+    },
+    "selecionadas": "selecionadas",
+    "@selecionadas":{
+        "description": "Teste"
+    },
+    "concluir": "Concluir",
+    "@concluir":{
+        "description": "Teste"
+    },
+    "disciplinas": "Disciplinas",
+    "@disciplinas":{
+        "description": "Teste"
+    },
+    "disciplina": "Disciplina",
+    "@disciplina":{
+        "description": "Teste"
+    },
+    "tarefas": "Tarefas",
+    "@tarefas":{
+        "description": "Teste"
+    },
+    "flashCards": "FlashCards",
+    "@flashCards":{
+        "description": "Teste"
+    },
+    "nome": "Nome",
+    "@nome":{
+        "description": "Teste"
+    },
+    "professor": "Professor",
+    "@professor":{
+        "description": "Teste"
+    },
+    "salvar": "SALVAR",
+    "@salvar":{
+        "description": "Teste"
+    },
+    "escolherCor": "Escolher cor",
+    "@escolherCor":{
+        "description": "Teste"
+    },
+    "escolhaACorParaADisciplina": "Escolha a cor para esta disciplina",
+    "@escolhaACorParaADisciplina":{
+        "description": "Teste"
+    },
+    "selecionar": "SELECIONAR",
+    "@selecionar":{
+        "description": "Teste"
+    },
+    "pergunta": "Pergunta",
+    "@pergunta":{
+        "description": "Teste"
+    },
+    "resposta": "Resposta",
+    "@resposta":{
+        "description": "Teste"
+    },
+    "atividade": "Atividade",
+    "@atividade":{
+        "description": "Teste"
+    },
+    "trabalho": "Trabalho",
+    "@trabalho":{
+        "description": "Teste"
+    },
+    "prova": "Prova",
+    "@prova":{
+        "description": "Teste"
+    },
+    "reuniao": "Reunião",
+    "@reuniao":{
+        "description": "Teste"
+    },
+    "outros": "Outros",
+    "@outros":{
+        "description": "Teste"
+    },
+    "tipo": "Tipo",
+    "@tipo":{
+        "description": "Teste"
+    },
+    "dataFinal": "Data de finalização",
+    "@dataFinal":{
+        "description": "Teste"
+    },
+    "descricao": "Descrição",
+    "@descricao":{
+        "description": "Teste"
+    },
+    "finalizado": "Finalizado",
+    "@finalizado":{
+        "description": "Teste"
+    },
+    "naoHaTarefas": "Ainda não há tarefas criadas",
+    "@naoHaTarefas":{
+        "description": "Teste"
+    },
+    "naoHaDisciplinas": "Ainda não há disciplinas criadas",
+    "@naoHaDisciplinas":{
+        "description": "Teste"
+    },
+    "adicionar": "Adicionar",
+    "@adicionar":{
+        "description": "Teste"
+    },
+    "editar": "Editar",
+    "@editar":{
+        "description": "Teste"
+    },
+    "remover": "Remover",
+    "@remover":{
+        "description": "Teste"
+    },
+    "verResposta": "Toque para ver a resposta",
+    "@verResposta":{
+        "description": "Teste"
+    },
+    "login": "Entrar",
+    "@login":{
+        "description": "Teste"
+    },
+    "cadastrese": "Ainda não tem conta? Cadastre-se!",
+    "@cadastrese":{
+        "description": "Teste"
+    },
+    "crieConta": "Crie sua conta!",
+    "@crieConta":{
+        "description": "Teste"
+    },
+    "cadastrar": "Cadastrar",
+    "@cadastrar":{
+        "description": "Teste"
+    },
+    "voltarAoLogin": "Voltar ao Login",
+    "@voltarAoLogin":{
+        "description": "Teste"
+    },
+    "email": "E-mail",
+    "@email":{
+        "description": "Teste"
+    },
+    "informeCorretamente": "Informe um email válido",
+    "@informeCorretamente":{
+        "description": "Teste"
+    },
+    "senha": "Senha",
+    "@senha":{
+        "description": "Teste"
+    },
+    "informeSenha": "Informe sua senha",
+    "@informeSenha":{
+        "description": "Teste"
+    },
+    "caracteres": "Sua senha deve conter ao menos 6 caracteres",
+    "@caracteres":{
+        "description": "Teste"
+    },
+    "config": "Configurações",
+    "@config":{
+        "description": "Teste"
+    },
+    "idioma": "Idioma",
+    "@idioma":{
+        "description": "Teste"
+    },
+    "sair": "Sair",
+    "@sair":{
+        "description": "Teste"
+    },
+    "aberto": "Aberto",
+    "@aberto":{
+        "description": "Teste"
+    },
+    "pendentes": "PENDENTES",
+    "@pendentes":{
+        "description": "Teste"
+    },
+    "concluidas": "CONCLUIDAS",
+    "@concluidas":{
+        "description": "Teste"
+    },
+    "informeProf": "Informe um professor",
+    "@informeProf":{
+        "description": "Teste"
+    },
+    "informeNome": "Informe um Nome",
+    "@informeNome":{
+        "description": "Teste"
+    },
+    "informeTipo": "Informe um tipo",
+    "@informeTipo":{
+        "description": "Teste"
+    },
+    "informeDisciplina": "Informe uma disciplina",
+    "@informeDisciplina":{
+        "description": "Teste"
+    },
+    "dataValida": "Informe uma data válida",
+    "@dataValida":{
+        "description": "Teste"
+    },
+    "bemVindo": "Bem vindo!",
+    "@bemVindo":{
+        "description": "Teste"
+    },
+    "limparFiltros": "LIMPAR FILTROS",
+    "@limparFiltros":{
+        "description": "Teste"
+    },
+    "usuarioNaoEncontrado": "Usuário não encontrado!",
+    "@usuarioNaoEncontrado":{
+        "description": "Teste"
+    },
+    "senhaIncorreta": "Senha incorreta!",
+    "@senhaIncorreta":{
+        "description": "Teste"
+    },
+    "erroInesperado": "Um erro inesperado ocorreu. Tente novamente mais tarde.",
+    "@erroInesperado":{
+        "description": "Teste"
+    },
+    "senhaFraca": "Senha muito fraca! É necessário pelo menos 6 caracteres.",
+    "@senhaFraca":{
+        "description": "Teste"
+    },
+    "emailEmUso": "E-mail já em uso! Por favor, tente outro.",
+    "@emailEmUso":{
+        "description": "Teste"
+    },
+    "emailInvalido": "E-mail inválido! Por favor, tente outro.",
+    "@emailInvalido":{
+        "description": "Teste"
+    },
+    "naoHaFlashcards": "Você não possui flashcards.",
+    "@naoHaFlashcards":{
+        "description": "Teste"
+    },
+    "alterarStatus": "Alterar Status",
+    "@alterarStatus":{
+        "description": "Teste"
+    },
+    "insiraPergunta": "Insira uma pergunta!",
+    "@insiraPergunta":{
+        "description": "Teste"
+    },
+    "insiraResposta": "Insira uma resposta!",
+    "@insiraResposta":{
+        "description": "Teste"
+    },
+    "ingles": "Inglês",
+    "@ingles":{
+        "description": "Teste"
+    },
+    "espanhol": "Espanhol",
+    "@espanhol":{
+        "description": "Teste"
+    },
+    "frances": "Francês",
+    "@frances":{
+        "description": "Teste"
+    },
+    "portuguesBrasileiro": "Português brasileiro",
+    "@portuguesBrasileiro":{
+        "description": "Teste"
+    },
+    "naoHaDescricao": "Sem descrição",
+    "@naoHaDescricao":{
+        "description": "Teste"
+    }
+}

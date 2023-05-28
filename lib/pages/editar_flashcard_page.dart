@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/models/flashcard.dart';
 import 'package:provider/provider.dart';
-import '../generated/l10n.dart';
 import '../repositories/flashcard_repository.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditarFlashCardPage extends StatefulWidget {
   final Flashcard flashcard;
@@ -25,8 +25,7 @@ class _EditarFlashCardPageState extends State<EditarFlashCardPage> {
     _answer.text = widget.flashcard.answer;
   }
 
-  void salvar()
-  {
+  void salvar() {
     if (_form.currentState!.validate()) {
       widget.flashcard.question = _question.text;
       widget.flashcard.answer = _answer.text;
@@ -41,13 +40,10 @@ class _EditarFlashCardPageState extends State<EditarFlashCardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          S.of(context).Adicionar
-        ),
+        title: Text(AppLocalizations.of(context)!.adicionar),
       ),
       body: Center(
-        child: 
-        Padding(
+        child: Padding(
           padding: EdgeInsets.all(32),
           child: SingleChildScrollView(
             reverse: true,
@@ -61,18 +57,16 @@ class _EditarFlashCardPageState extends State<EditarFlashCardPage> {
                       TextFormField(
                         maxLines: null,
                         controller: _question,
-                        style: TextStyle(
-                          fontSize: 18
-                        ),
+                        style: TextStyle(fontSize: 18),
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(16))
-                          ),
-                          labelText: S.of(context).Pergunta
-                        ),
-                        validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(16))),
+                            labelText: AppLocalizations.of(context)!.pergunta),
+                        validator: (value) {
+                          // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                           if (value == null || value.isEmpty) {
-                            return 'Insira uma pergunta!';
+                            return AppLocalizations.of(context)!.insiraPergunta;
                           }
                           return null;
                         },
@@ -82,21 +76,21 @@ class _EditarFlashCardPageState extends State<EditarFlashCardPage> {
                         child: TextFormField(
                           maxLines: null,
                           controller: _answer,
-                          style: TextStyle(
-                            fontSize: 18
-                          ),
+                          style: TextStyle(fontSize: 18),
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(16))
-                            ),
-                            labelText: S.of(context).Resposta
-                          ),
-                          validator: (value) { // Valida o texto digitado pelo usuário de acordo com as condições abaixo
-                          if (value == null || value.isEmpty) {
-                            return 'Insira uma respota!';
-                          }
-                          return null;
-                        },
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16))),
+                              labelText:
+                                  AppLocalizations.of(context)!.resposta),
+                          validator: (value) {
+                            // Valida o texto digitado pelo usuário de acordo com as condições abaixo
+                            if (value == null || value.isEmpty) {
+                              return AppLocalizations.of(context)!
+                                  .insiraResposta;
+                            }
+                            return null;
+                          },
                         ),
                       ),
                     ],
@@ -106,21 +100,21 @@ class _EditarFlashCardPageState extends State<EditarFlashCardPage> {
                   alignment: Alignment.bottomCenter,
                   margin: EdgeInsets.only(top: 24),
                   child: ElevatedButton(
-                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple[800])),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.purple[800])),
                     onPressed: (() {
                       salvar();
                     }),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Padding(padding: EdgeInsets.all(16),
-                        child: Text(
-                          S.of(context).Salvar,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18
+                        Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Text(
+                            AppLocalizations.of(context)!.salvar,
+                            style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
-                        ),
                         )
                       ],
                     ),

@@ -6,9 +6,8 @@ import 'package:flutter_aula_1/pages/pendentes_page.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:flutter_aula_1/widgets/appbar_tarefas.dart';
 import 'package:provider/provider.dart';
-
-import '../generated/l10n.dart';
 import '../models/tarefa.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TarefasPage extends StatefulWidget {
   const TarefasPage({Key? key}) : super(key: key);
@@ -46,8 +45,8 @@ class _TarefasPageState extends State<TarefasPage>
         labelStyle: TextStyle(fontWeight: FontWeight.w600),
         controller: _controller,
         tabs: [
-          Tab(text: S.of(context).Pendentes),
-          Tab(text: S.of(context).Consluidas)
+          Tab(text: AppLocalizations.of(context)!.pendentes),
+          Tab(text: AppLocalizations.of(context)!.concluidas)
         ],
       );
 

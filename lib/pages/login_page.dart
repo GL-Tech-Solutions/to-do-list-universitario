@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/services/auth_service.dart';
 import 'package:provider/provider.dart';
-
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,53 +16,84 @@ class _LoginPageState extends State<LoginPage> {
   final senha = TextEditingController();
 
   bool isLogin = true;
-  late String titulo;
-  late String actionButton;
-  late String toggleButton;
+  String titulo = '';
+  String actionButton = '';
+  String toggleButton = '';
   bool loading = false;
 
   @override
   void initState() {
-      super.initState();
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setFormAction(true);
+    });
   }
 
-  setFormAction(bool acao)
-  {
+  setFormAction(bool acao) {
     setState(() {
       isLogin = acao;
-      if (isLogin){
-        titulo = 'Bem-vindo';//S.of(context).BemVindo;
-        actionButton = 'Login';//S.of(context).Login;
-        toggleButton = 'Ainda não possui conta? Cadastre-se!';//S.of(context).Cadastrese;
-      }
-      else {
-        titulo = 'Crie uma conta';//S.of(context).CrieConta;
-        actionButton = 'Cadastrar';//S.of(context).Cadastrar;
-        toggleButton = 'Voltar à tela de login';//S.of(context).VoltarAoLogin;
+      if (isLogin) {
+        titulo = AppLocalizations.of(context)!.bemVindo;
+        actionButton = AppLocalizations.of(context)!.login;
+        toggleButton = AppLocalizations.of(context)!.cadastrese;
+      } else {
+        titulo = AppLocalizations.of(context)!.crieConta;
+        actionButton = AppLocalizations.of(context)!.cadastrar;
+        toggleButton = AppLocalizations.of(context)!.voltarAoLogin;
       }
     });
   }
 
-  login() async{
+  login() async {
     setState(() => loading = true);
     try {
       await context.read<AuthService>().login(email.text, senha.text);
-    }
-    on AuthException catch (e) {
+    } on AuthException catch (e) {
+      String errorMessage = '';
+      switch (e.message) {
+        case 'user-not-found':
+          errorMessage = AppLocalizations.of(context)!.usuarioNaoEncontrado;
+          break;
+        case 'wrong-password':
+          errorMessage = AppLocalizations.of(context)!.senhaIncorreta;
+          break;
+        default:
+          AppLocalizations.of(context)!.erroInesperado;
+      }
       setState(() => loading = false);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+        ),
+      );
     }
   }
 
-  registrar() async{
+  registrar() async {
     setState(() => loading = true);
     try {
       await context.read<AuthService>().registrar(email.text, senha.text);
-    }
-    on AuthException catch (e) {
+    } on AuthException catch (e) {
+      String errorMessage = '';
+      switch (e.message) {
+        case 'weak-password':
+          errorMessage = AppLocalizations.of(context)!.senhaFraca;
+          break;
+        case 'email-already-in-use':
+          errorMessage = AppLocalizations.of(context)!.emailEmUso;
+          break;
+        case 'invalid-email':
+          errorMessage = AppLocalizations.of(context)!.emailInvalido;
+          break;
+        default:
+          AppLocalizations.of(context)!.erroInesperado;
+      }
       setState(() => loading = false);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+        ),
+      );
     }
   }
 
@@ -74,11 +104,9 @@ class _LoginPageState extends State<LoginPage> {
         reverse: true,
         child: Padding(
           padding: EdgeInsets.only(top: 100),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('images/logo-pi.png'),
-              Form(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Image.asset('images/logo-pi.png'),
+            Form(
               key: formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -97,12 +125,13 @@ class _LoginPageState extends State<LoginPage> {
                       controller: email,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: S.of(context).Login,
+                        labelText: AppLocalizations.of(context)!.login,
                       ),
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return S.of(context).InformeCorretamente;
+                          return AppLocalizations.of(context)!
+                              .informeCorretamente;
                         }
                         return null;
                       },
@@ -116,13 +145,13 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: S.of(context).Senha,
+                        labelText: AppLocalizations.of(context)!.senha,
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return S.of(context).InformeSenha;
+                          return AppLocalizations.of(context)!.informeSenha;
                         } else if (value.length < 6) {
-                          return S.of(context).Caracteres;
+                          return AppLocalizations.of(context)!.caracteres;
                         }
                         return null;
                       },
@@ -143,26 +172,26 @@ class _LoginPageState extends State<LoginPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: (loading)
-                        ? [
-                            Padding(
-                              padding: EdgeInsets.all(16),
-                              child: SizedBox(
-                                width: 24,
-                                height: 24,
-                                child: CircularProgressIndicator(color: Colors.white)
-                              ),
-                            ),
-                          ]
-                        : [
-                          Icon(Icons.check),
-                          Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Text(
-                              actionButton,
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                        ],
+                            ? [
+                                Padding(
+                                  padding: EdgeInsets.all(16),
+                                  child: SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: CircularProgressIndicator(
+                                          color: Colors.white)),
+                                ),
+                              ]
+                            : [
+                                Icon(Icons.check),
+                                Padding(
+                                  padding: EdgeInsets.all(16.0),
+                                  child: Text(
+                                    actionButton,
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ),
+                              ],
                       ),
                     ),
                   ),

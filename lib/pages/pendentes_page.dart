@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/models/tarefa.dart';
-import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:flutter_aula_1/widgets/tarefa_card.dart';
-import 'package:provider/provider.dart';
-import '../generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PendentesPage extends StatefulWidget {
   final List<Tarefa> listaPendentes;
@@ -27,7 +25,7 @@ class _PendentesPageState extends State<PendentesPage> {
       child: widget.listaPendentes.isEmpty
           ? ListTile(
               leading: Icon(Icons.notes),
-              title: Text(S.of(context).NaoHaTarefas),
+              title: Text(AppLocalizations.of(context)!.naoHaTarefas),
             )
           : MediaQuery.removePadding(
               removeTop: true,

@@ -5,9 +5,8 @@ import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:flutter_aula_1/widgets/icon_disciplina.dart';
 import 'package:provider/provider.dart';
-
-import '../generated/l10n.dart';
 import 'adicionar_disciplina_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DisciplinasPage extends StatefulWidget {
   ////StatefulWidget - Um Widget mutável
@@ -44,14 +43,14 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
     return Scaffold(
       //Scaffold serve para formatar nossa tela em um MaterialApp
       appBar: AppBar(
-        title: Text(S.of(context).Disciplinas),
+        title: Text(AppLocalizations.of(context)!.disciplinas),
       ),
       body: Consumer<DisciplinaRepository>(
           builder: (context, disciplinas, child) {
         return disciplinas.lista.isEmpty
             ? ListTile(
                 leading: Icon(Icons.book),
-                title: Text(S.of(context).NaoHaDisciplinas))
+                title: Text(AppLocalizations.of(context)!.naoHaDisciplinas))
             : ListView.separated(
                 //Corpo do App - Neste caso, uma ListView
                 itemBuilder: (BuildContext context, int disciplina) {
@@ -94,7 +93,7 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
                           PopupMenuItem(
                             child: ListTile(
                               leading: Icon(Icons.edit, color: Colors.blue),
-                              title: Text(S.of(context).Editar),
+                              title: Text(AppLocalizations.of(context)!.editar),
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: 5),
                               onTap: () {
@@ -107,7 +106,8 @@ class _DisciplinasPageState extends State<DisciplinasPage> {
                             child: ListTile(
                               leading: Icon(Icons.highlight_remove_outlined,
                                   color: Colors.red),
-                              title: Text(S.of(context).Remover),
+                              title:
+                                  Text(AppLocalizations.of(context)!.remover),
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: 5),
                               onTap: () {
