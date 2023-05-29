@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
@@ -12,7 +13,8 @@ class Tarefa {
   String tipo;
   DateTime data;
   String? status;
-  bool visibilidade;
+  bool? visibilidade;
+  int porcentagemConclusao;
 
   Tarefa({
     this.cod,
@@ -22,7 +24,8 @@ class Tarefa {
     required this.tipo,
     required this.data,
     this.status,
-    required this.visibilidade,
+    this.visibilidade,
+    required this.porcentagemConclusao,
   });
 
   Tarefa copyWith({
@@ -34,6 +37,7 @@ class Tarefa {
     DateTime? data,
     String? status,
     bool? visibilidade,
+    int? porcentagemConclusao,
   }) {
     return Tarefa(
       cod: cod ?? this.cod,
@@ -44,6 +48,7 @@ class Tarefa {
       data: data ?? this.data,
       status: status ?? this.status,
       visibilidade: visibilidade ?? this.visibilidade,
+      porcentagemConclusao: porcentagemConclusao ?? this.porcentagemConclusao,
     );
   }
 
@@ -57,6 +62,7 @@ class Tarefa {
       'data': data,
       'status': status,
       'visibilidade': visibilidade,
+      'porcentagemConclusao': porcentagemConclusao,
     };
   }
 
@@ -70,7 +76,9 @@ class Tarefa {
       tipo: map['tipo'] as String,
       data: (map['data'] as Timestamp).toDate(),
       status: map['status'] != null ? map['status'] as String : null,
-      visibilidade: map['visibilidade'] as bool,
+      visibilidade:
+          map['visibilidade'] != null ? map['visibilidade'] as bool : null,
+      porcentagemConclusao: map['porcentagemConclusao'] as int,
     );
   }
 

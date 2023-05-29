@@ -81,7 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cadastro'),
+        title: Text(AppLocalizations.of(context)!.cadastro),
       ),
       body: SingleChildScrollView(
         reverse: true,
@@ -158,10 +158,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: true,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Confirme a senha',
+                          labelText:
+                              AppLocalizations.of(context)!.confirmeSenha,
                         ),
-                        validator: Validatorless.compare(
-                            senha, 'Senhas não conferem!'),
+                        validator: Validatorless.compare(senha,
+                            AppLocalizations.of(context)!.senhasNaoConferem),
                       ),
                       const SizedBox(
                         height: 12,
@@ -185,11 +186,12 @@ class _RegisterPageState extends State<RegisterPage> {
                           Flexible(
                             child: RichText(
                               text: TextSpan(
-                                text: 'Li e aceitos os ',
+                                text: AppLocalizations.of(context)!.liEAceito,
                                 style: TextStyle(color: Colors.black),
                                 children: [
                                   TextSpan(
-                                    text: 'Termos de uso',
+                                    text: AppLocalizations.of(context)!
+                                        .termosDeUso,
                                     style: TextStyle(
                                       color: Colors.deepPurple,
                                       fontWeight: FontWeight.bold,
@@ -197,9 +199,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () => openPDFTermos(),
                                   ),
-                                  TextSpan(text: ' e '),
                                   TextSpan(
-                                    text: 'Política de privacidade',
+                                      text: AppLocalizations.of(context)!.e),
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!
+                                        .politicaDePrivacidade,
                                     style: TextStyle(
                                       color: Colors.deepPurple,
                                       fontWeight: FontWeight.bold,

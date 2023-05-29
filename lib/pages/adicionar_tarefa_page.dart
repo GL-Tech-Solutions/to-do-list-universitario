@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/models/disciplina.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
@@ -56,16 +55,18 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
   void salvar() async {
     if (_form.currentState!.validate()) {
       Tarefa tarefa = Tarefa(
-          nome: _nome.text,
-          descricao: _descricao.text,
-          codDisciplina: _disciplina!,
-          tipo: _tipo!,
-          data: DateTime(
-              int.parse(_data.text.substring(6, 10)),
-              int.parse(_data.text.substring(3, 5)),
-              int.parse(_data.text.substring(0, 2))),
-          status: 'Aberto',
-          visibilidade: _visibilidade);
+        nome: _nome.text,
+        descricao: _descricao.text,
+        codDisciplina: _disciplina!,
+        tipo: _tipo!,
+        data: DateTime(
+            int.parse(_data.text.substring(6, 10)),
+            int.parse(_data.text.substring(3, 5)),
+            int.parse(_data.text.substring(0, 2))),
+        status: 'Aberto',
+        visibilidade: _visibilidade,
+        porcentagemConclusao: 0,
+      );
       await Provider.of<TarefaRepository>(context, listen: false)
           .saveTarefa(tarefa);
       // ignore: use_build_context_synchronously
@@ -142,7 +143,8 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                             validator: (value) {
                               // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                               if (value == null) {
-                                return 'InformeTipo';
+                                return AppLocalizations.of(context)!
+                                    .informeTipo;
                               }
                               return null;
                             },
@@ -150,7 +152,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(16))),
-                                labelText: 'Tipo'),
+                                labelText: AppLocalizations.of(context)!.tipo),
                           ),
                         ),
                         Padding(
@@ -176,10 +178,12 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                             onChanged: dropdownCallbackDisciplina,
                             style: TextStyle(fontSize: 18, color: Colors.black),
                             decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(16))),
-                                labelText: 'Disciplina'),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16))),
+                              labelText:
+                                  AppLocalizations.of(context)!.disciplina,
+                            ),
                           ),
                         ),
                         Padding(
@@ -187,8 +191,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(
-                                width: 200,
+                              Expanded(
                                 child: TextFormField(
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [maskDateFormatter],
@@ -200,6 +203,18 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                     if (value == null ||
                                         value.isEmpty ||
                                         value.length < 10) {
+                                      return AppLocalizations.of(context)!
+                                          .dataValida;
+                                    } else if (DateTime(
+                                      int.parse(value.substring(6, 10)),
+                                      int.parse(value.substring(3, 5)),
+                                      int.parse(value.substring(0, 2)),
+                                    )
+                                        .compareTo(DateTime(
+                                            DateTime.now().year,
+                                            DateTime.now().month,
+                                            DateTime.now().day))
+                                        .isNegative) {
                                       return AppLocalizations.of(context)!
                                           .dataValida;
                                     }
@@ -217,8 +232,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                                 await showDatePicker(
                                               context: context,
                                               initialDate: date,
-                                              firstDate:
-                                                  DateTime(DateTime.now().year),
+                                              firstDate: DateTime.now(),
                                               lastDate: DateTime(2030),
                                             );
                                             if (newDate != null) {
@@ -234,6 +248,9 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                           },
                                           icon: Icon(Icons.calendar_month))),
                                 ),
+                              ),
+                              /*const SizedBox(
+                                 width: 10,
                               ),
                               SizedBox(
                                 child: Row(
@@ -259,7 +276,7 @@ class _AdiconarTarefaPageState extends State<AdiconarTarefaPage> {
                                             alterarVisibilidade())
                                   ],
                                 ),
-                              )
+                              )*/
                             ],
                           ),
                         ),

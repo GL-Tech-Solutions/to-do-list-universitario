@@ -196,8 +196,10 @@ class TarefaRepository extends ChangeNotifier {
     for (Tarefa tarefa in tarefas) {
       if (tarefa.status == 'Aberto') {
         tarefa.status = 'Finalizado';
+        tarefa.porcentagemConclusao = 100;
       } else if (tarefa.status == 'Finalizado') {
         tarefa.status = 'Aberto';
+        tarefa.porcentagemConclusao = 0;
       }
       await updateTarefa(tarefa);
     }

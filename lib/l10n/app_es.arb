@@ -48,8 +48,9 @@
     "sair": "Salir",
     "aberto": "Abierto",
     "pendentes": "PENDIENTE",
-    "consluidas": "TERMINADO",
+    "concluidas": "TERMINADO",
     "informeProf": "Dile a un maestro",
+    "informeNome": "Ingresa un nombre",
     "informeTipo": "Escriba un tipo",
     "informeDisciplina": "Informe uma disciplina",
     "dataValida": "Introduzca una fecha válida",
@@ -69,5 +70,13 @@
     "espanhol": "Español",
     "frances": "Francés",
     "portuguesBrasileiro": "Portugués brasileño",
-    "naoHaDescricao": "No hay una descripción"
+    "naoHaDescricao": "No hay una descripción",
+    "cadastro": "Registro",
+    "confirmeSenha": "Confirme la contraseña",
+    "senhasNaoConferem": "¡Las contraseñas no coinciden!",
+    "liEAceito": "He leído y acepto la ",
+    "termosDeUso": "Terminos de uso",
+    "e": " y ",
+    "politicaDePrivacidade": "Política de privacidad",
+    "conclusao": "Conclusión"
 }

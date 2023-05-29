@@ -18,7 +18,8 @@ class PDFViewerPageTermos extends StatelessWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Scaffold(
-              appBar: AppBar(title: Text('Termos de uso')),
+              appBar: AppBar(
+                  title: Text(AppLocalizations.of(context)!.termosDeUso)),
               body: Center(
                 child: SizedBox(
                   height: 25,
@@ -33,7 +34,8 @@ class PDFViewerPageTermos extends StatelessWidget {
 
           if (snapshot.hasError) {
             return Scaffold(
-              appBar: AppBar(title: Text('Termos de uso')),
+              appBar: AppBar(
+                  title: Text(AppLocalizations.of(context)!.termosDeUso)),
               body: Center(
                 child: Text(AppLocalizations.of(context)!.erroInesperado),
               ),
@@ -41,7 +43,8 @@ class PDFViewerPageTermos extends StatelessWidget {
           }
 
           return Scaffold(
-            appBar: AppBar(title: Text('Termos de uso')),
+            appBar:
+                AppBar(title: Text(AppLocalizations.of(context)!.termosDeUso)),
             body: PDFView(
               filePath: (snapshot.data as File).path,
               pageSnap: false,
@@ -53,7 +56,7 @@ class PDFViewerPageTermos extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Termos de uso')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.termosDeUso)),
       body: PDFView(
         filePath: pdfApi.termos!.path,
         pageSnap: false,

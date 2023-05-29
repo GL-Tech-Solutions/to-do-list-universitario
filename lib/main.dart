@@ -7,6 +7,7 @@ import 'package:flutter_aula_1/repositories/selecionadas_repository.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:flutter_aula_1/services/auth_service.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'meu_aplicativo.dart';
 
@@ -15,6 +16,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  final sp = await SharedPreferences.getInstance();
   runApp(
     MultiProvider(
       providers: [
@@ -32,7 +34,7 @@ Future<void> main() async {
                 auth: context.read<AuthService>(),
                 drepository: context.read<DisciplinaRepository>())),
       ],
-      child: MeuAplicativo(),
+      child: MeuAplicativo(sp: sp),
     ),
   );
 }

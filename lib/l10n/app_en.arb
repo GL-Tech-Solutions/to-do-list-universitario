@@ -48,7 +48,7 @@
     "sair": "Quit",
     "aberto": "Opened",
     "pendentes": "PENDING",
-    "consluidas": "COMPLETED",
+    "concluidas": "COMPLETED",
     "informeProf": "Type a teacher",
     "informeNome": "Type a name",
     "informeTipo": "Type a type",
@@ -70,5 +70,13 @@
     "espanhol": "Spanish",
     "frances": "French",
     "portuguesBrasileiro": "Brazilian portuguese",
-    "naoHaDescricao": "Without description"
+    "naoHaDescricao": "No description",
+    "cadastro": "Register",
+    "confirmeSenha": "Confirm the password",
+    "senhasNaoConferem": "Passwords do not match!",
+    "liEAceito": "I have read and accept the ",
+    "termosDeUso": "Terms of use",
+    "e": " and ",
+    "politicaDePrivacidade": "Privacy policy",
+    "conclusao": "Conclusion"
 }

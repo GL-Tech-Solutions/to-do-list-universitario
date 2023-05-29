@@ -19,7 +19,9 @@ class PDFViewerPagePolitica extends StatelessWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Scaffold(
-              appBar: AppBar(title: Text('Política de privacidade')),
+              appBar: AppBar(
+                  title: Text(
+                      AppLocalizations.of(context)!.politicaDePrivacidade)),
               body: Center(
                 child: SizedBox(
                   height: 25,
@@ -34,7 +36,9 @@ class PDFViewerPagePolitica extends StatelessWidget {
 
           if (snapshot.hasError) {
             return Scaffold(
-              appBar: AppBar(title: Text('Política de privacidade')),
+              appBar: AppBar(
+                  title: Text(
+                      AppLocalizations.of(context)!.politicaDePrivacidade)),
               body: Center(
                 child: Text(AppLocalizations.of(context)!.erroInesperado),
               ),
@@ -42,7 +46,9 @@ class PDFViewerPagePolitica extends StatelessWidget {
           }
 
           return Scaffold(
-            appBar: AppBar(title: Text('Política de privacidade')),
+            appBar: AppBar(
+                title:
+                    Text(AppLocalizations.of(context)!.politicaDePrivacidade)),
             body: PDFView(
               filePath: (snapshot.data as File).path,
               pageSnap: false,
@@ -54,7 +60,8 @@ class PDFViewerPagePolitica extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Política de privacidade')),
+      appBar: AppBar(
+          title: Text(AppLocalizations.of(context)!.politicaDePrivacidade)),
       body: PDFView(
         filePath: pdfApi.politica!.path,
         pageSnap: false,

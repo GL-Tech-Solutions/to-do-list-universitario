@@ -286,5 +286,37 @@
     "naoHaDescricao": "Sem descrição",
     "@naoHaDescricao":{
         "description": "Teste"
+    },
+    "cadastro": "Cadastro",
+    "@cadastro":{
+        "description": "Teste"
+    },
+    "confirmeSenha": "Confirme a senha",
+    "@confirmeSenha":{
+        "description": "Teste"
+    },
+    "senhasNaoConferem": "Senhas não conferem!",
+    "@senhasNaoConferem":{
+        "description": "Teste"
+    },
+    "liEAceito": "Li e aceito os ",
+    "@liEAceito":{
+        "description": "Teste"
+    },
+    "termosDeUso": "Termos de uso",
+    "@termosDeUso":{
+        "description": "Teste"
+    },
+    "e": " e ",
+    "@e":{
+        "description": "Teste"
+    },
+    "politicaDePrivacidade": "Política de privacidade",
+    "@politicaDePrivacidade":{
+        "description": "Teste"
+    },
+    "conclusao": "Conclusão",
+    "@conclusao":{
+        "description": "Teste"
     }
 }

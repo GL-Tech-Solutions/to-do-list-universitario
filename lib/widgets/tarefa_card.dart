@@ -160,7 +160,28 @@ class _TarefaCardState extends State<TarefaCard> {
                                           : null),
                             ),
                           ),
-                          widget.tarefa.visibilidade
+                          Flexible(
+                            child: Text(
+                              ' ${widget.tarefa.porcentagemConclusao.toString()}%',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: widget.tarefa.porcentagemConclusao <= 30
+                                    ? Colors.redAccent
+                                    : widget.tarefa.porcentagemConclusao <= 60
+                                        ? Colors.orange
+                                        : widget.tarefa.porcentagemConclusao <
+                                                90
+                                            ? Colors.yellow
+                                            : Colors.greenAccent,
+                                fontWeight: FontWeight.bold,
+                                decoration:
+                                    (widget.tarefa.status == 'Finalizado')
+                                        ? TextDecoration.lineThrough
+                                        : null,
+                              ),
+                            ),
+                          ),
+                          /*(widget.tarefa.visibilidade ?? false)
                               ? Container(
                                   padding: EdgeInsets.all(2),
                                   decoration: BoxDecoration(
@@ -191,14 +212,24 @@ class _TarefaCardState extends State<TarefaCard> {
                                         fontWeight: FontWeight.bold,
                                         color: Colors.red),
                                   ),
-                                )
+                                )*/
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            widget.tarefa.tipo,
+                            widget.tarefa.tipo == 'Atividade'
+                                ? AppLocalizations.of(context)!.atividade
+                                : widget.tarefa.tipo == 'Trabalho'
+                                    ? AppLocalizations.of(context)!.trabalho
+                                    : widget.tarefa.tipo == 'Prova'
+                                        ? AppLocalizations.of(context)!.prova
+                                        : widget.tarefa.tipo == 'Reunião'
+                                            ? AppLocalizations.of(context)!
+                                                .reuniao
+                                            : AppLocalizations.of(context)!
+                                                .outros,
                             style: TextStyle(
                               fontSize: 13,
                               color: Colors.black45,

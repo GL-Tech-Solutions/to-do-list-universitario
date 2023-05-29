@@ -168,7 +168,15 @@ class _MainPageState extends State<MainPage> {
                 startTime: startTime,
                 endTime: endTime,
                 subject: tarefa.nome,
-                notes: tarefa.tipo,
+                notes: tarefa.tipo == 'Atividade'
+                    ? AppLocalizations.of(context)!.atividade
+                    : tarefa.tipo == 'Trabalho'
+                        ? AppLocalizations.of(context)!.trabalho
+                        : tarefa.tipo == 'Prova'
+                            ? AppLocalizations.of(context)!.prova
+                            : tarefa.tipo == 'Reunião'
+                                ? AppLocalizations.of(context)!.reuniao
+                                : AppLocalizations.of(context)!.outros,
                 location: '${tarefa.codDisciplina},${tarefa.cod}',
                 color: Colors.green,
                 isAllDay: true,

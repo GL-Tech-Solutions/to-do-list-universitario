@@ -3,16 +3,19 @@ import 'package:flutter_aula_1/widgets/auth_check.dart';
 import 'package:flutter_aula_1/repositories/locale_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'l10n/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MeuAplicativo extends StatelessWidget {
+  final SharedPreferences sp;
+
   //StatelessWidget - Um Widget imutável
-  const MeuAplicativo({Key? key}) : super(key: key);
+  const MeuAplicativo({Key? key, required this.sp}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-        create: (context) => LocaleProvider(),
+        create: (context) => LocaleProvider(sp: sp),
         builder: (context, child) {
           final localeProvider = context.watch<LocaleProvider>();
 

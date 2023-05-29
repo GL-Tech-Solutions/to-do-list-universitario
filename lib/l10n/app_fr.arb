@@ -48,7 +48,7 @@
     "sair": "Sortir",
     "aberto": "Ouvert",
     "pendentes": "EN ATTENDANT",
-    "consluidas": "COMPLÉTÉ",
+    "concluidas": "COMPLÉTÉ",
     "informeNome": "Entrez un nom",
     "informeProf": "Dire à un enseignant",
     "informeTipo": "Tapez un type",
@@ -70,5 +70,13 @@
     "espanhol": "Espagnol",
     "frances": "Français",
     "portuguesBrasileiro": "Portugais brésilien",
-    "naoHaDescricao": "Sans descriptif"
+    "naoHaDescricao": "Sans descriptif",
+    "cadastro": "Enregistrer",
+    "confirmeSenha": "Confirmer le mot de passe",
+    "senhasNaoConferem": "Les mots de passe ne correspondent pas!",
+    "liEAceito": "J'ai lu et accepte le ",
+    "termosDeUso": "Conditions d'utilisation",
+    "e": " et ",
+    "politicaDePrivacidade": "Politique de confidentialité",
+    "conclusao": "Conclusion"
 }

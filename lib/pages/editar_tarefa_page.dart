@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:intl/intl.dart';
@@ -50,18 +49,8 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
         widget.tarefa.data.month,
         widget.tarefa.data.day));
     _descricao.text = widget.tarefa.descricao!;
-    _visibilidade = widget.tarefa.visibilidade;
-
+    _visibilidade = widget.tarefa.visibilidade ?? false;
     tInicial = widget.tarefa;
-
-    /*tInicial = Tarefa(
-        cod: widget.tarefa.cod,
-        nome: widget.tarefa.nome,
-        codDisciplina: widget.tarefa.codDisciplina,
-        tipo: widget.tarefa.tipo,
-        data: widget.tarefa.data,
-        descricao: widget.tarefa.descricao!,
-        visibilidade: widget.tarefa.visibilidade);*/
   }
 
   void dropdownCallbackTipo(String? value) {
@@ -169,7 +158,8 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                             validator: (value) {
                               // Valida o texto digitado pelo usuário de acordo com as condições abaixo
                               if (value == null) {
-                                return 'InformeTipo';
+                                return AppLocalizations.of(context)!
+                                    .informeTipo;
                               }
                               return null;
                             },
@@ -179,7 +169,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(16))),
-                                labelText: 'Tipo'),
+                                labelText: AppLocalizations.of(context)!.tipo),
                           ),
                         ),
                         Padding(
@@ -196,17 +186,20 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                             value: _disciplina,
                             validator: (value) {
                               if (value == null) {
-                                return 'InformeDisciplina';
+                                return AppLocalizations.of(context)!
+                                    .informeDisciplina;
                               }
                               return null;
                             },
                             onChanged: dropdownCallbackDisciplina,
                             style: TextStyle(fontSize: 18, color: Colors.black),
                             decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(16))),
-                                labelText: 'Disciplina'),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16))),
+                              labelText:
+                                  AppLocalizations.of(context)!.disciplina,
+                            ),
                           ),
                         ),
                         Padding(
@@ -214,8 +207,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(
-                                width: 200,
+                              Expanded(
                                 child: TextFormField(
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [maskDateFormatter],
@@ -229,13 +221,27 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                                         value.length < 10) {
                                       return AppLocalizations.of(context)!
                                           .dataValida;
+                                    } else if (DateTime(
+                                      int.parse(value.substring(6, 10)),
+                                      int.parse(value.substring(3, 5)),
+                                      int.parse(value.substring(0, 2)),
+                                    )
+                                        .compareTo(DateTime(
+                                            DateTime.now().year,
+                                            DateTime.now().month,
+                                            DateTime.now().day))
+                                        .isNegative) {
+                                      return AppLocalizations.of(context)!
+                                          .dataValida;
                                     }
                                     return null;
                                   },
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(16))),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(16),
+                                        ),
+                                      ),
                                       labelText: AppLocalizations.of(context)!
                                           .dataFinal,
                                       suffixIcon: IconButton(
@@ -244,23 +250,30 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                                                 await showDatePicker(
                                               context: context,
                                               initialDate: date,
-                                              firstDate:
-                                                  DateTime(DateTime.now().year),
+                                              firstDate: DateTime.now(),
                                               lastDate: DateTime(2030),
                                             );
                                             if (newDate != null) {
-                                              setState(() {
-                                                _data.text =
-                                                    DateFormat('dd/MM/yyyy')
-                                                        .format(DateTime(
-                                                            newDate.year,
-                                                            newDate.month,
-                                                            newDate.day));
-                                              });
+                                              setState(
+                                                () {
+                                                  _data.text =
+                                                      DateFormat('dd/MM/yyyy')
+                                                          .format(
+                                                    DateTime(
+                                                      newDate.year,
+                                                      newDate.month,
+                                                      newDate.day,
+                                                    ),
+                                                  );
+                                                },
+                                              );
                                             }
                                           },
                                           icon: Icon(Icons.calendar_month))),
                                 ),
+                              ),
+                              /*const SizedBox(
+                                 width: 10,
                               ),
                               SizedBox(
                                 child: Row(
@@ -286,7 +299,7 @@ class _EditarTarefaPageState extends State<EditarTarefaPage> {
                                             alterarVisibilidade())
                                   ],
                                 ),
-                              )
+                              )*/
                             ],
                           ),
                         ),
