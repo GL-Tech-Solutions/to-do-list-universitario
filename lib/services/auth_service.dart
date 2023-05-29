@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_aula_1/database/db_firestore.dart';
 
 class AuthException implements Exception {
   String message;
@@ -28,10 +29,17 @@ class AuthService extends ChangeNotifier {
     notifyListeners();
   }
 
-  registrar(String email, String password) async {
+  registrar(String nome, String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+      UserCredential newUser = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      await newUser.user?.updateDisplayName(nome);
+      final db = DBFirestore.get();
+      await db.collection('aceiteInfo/').doc(newUser.user?.uid).set(
+        {
+          'dataDeAceite': DateTime.now(),
+        },
+      );
       _getUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

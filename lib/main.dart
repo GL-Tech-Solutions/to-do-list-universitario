@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/repositories/disciplina_repository.dart';
 import 'package:flutter_aula_1/repositories/flashcard_repository.dart';
+import 'package:flutter_aula_1/repositories/pdf_api.dart';
 import 'package:flutter_aula_1/repositories/selecionadas_repository.dart';
 import 'package:flutter_aula_1/repositories/tarefa_respository.dart';
 import 'package:flutter_aula_1/services/auth_service.dart';
@@ -19,6 +20,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthService()),
         ChangeNotifierProvider(create: (context) => Selecionadas()),
+        Provider(create: (context) => PDFApi()),
         ChangeNotifierProvider(
             create: (context) =>
                 FlashcardRepository(auth: context.read<AuthService>())),

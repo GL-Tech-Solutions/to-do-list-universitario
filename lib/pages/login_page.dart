@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aula_1/pages/register_page.dart';
 import 'package:flutter_aula_1/services/auth_service.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,34 +15,15 @@ class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
   final email = TextEditingController();
   final senha = TextEditingController();
-
-  bool isLogin = true;
-  String titulo = '';
-  String actionButton = '';
-  String toggleButton = '';
   bool loading = false;
 
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      setFormAction(true);
-    });
-  }
-
-  setFormAction(bool acao) {
-    setState(() {
-      isLogin = acao;
-      if (isLogin) {
-        titulo = AppLocalizations.of(context)!.bemVindo;
-        actionButton = AppLocalizations.of(context)!.login;
-        toggleButton = AppLocalizations.of(context)!.cadastrese;
-      } else {
-        titulo = AppLocalizations.of(context)!.crieConta;
-        actionButton = AppLocalizations.of(context)!.cadastrar;
-        toggleButton = AppLocalizations.of(context)!.voltarAoLogin;
-      }
-    });
+  void toRegisterPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => RegisterPage(),
+      ),
+    );
   }
 
   login() async {
@@ -56,34 +38,6 @@ class _LoginPageState extends State<LoginPage> {
           break;
         case 'wrong-password':
           errorMessage = AppLocalizations.of(context)!.senhaIncorreta;
-          break;
-        default:
-          AppLocalizations.of(context)!.erroInesperado;
-      }
-      setState(() => loading = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(errorMessage),
-        ),
-      );
-    }
-  }
-
-  registrar() async {
-    setState(() => loading = true);
-    try {
-      await context.read<AuthService>().registrar(email.text, senha.text);
-    } on AuthException catch (e) {
-      String errorMessage = '';
-      switch (e.message) {
-        case 'weak-password':
-          errorMessage = AppLocalizations.of(context)!.senhaFraca;
-          break;
-        case 'email-already-in-use':
-          errorMessage = AppLocalizations.of(context)!.emailEmUso;
-          break;
-        case 'invalid-email':
-          errorMessage = AppLocalizations.of(context)!.emailInvalido;
           break;
         default:
           AppLocalizations.of(context)!.erroInesperado;
@@ -112,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    titulo,
+                    AppLocalizations.of(context)!.bemVindo,
                     style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
@@ -125,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: email,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: AppLocalizations.of(context)!.login,
+                        labelText: AppLocalizations.of(context)!.email,
                       ),
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
@@ -162,11 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
-                          if (isLogin) {
-                            login();
-                          } else {
-                            registrar();
-                          }
+                          login();
                         }
                       },
                       child: Row(
@@ -187,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                                 Padding(
                                   padding: EdgeInsets.all(16.0),
                                   child: Text(
-                                    actionButton,
+                                    AppLocalizations.of(context)!.login,
                                     style: TextStyle(fontSize: 20),
                                   ),
                                 ),
@@ -196,8 +146,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () => setFormAction(!isLogin),
-                    child: Text(toggleButton),
+                    onPressed: () => toRegisterPage(),
+                    child: Text(AppLocalizations.of(context)!.cadastrese),
                   ),
                 ],
               ),
